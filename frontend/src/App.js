@@ -1,4 +1,4 @@
-import InDepthDetailView from './components/InDepthDetailView';
+import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView';
 import React from 'react';
 
 function App() {
