@@ -1,7 +1,7 @@
-import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView';
 import React from 'react';
+import ListCards from "./components/cards/ListCards";
 
 function App() {
-  return <InDepthDetailView />;
+  return <ListCards />;
 }
 export default App;
