@@ -4,5 +4,4 @@ import React from 'react';
 function App() {
   return <InDepthDetailView />;
 }
-
 export default App;

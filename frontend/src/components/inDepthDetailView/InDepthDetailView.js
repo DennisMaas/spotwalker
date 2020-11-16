@@ -3,7 +3,7 @@ import michel from '../../images/michel.jpg';
 import Grid from '@material-ui/core/Grid';
 import Image from 'material-ui-image';
 import ApertureIcon from './exifIcons/ApertureIcon';
-import { Container } from '@material-ui/core';
+import {Container} from '@material-ui/core';
 import FocalLengthIcon from './exifIcons/FocalLengthIcon';
 import ShutterSpeedIcon from './exifIcons/ShutterSpeedIcon';
 import IsoIcon from './exifIcons/IsoIcon';
@@ -11,79 +11,115 @@ import FlashIcon from './exifIcons/FlashIcon';
 import YouTubeIcon from './exifIcons/YouTubeIcon';
 import Typography from '@material-ui/core/Typography';
 import ExtrasIcon from './exifIcons/ExtrasIcon';
-import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
+
+  toprow: {
+    padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    outline: 0,
+    align: 'center'
   },
+
+  bottomrow:{
+  padding: theme.spacing(1),
+  textAlign: 'left',
+  color: theme.palette.text.secondary,
+  outline: 0,
+  align: 'center'
+},
+
+  description:{
+  textAlign: 'left',
+  color: theme.palette.text.primary,
+
+},
 }));
 
 export default function InDepthDetailView() {
   const classes = useStyles();
   return (
-    <Container disableGutters={true}>
+      <Container disableGutters={true}>
+
       <Grid
         container
-        justify={'space-around'}
+        justify={'space-evenly'}
         alignItems={'center'}
         alignContent={'center'}
       >
+
         <Grid item xs={12}>
           <Image src={michel} alt="Michel" />
         </Grid>
 
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <ApertureIcon />
-            <Typography variant={'body1'}>f8</Typography>
-          </Paper>
+            <Typography variant={'body2'}>f8</Typography>
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <FocalLengthIcon />
-            <Typography variant={'body1'}>20</Typography>
-          </Paper>
+            <Typography variant={'body2'}>20</Typography>
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <ShutterSpeedIcon />
-            <Typography variant={'body1'}>320</Typography>
-          </Paper>
+            <Typography variant={'body2'}>320</Typography>
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <IsoIcon />
-            <Typography variant={'body1'}>200</Typography>
-          </Paper>
+            <Typography variant={'body2'}>200</Typography>
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <FlashIcon />
-            <Typography variant={'body1'}>kein</Typography>
-          </Paper>
+            <Typography variant={'body2'}>kein</Typography>
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Paper className={classes.paper}>
+          <div className={classes.toprow}>
             <YouTubeIcon />
-            <Typography variant={'body1'}>ja</Typography>
-          </Paper>
+            <Typography variant={'body2'}>ja</Typography>
+          </div>
         </Grid>
-        <Paper className={classes.paper}>
+
+        <Grid container item xs={12}>
           <Grid item xs={2}>
+            <div className={classes.toprow}>
             <ExtrasIcon />
+            </div>
           </Grid>
-          <Grid item>
-            <Typography variant={'body1'}>Stativ</Typography>
-            <Typography variant={'body1'}>Stitching-Software</Typography>
+          <Grid item xs={10}>
+            <div className={classes.bottomrow} >
+            <Typography variant={'body2'}>Stativ</Typography>
+            <Typography variant={'body2'}>Stitching-Software</Typography>
+          </div>
           </Grid>
-        </Paper>
+        </Grid>
+        <Grid item xs={10} className={classes.description}>
+          <Typography variant={'body2'}>
+            Bei diesem Bild heißt es Ausschau halten und in die Knie gehen. Der Durchgang vom Thielickestieg bietet einen natürlich Rahmen für den Michel. Geschossen wurden 9 Einzelaufnahmen, die danach zu einem Panorama zusammengesetzt worden sind. Zum einen vergrößert das den Blickwinkel, zum anderen natürlich die Pixelzahl und damit die maximal mögliche Druckgröße.
+          </Typography>
+        </Grid>
+
+
       </Grid>
     </Container>
   );
