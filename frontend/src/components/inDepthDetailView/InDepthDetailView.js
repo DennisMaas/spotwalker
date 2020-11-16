@@ -39,37 +39,37 @@ export default function InDepthDetailView() {
           <Image src={michel} alt="Michel" />
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <ApertureIcon />
             <Typography variant={'body1'}>f8</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <FocalLengthIcon />
             <Typography variant={'body1'}>20</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <ShutterSpeedIcon />
             <Typography variant={'body1'}>320</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <IsoIcon />
             <Typography variant={'body1'}>200</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <FlashIcon />
             <Typography variant={'body1'}>kein</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Paper className={classes.paper}>
             <YouTubeIcon />
             <Typography variant={'body1'}>ja</Typography>
