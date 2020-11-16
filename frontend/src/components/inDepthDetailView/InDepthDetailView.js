@@ -35,7 +35,9 @@ const useStyles = makeStyles((theme) => ({
 },
 
   description:{
-  textAlign: 'left',
+    padding: theme.spacing(3),
+
+    textAlign: 'left',
   color: theme.palette.text.primary,
 
 },
@@ -113,7 +115,7 @@ export default function InDepthDetailView() {
           </div>
           </Grid>
         </Grid>
-        <Grid item xs={10} className={classes.description}>
+        <Grid item xs={12} className={classes.description}>
           <Typography variant={'body2'}>
             Bei diesem Bild heißt es Ausschau halten und in die Knie gehen. Der Durchgang vom Thielickestieg bietet einen natürlich Rahmen für den Michel. Geschossen wurden 9 Einzelaufnahmen, die danach zu einem Panorama zusammengesetzt worden sind. Zum einen vergrößert das den Blickwinkel, zum anderen natürlich die Pixelzahl und damit die maximal mögliche Druckgröße.
           </Typography>
