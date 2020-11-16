@@ -11,12 +11,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 const useStyles = makeStyles({
 
     media: {
-        height: 185,
+        width: '100vw',
+        height: props => 100 * props.ratio,
     },
 });
 
 export default function MediaCard() {
-    const classes = useStyles();
+    const classes = useStyles({ratio: 1.778});
 
     return (
         <Card className={classes.root}>
