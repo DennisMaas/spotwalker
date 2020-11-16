@@ -7,6 +7,7 @@ import michel from '../../images/michel.jpg'
 import Avatar from "@material-ui/core/Avatar";
 import ArchitectureIcon from "./avatarIcons/ArchitectureIcon";
 import CardHeader from "@material-ui/core/CardHeader";
+import PlacesDb from "../PlacesDb";
 
 const useStyles = makeStyles({
 
@@ -16,26 +17,26 @@ const useStyles = makeStyles({
     },
 });
 
-export default function MediaCard() {
+export default function MediaCard(places) {
     const classes = useStyles({ratio: 1.778});
 
     return (
         <Card className={classes.root}>
             <CardHeader
                 avatar={
-                    <Avatar aria-label="architecture" className={classes.avatar}>
+                    <Avatar aria-label={places.type} className={classes.avatar}>
                         <ArchitectureIcon/>
                     </Avatar>
                 }
 
-                title="Der Michel"
-                subheader="Englische Planke 1"
+                title="{places.title}"
+                subheader="{places.street}"
             />
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image={michel}
-                    title="Michel"
+                    image={places.primaryPictureUrl}
+                    title={places.title}
                 />
             </CardActionArea>
 

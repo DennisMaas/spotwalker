@@ -1,11 +1,10 @@
-import michel from '../../images/michel.jpg'
-import karoviertel from '../../images/Karoviertel.jpg'
+
 
 export default function PlacesDb(){
-    const placesDb = [
+    const places = [
         {
             id:"michelsId",
-            primaryPictureUrl:{michel},
+            primaryPictureUrl:"https://loremflickr.com/500/300/hamburg,michel/all",
             type: "architecture",
             title: "Der Michel",
             street: "Englische Planke 1",
@@ -22,7 +21,7 @@ export default function PlacesDb(){
         },
         {
             id:"karosId",
-            primaryPictureUrl:{karoviertel},
+            primaryPictureUrl:"\"https://loremflickr.com/500/300/hamburg,karoviertel/all\"",
             type: "architecture",
             title: "Die Karolinenstraße",
             street: "Karolinenstraße 24",
