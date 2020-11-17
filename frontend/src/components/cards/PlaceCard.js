@@ -27,7 +27,7 @@ export default function PlaceCard({ type, title, street, primaryPictureUrl }) {
         title={title}
         subheader={street}
       />
-      <CardActionArea>
+      <CardActionArea >
         <CardMedia
           className={classes.media}
           component={'img'}
