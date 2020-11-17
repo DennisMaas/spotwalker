@@ -108,7 +108,7 @@ export default function ListView() {
                   type={placeData.type}
                   title={placeData.title}
                   street={placeData.street}
-                  primaryPicture={placeData.primaryPictureUrl}
+                  primaryPictureUrl={placeData.primaryPictureUrl}
                 />
               ))}
             </Grid>
