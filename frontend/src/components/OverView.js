@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PlaceCard from './cards/PlaceCard';
 import { Container, Grid } from '@material-ui/core';
+import PlacesContext from '../contexts/PlacesContext';
 
 export default function OverView() {
+  const { placeDb } = useContext(PlacesContext);
+
   return (
     <Container disableGutters={false}>
       <Grid container spacing={2} direction={'row'} justify={'flex-start'}>
