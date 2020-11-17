@@ -4,12 +4,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListCards from './cards/ListCards';
 import michel from '../images/michel.jpg';
+import karoviertel from '../images/karoviertel.jpg';
+import bruederstrasse from '../images/Bruederstraße.jpg';
 import { Container, Grid } from '@material-ui/core';
 
 const placeData1 = {
   id: 'Id1',
-  primaryPictureUrl:
-    'https://images.pexels.com/photos/2309270/pexels-photo-2309270.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  primaryPictureUrl: michel,
   type: 'landscape',
   title: 'Der Michel',
   street: 'Englische Planke 1',
@@ -28,7 +29,7 @@ const placeData1 = {
 };
 const placeData2 = {
   id: 'Id2',
-  primaryPictureUrl: { michel },
+  primaryPictureUrl: karoviertel,
   type: 'landscape',
   title: 'Die Karolinenstraße',
   street: 'Karolinenstraße 24',
@@ -46,12 +47,12 @@ const placeData2 = {
   extraTwo: '',
 };
 const placeData3 = {
-  id: 'Id3',
-  primaryPictureUrl: michel,
+  id: 'Id4',
+  primaryPictureUrl: bruederstrasse,
   type: 'landscape',
-  title: 'Die Karolinenstraße',
-  street: 'Karolinenstraße 24',
-  address: 'Karolinenstraße 24, 20459 Hamburg',
+  title: 'Die Brüderstrasse',
+  street: 'Brüderstrasse',
+  address: 'Brüderstrasse, 20259 Hamburg',
   placeDescription:
     'Hamburgs bekannteste Kirche. Kann gerne betreten werden, aber bitte ohne Blitz fotografieren und die Hausregeln beachten. Der Eintritt zum Turm ist nicht gratis, aber dafür auch nicht umsonst, denn die Perspektive auf Hamburg ist einmalig und besonders zum Sonnenuntergang bietet sich ein einmaliges Panorama.',
   pictureDescription:
@@ -65,7 +66,7 @@ const placeData3 = {
   extraTwo: '',
 };
 const placeData4 = {
-  id: 'Id4',
+  id: 'Id3',
   primaryPictureUrl: michel,
   type: 'landscape',
   title: 'Die Karolinenstraße',
