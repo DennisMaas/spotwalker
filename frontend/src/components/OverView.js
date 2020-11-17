@@ -1,11 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListCards from './cards/ListCards';
+import PlaceCard from './cards/PlaceCard';
 import michel from '../images/michel.jpg';
 import karoviertel from '../images/karoviertel.jpg';
 import bruederstrasse from '../images/Bruederstraße.jpg';
+import hafen from '../images/Hafenpanorama.jpg';
 import { Container, Grid } from '@material-ui/core';
 
 const placeData1 = {
@@ -47,7 +45,7 @@ const placeData2 = {
   extraTwo: '',
 };
 const placeData3 = {
-  id: 'Id4',
+  id: 'Id3',
   primaryPictureUrl: bruederstrasse,
   type: 'landscape',
   title: 'Die Brüderstrasse',
@@ -66,17 +64,17 @@ const placeData3 = {
   extraTwo: '',
 };
 const placeData4 = {
-  id: 'Id3',
-  primaryPictureUrl: michel,
-  type: 'landscape',
-  title: 'Die Karolinenstraße',
-  street: 'Karolinenstraße 24',
-  address: 'Karolinenstraße 24, 20459 Hamburg',
+  id: 'Id4',
+  primaryPictureUrl: hafen,
+  type: 'harbour',
+  title: 'Der Hafen',
+  street: 'Hafen 24',
+  address: 'Hafenstraße 24, 20459 Hamburg',
   placeDescription:
     'Hamburgs bekannteste Kirche. Kann gerne betreten werden, aber bitte ohne Blitz fotografieren und die Hausregeln beachten. Der Eintritt zum Turm ist nicht gratis, aber dafür auch nicht umsonst, denn die Perspektive auf Hamburg ist einmalig und besonders zum Sonnenuntergang bietet sich ein einmaliges Panorama.',
   pictureDescription:
     'Bei diesem Bild heißt es Ausschau halten und in die Knie gehen. Der Durchgang vom Thielickestieg bietet einen natürlich Rahmen für den Michel. Geschossen wurden 9 Einzelaufnahmen, die danach zu einem Panorama zusammengesetzt worden sind. Zum einen vergrößert das den Blickwinkel, zum anderen natürlich die Pixelzahl und damit die maximal mögliche Druckgröße.',
-  aperture: 'f0',
+  aperture: 'f8',
   focalLength: '20',
   shutterSpeed: '160',
   iso: '200',
@@ -87,35 +85,22 @@ const placeData4 = {
 
 const placeDb = [placeData1, placeData2, placeData3, placeData4];
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100vw',
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-export default function ListView() {
-  const classes = useStyles();
-
+export default function OverView() {
   return (
-    <Container disableGutters={true}>
-      <List className={classes.root}>
-        <Grid container direction={'row'} justify={'center'}>
-          <ListItem>
-            <Grid item xs={12}>
-              {placeDb.map((placeData) => (
-                <ListCards
-                  key={placeData.id}
-                  type={placeData.type}
-                  title={placeData.title}
-                  street={placeData.street}
-                  primaryPictureUrl={placeData.primaryPictureUrl}
-                />
-              ))}
-            </Grid>
-          </ListItem>
-        </Grid>
-      </List>
+    <Container disableGutters={false}>
+      <Grid container spacing={2} direction={'row'} justify={'flex-start'}>
+        {placeDb.map((placeData) => (
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <PlaceCard
+              key={placeData.id}
+              type={placeData.type}
+              title={placeData.title}
+              street={placeData.street}
+              primaryPictureUrl={placeData.primaryPictureUrl}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 }
