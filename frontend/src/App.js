@@ -1,7 +1,7 @@
 import React from 'react';
-import ListCards from "./components/cards/ListCards";
+import ListView from "./components/ListView";
 
 function App() {
-  return <ListCards />;
+  return <ListView />;
 }
 export default App;
