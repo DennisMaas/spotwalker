@@ -4,12 +4,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListCards from './cards/ListCards';
 import michel from '../images/michel.jpg';
-import karoviertel from '../images/karoviertel.jpg';
 import { Container, Grid } from '@material-ui/core';
 
 const placeData1 = {
   id: 'michelsId',
-  primaryPictureUrl: { karoviertel },
+  primaryPictureUrl:
+    'https://images.pexels.com/photos/2309270/pexels-photo-2309270.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
   type: 'landscape',
   title: 'Der Michel',
   street: 'Englische Planke 1',

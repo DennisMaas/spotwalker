@@ -10,12 +10,12 @@ import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles({
   media: {
-    paddingTop: '56.25%',
+    height: '25vh',
   },
 });
 
 export default function ListCards({ type, title, street, primaryPictureUrl }) {
-  const classes = useStyles({ ratio: 1.778 });
+  const classes = useStyles();
 
   return (
     <Container disableGutters={true}>
@@ -33,8 +33,8 @@ export default function ListCards({ type, title, street, primaryPictureUrl }) {
           <CardMedia
             className={classes.media}
             component={'img'}
-            src={
-              'https://cdn.taschen.com/media/images/1640/disney_mickey_mouse_xl_d_3d_01148_1811081034_id_1222966.png'
+            image={
+              'https://images.pexels.com/photos/2309270/pexels-photo-2309270.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
             }
             title={title}
           />
