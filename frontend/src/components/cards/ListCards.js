@@ -33,9 +33,7 @@ export default function ListCards({ type, title, street, primaryPictureUrl }) {
           <CardMedia
             className={classes.media}
             component={'img'}
-            image={
-              'https://images.pexels.com/photos/2309270/pexels-photo-2309270.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-            }
+            image={primaryPictureUrl}
             title={title}
           />
         </CardActionArea>
