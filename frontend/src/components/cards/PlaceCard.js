@@ -7,6 +7,7 @@ import ArchitectureIcon from './avatarIcons/ArchitectureIcon';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import PlacesContext from '../../contexts/PlacesContext';
+import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
   media: {
@@ -16,6 +17,8 @@ const useStyles = makeStyles({
 
 export default function PlaceCard() {
   const classes = useStyles();
+  const { id } = useParams();
+  const history = useHistory();
   const { places } = useContext(PlacesContext);
   const placeData = places.find((placeData) => placeData.id === id);
 
