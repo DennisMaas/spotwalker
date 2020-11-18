@@ -4,10 +4,10 @@ import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/places")
@@ -17,6 +17,11 @@ public class PlaceController {
     @Autowired
     public PlaceController(PlaceService placeService){
         this.placeService = placeService;
+    }
+
+    @GetMapping
+    public List<Place> searchPlace(@RequestParam Optional<String> title) {
+        return placeService.search(title);
     }
 
     @GetMapping("{placeId}")
