@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import ArchitectureIcon from './avatarIcons/ArchitectureIcon';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
-import PlacesContext from '../../contexts/PlacesContext';
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -15,15 +14,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PlaceCard() {
+export default function PlaceCard(placeData) {
   const classes = useStyles();
   const { id } = useParams();
   const history = useHistory();
-  const { places } = useContext(PlacesContext);
-  const placeData = places.find((placeData) => placeData.id === id);
 
   return (
-    <Card className={classes.root}>
+    <Card key={placeData.id} className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label={placeData.type} className={classes.avatar}>
@@ -33,7 +30,7 @@ export default function PlaceCard() {
         title={placeData.title}
         subheader={placeData.street}
       />
-      <CardActionArea onClick={() => history.push(`/places/${placeData.id}`)}>
+      <CardActionArea onClick={() => history.push(`/places/${id}`)}>
         <CardMedia
           className={classes.media}
           component={'img'}

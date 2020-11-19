@@ -10,9 +10,9 @@ export default function OverView() {
     <Container disableGutters={false}>
       <Grid container spacing={2} direction={'row'} justify={'flex-start'}>
         {places?.map((placeData) => (
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={placeData.id}>
             <PlaceCard
-              key={placeData.id}
+              id={placeData.id}
               type={placeData.type}
               title={placeData.title}
               street={placeData.street}

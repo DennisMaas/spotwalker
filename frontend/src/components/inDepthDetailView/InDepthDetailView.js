@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Image from 'material-ui-image';
 import ApertureIcon from './exifIcons/ApertureIcon';
@@ -11,7 +11,6 @@ import YouTubeIcon from './exifIcons/YouTubeIcon';
 import Typography from '@material-ui/core/Typography';
 import ExtrasIcon from './exifIcons/ExtrasIcon';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import PlacesContext from '../../contexts/PlacesContext';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,11 +42,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InDepthDetailView() {
-  const { places } = useContext(PlacesContext);
+export default function InDepthDetailView(placeData) {
   const { id } = useParams();
   const classes = useStyles();
-  const placeData = places.find((placeData) => placeData.id === id);
 
   return !placeData ? null : (
     <Container disableGutters={true}>
@@ -99,9 +96,7 @@ export default function InDepthDetailView() {
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <YouTubeIcon />
-            <Typography variant={'body2'}>
-              {placeData.youTubeUrl ? ja : nein}
-            </Typography>
+            <Typography variant={'body2'}>{placeData.youTubeUrl}</Typography>
           </div>
         </Grid>
 
