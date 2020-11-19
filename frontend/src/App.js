@@ -15,9 +15,9 @@ function App() {
       <PlacesContextProvider>
         <Switch>
           <Route path="/overview" component={OverView} />
-          <Route path="/placedetail" component={InDepthDetailView} />
+          <Route path="/places/:id" component={InDepthDetailView} />
           <Route path="/">
-            <Redirect to="/overview" /> />
+            <Redirect to="/overview" />
           </Route>
         </Switch>
       </PlacesContextProvider>

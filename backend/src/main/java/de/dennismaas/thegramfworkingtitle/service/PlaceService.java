@@ -29,8 +29,8 @@ public class PlaceService {
     return placesMongoDao.findAll();
     }
 
-    public Place findById(String placeId) {
-        return placesMongoDao.findById(placeId).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)) );
+    public Place findById(String id) {
+        return placesMongoDao.findById(id).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)) );
     }
 
 
