@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Image from 'material-ui-image';
 import ApertureIcon from './exifIcons/ApertureIcon';
 import { Container } from '@material-ui/core';
 import FocalLengthIcon from './exifIcons/FocalLengthIcon';
@@ -18,7 +17,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-
+  image: {
+    maxWidth: '100%',
+    maxHeight: '100vh',
+  },
   toprow: {
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -57,8 +59,12 @@ export default function InDepthDetailView() {
         alignItems={'center'}
         alignContent={'center'}
       >
-        <Grid item xs={12}>
-          <Image src={placeData.primaryPictureUrl} alt={placeData.title} />
+        <Grid item xs={12} alignItems={'center'}>
+          <img
+            className={classes.image}
+            src={placeData.primaryPictureUrl}
+            alt={placeData.title}
+          />
         </Grid>
 
         <Grid item xs={2}>
