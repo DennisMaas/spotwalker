@@ -59,7 +59,7 @@ export default function InDepthDetailView() {
         alignItems={'center'}
         alignContent={'center'}
       >
-        <Grid item xs={12} alignItems={'center'}>
+        <Grid item xs={12}>
           <img
             className={classes.image}
             src={placeData.primaryPictureUrl}
