@@ -13,6 +13,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useParams } from 'react-router-dom';
 import PlacesContext from '../../contexts/PlacesContext';
 
+import Link from '@material-ui/core/Link';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -36,10 +38,12 @@ const useStyles = makeStyles((theme) => ({
     outline: 0,
     align: 'center',
   },
+  link: {
+    color: theme.palette.text.secondary,
+  },
 
   description: {
     padding: theme.spacing(3),
-
     textAlign: 'left',
     color: theme.palette.text.primary,
   },
@@ -104,15 +108,24 @@ export default function InDepthDetailView() {
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
-            <YouTubeIcon />
-            <Typography variant={'body2'}>{placeData.youTubeUrl}</Typography>
+            {placeData.youTubeUrl && (
+              <Link
+                underline={'none'}
+                className={classes.link}
+                href={placeData.youTubeUrl}
+              >
+                <YouTubeIcon />
+                <Typography variant={'body2'}>Video</Typography>
+              </Link>
+            )}
           </div>
         </Grid>
 
         <Grid container item xs={12}>
           <Grid item xs={2}>
             <div className={classes.toprow}>
-              <ExtrasIcon />
+              {placeData.extraOne && <ExtrasIcon />}
+              {/*TODO make if when for icon depending on extraOne and particularities*/}
             </div>
           </Grid>
           <Grid item xs={10}>
