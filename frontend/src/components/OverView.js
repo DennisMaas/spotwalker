@@ -11,13 +11,7 @@ export default function OverView() {
       <Grid container spacing={2} direction={'row'} justify={'flex-start'}>
         {places?.map((placeData) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={placeData.id}>
-            <PlaceCard
-              id={placeData.id}
-              type={placeData.type}
-              title={placeData.title}
-              street={placeData.street}
-              primaryPictureUrl={placeData.primaryPictureUrl}
-            />
+            <PlaceCard placeData={placeData} />
           </Grid>
         ))}
       </Grid>

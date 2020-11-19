@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Image from 'material-ui-image';
 import ApertureIcon from './exifIcons/ApertureIcon';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import ExtrasIcon from './exifIcons/ExtrasIcon';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useParams } from 'react-router-dom';
+import PlacesContext from '../../contexts/PlacesContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,9 +43,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InDepthDetailView(placeData) {
-  const { id } = useParams();
+export default function InDepthDetailView() {
   const classes = useStyles();
+  const { id } = useParams();
+  const { places } = useContext(PlacesContext);
+  const placeData = places.find((place) => place.id === id);
 
   return !placeData ? null : (
     <Container disableGutters={true}>

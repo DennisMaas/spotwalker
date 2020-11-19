@@ -28,6 +28,7 @@ public class Place {
     private String focalLength;
     private String shutterSpeed;
     private String iso;
+    private String flash;
     private String youTubeUrl;
     private String extraOne;
     private String extraTwo;

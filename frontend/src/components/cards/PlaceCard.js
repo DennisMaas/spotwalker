@@ -6,7 +6,7 @@ import ArchitectureIcon from './avatarIcons/ArchitectureIcon';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   media: {
@@ -14,13 +14,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PlaceCard(placeData) {
+export default function PlaceCard({ placeData }) {
   const classes = useStyles();
-  const { id } = useParams();
   const history = useHistory();
 
   return (
-    <Card key={placeData.id} className={classes.root}>
+    <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label={placeData.type} className={classes.avatar}>
@@ -30,7 +29,7 @@ export default function PlaceCard(placeData) {
         title={placeData.title}
         subheader={placeData.street}
       />
-      <CardActionArea onClick={() => history.push(`/places/${id}`)}>
+      <CardActionArea onClick={() => history.push(`/places/${placeData.id}`)}>
         <CardMedia
           className={classes.media}
           component={'img'}
