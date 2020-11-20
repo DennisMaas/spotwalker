@@ -2,7 +2,6 @@ import React from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
-import ArchitectureIcon from './avatarIcons/ArchitectureIcon';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +22,22 @@ export default function PlaceCard({ placeData }) {
       <CardHeader
         avatar={
           <Avatar aria-label={placeData.type} className={classes.avatar}>
-            <ArchitectureIcon />
+            switch (placeData.type) {
+            case "architecture":
+            return <ArchitectureIcon />;
+            break;
+            case "harbour":
+            <HarbourIcon />;
+            break;
+            case "landscape":
+            return <LandscapeIcon />;
+            break;
+            case "night":
+            return <NightIcon />;
+            break;
+            default:
+            return <ImageIcon />;
+          }
           </Avatar>
         }
         title={placeData.title}
