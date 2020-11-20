@@ -6,16 +6,15 @@ import NightIcon from './avatarIcons/NightIcon';
 import ImageIcon from './avatarIcons/ImageIcon';
 
 export default function IconSwitcher({ placeData }) {
-  switch (placeData.type) {
-    case 'architecture':
-      return <CityscapeIcon />;
-    case 'harbour':
-      return <HarbourIcon />;
-    case 'landscape':
-      return <LandscapeIcon />;
-    case 'night':
-      return <NightIcon />;
-    default:
-      return <ImageIcon />;
+  if (placeData.type === 'architecture') {
+    return <CityscapeIcon />;
+  } else if (placeData.type === 'harbour') {
+    return <HarbourIcon />;
+  } else if (placeData.type === 'landscape') {
+    return <LandscapeIcon />;
+  } else if (placeData.type === 'night') {
+    return <NightIcon />;
+  } else {
+    return <ImageIcon />;
   }
 }
