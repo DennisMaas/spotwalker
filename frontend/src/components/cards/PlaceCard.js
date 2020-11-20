@@ -22,7 +22,7 @@ export default function PlaceCard({ placeData }) {
   const classes = useStyles();
   const history = useHistory();
 
-  if (placeData.type === 'architecture') {
+  if (placeData.type === 'cityscape') {
     return (
       <Card className={classes.root}>
         <CardHeader
