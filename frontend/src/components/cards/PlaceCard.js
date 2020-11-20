@@ -6,7 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import IconSwitcher from './IconSwitcher';
+import PlaceTypeIcon from './PlaceTypeIcon';
 
 const useStyles = makeStyles({
   media: {
@@ -23,7 +23,7 @@ export default function PlaceCard({ placeData }) {
       <CardHeader
         avatar={
           <Avatar aria-label={placeData.type} className={classes.avatar}>
-            <IconSwitcher />
+            <PlaceTypeIcon type={placeData.type} />
           </Avatar>
         }
         title={placeData.title}
