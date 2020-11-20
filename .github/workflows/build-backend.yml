@@ -1,4 +1,4 @@
-name: Rund backend build
+name: Run backend build
 on: push
 jobs:
   build:
