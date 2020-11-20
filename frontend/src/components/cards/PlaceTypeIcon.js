@@ -7,7 +7,7 @@ import ImageIcon from './avatarIcons/ImageIcon';
 
 export default function PlaceTypeIcon({ type }) {
   switch (type) {
-    case 'architecture':
+    case 'cityscape':
       return <CityscapeIcon />;
     case 'harbour':
       return <HarbourIcon />;
