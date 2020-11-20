@@ -125,7 +125,7 @@ export default function InDepthDetailView() {
           <Grid item xs={2}>
             <div className={classes.toprow}>
               {placeData.extraOne && <ExtrasIcon />}
-              {/*TODO make if when for icon depending on extraOne and particularities*/}
+              {/*TODO make if when for icon depending on extraOne AND particularities*/}
             </div>
           </Grid>
           <Grid item xs={10}>
