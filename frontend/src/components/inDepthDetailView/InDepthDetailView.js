@@ -122,12 +122,13 @@ export default function InDepthDetailView() {
         </Grid>
 
         <Grid container item xs={12}>
-          <Grid item xs={2}>
-            <div className={classes.toprow}>
-              {placeData.extraOne && <ExtrasIcon />}
-              {/*TODO make if when for icon depending on extraOne AND particularities*/}
-            </div>
-          </Grid>
+          {(placeData.extraOne || placeData.particularities) && (
+            <Grid item xs={2}>
+              <div className={classes.toprow}>
+                <ExtrasIcon />
+              </div>
+            </Grid>
+          )}
           <Grid item xs={10}>
             <div className={classes.bottomrow}>
               <Typography variant={'body2'}>{placeData.extraOne}</Typography>
