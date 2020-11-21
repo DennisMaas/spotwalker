@@ -19,8 +19,7 @@ const useStyles = makeStyles({
 export default function PlaceCard({ placeData }) {
   const classes = useStyles();
   const history = useHistory();
-  const latitude = placeData.latitude;
-  const longitude = placeData.longitude;
+  const {latitude, longitude} = placeData;
   const gMapUrl =
     'https://www.google.com/maps/@' + latitude + ',' + longitude + ',' + '18z';
 
