@@ -7,6 +7,8 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import PlaceTypeIcon from './PlaceTypeIcon';
+import Link from '@material-ui/core/Link';
+import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
 const useStyles = makeStyles({
   media: {
@@ -17,6 +19,9 @@ const useStyles = makeStyles({
 export default function PlaceCard({ placeData }) {
   const classes = useStyles();
   const history = useHistory();
+  const {latitude, longitude} = placeData;
+  const gMapUrl =
+    'https://www.google.com/maps/@' + latitude + ',' + longitude + ',' + '18z';
 
   return (
     <Card className={classes.root}>
@@ -27,7 +32,17 @@ export default function PlaceCard({ placeData }) {
           </Avatar>
         }
         title={placeData.title}
-        subheader={placeData.street}
+        subheader={
+          <Link
+            color={'inherit'}
+            underline={'none'}
+            className={classes.link}
+            href={gMapUrl}
+          >
+            <MapOutlinedIcon fontSize={'inherit'} />
+            {placeData.street}
+          </Link>
+        }
       />
       <CardActionArea onClick={() => history.push(`/places/${placeData.id}`)}>
         <CardMedia
