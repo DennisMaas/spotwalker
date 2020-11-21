@@ -1,21 +1,21 @@
 import React from 'react';
-import CityscapeIcon from './avatarIcons/CityscapeIcon';
-import HarbourIcon from './avatarIcons/HarbourIcon';
-import LandscapeIcon from './avatarIcons/LandscapeIcon';
-import NightIcon from './avatarIcons/NightIcon';
-import ImageIcon from './avatarIcons/ImageIcon';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import DirectionsBoatOutlinedIcon from '@material-ui/icons/DirectionsBoatOutlined';
+import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+import LandscapeOutlinedIcon from '@material-ui/icons/LandscapeOutlined';
+import NightsStayOutlinedIcon from '@material-ui/icons/NightsStayOutlined';
 
 export default function PlaceTypeIcon({ type }) {
   switch (type) {
     case 'cityscape':
-      return <CityscapeIcon />;
+      return <HomeWorkOutlinedIcon />;
     case 'harbour':
-      return <HarbourIcon />;
+      return <DirectionsBoatOutlinedIcon />;
     case 'landscape':
-      return <LandscapeIcon />;
+      return <LandscapeOutlinedIcon />;
     case 'night':
-      return <NightIcon />;
+      return <NightsStayOutlinedIcon />;
     default:
-      return <ImageIcon />;
+      return <ImageOutlinedIcon />;
   }
 }

@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
-import ApertureIcon from './exifIcons/ApertureIcon';
 import { Container } from '@material-ui/core';
-import FocalLengthIcon from './exifIcons/FocalLengthIcon';
-import ShutterSpeedIcon from './exifIcons/ShutterSpeedIcon';
-import IsoIcon from './exifIcons/IsoIcon';
-import FlashIcon from './exifIcons/FlashIcon';
-import YouTubeIcon from './exifIcons/YouTubeIcon';
+import FocalLengthIcon from '../nonMuiIcons/exifIcons/FocalLengthIcon';
+import IsoIcon from '../nonMuiIcons/exifIcons/IsoIcon';
+import YouTubeIcon from '../nonMuiIcons/exifIcons/YouTubeIcon';
 import Typography from '@material-ui/core/Typography';
-import ExtrasIcon from './exifIcons/ExtrasIcon';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useParams } from 'react-router-dom';
 import PlacesContext from '../../contexts/PlacesContext';
+import CameraOutlinedIcon from '@material-ui/icons/CameraOutlined';
+import LoupeOutlinedIcon from '@material-ui/icons/LoupeOutlined';
+import FlashOnOutlinedIcon from '@material-ui/icons/FlashOnOutlined';
+import ShutterSpeedOutlinedIcon from '@material-ui/icons/ShutterSpeedOutlined';
 
 import Link from '@material-ui/core/Link';
 
@@ -73,7 +73,7 @@ export default function InDepthDetailView() {
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
-            <ApertureIcon />
+            <CameraOutlinedIcon />
             <Typography variant={'body2'}>{placeData.aperture}</Typography>
           </div>
         </Grid>
@@ -87,7 +87,7 @@ export default function InDepthDetailView() {
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
-            <ShutterSpeedIcon />
+            <ShutterSpeedOutlinedIcon />
             <Typography variant={'body2'}>{placeData.shutterSpeed}</Typography>
           </div>
         </Grid>
@@ -101,7 +101,7 @@ export default function InDepthDetailView() {
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
-            <FlashIcon />
+            <FlashOnOutlinedIcon />
             <Typography variant={'body2'}>{placeData.flash}</Typography>
           </div>
         </Grid>
@@ -125,7 +125,7 @@ export default function InDepthDetailView() {
           {(placeData.extraOne || placeData.particularities) && (
             <Grid item xs={2}>
               <div className={classes.toprow}>
-                <ExtrasIcon />
+                <LoupeOutlinedIcon />
               </div>
             </Grid>
           )}
