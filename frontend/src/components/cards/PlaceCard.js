@@ -4,7 +4,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useHistory } from 'react-router-dom';
 import PlaceTypeIcon from './PlaceTypeIcon';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
