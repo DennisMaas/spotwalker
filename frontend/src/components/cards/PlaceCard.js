@@ -14,7 +14,6 @@ const useStyles = makeStyles({
   media: {
     height: '27vh',
   },
-  mapicon: {},
 });
 
 export default function PlaceCard({ placeData }) {
