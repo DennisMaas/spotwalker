@@ -1,4 +1,5 @@
 name: Run build frontend
+--passWithNoTests
 on: push
 jobs:
   build:
