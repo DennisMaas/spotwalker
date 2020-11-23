@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+public class UpdatePlaceDto {
 
-public class AddPlaceDto {
+    private String id;
+    private String primaryPictureUrl;
     private String type;
     private String title;
     private String street;
@@ -30,4 +32,5 @@ public class AddPlaceDto {
     private String extraOne;
     private String extraTwo;
     private String particularities;
+
 }
