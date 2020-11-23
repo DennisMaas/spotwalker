@@ -7,26 +7,32 @@ import Card from '@material-ui/core/Card';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useHistory } from 'react-router-dom';
 import PlaceTypeIcon from './PlaceTypeIcon';
-import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
+import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 import IconButton from '@material-ui/core/IconButton';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   media: {
     height: '27vh',
   },
-});
+  directions: {
+    color: theme.palette.text.secondary,
+  },
+}));
 
 export default function PlaceCard({ placeData }) {
   const classes = useStyles();
   const history = useHistory();
   const { latitude, longitude } = placeData;
   const gMapUrl =
-    'https://www.google.com/maps/@?api=1&map_action=map&center=' +
+    'https://www.google.com/maps/dir//' +
     latitude +
     ',' +
     longitude +
-    '&zoom=' +
-    '20';
+    '/@' +
+    latitude +
+    ',' +
+    longitude +
+    ',20z';
 
   return (
     <Card className={classes.root}>
@@ -37,8 +43,8 @@ export default function PlaceCard({ placeData }) {
           </Avatar>
         }
         action={
-          <IconButton href={gMapUrl} aria-label="maps">
-            <MapOutlinedIcon />
+          <IconButton href={gMapUrl} aria-label="navigate">
+            <DirectionsOutlinedIcon className={classes.directions} />
           </IconButton>
         }
         title={placeData.title}
