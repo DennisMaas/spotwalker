@@ -77,4 +77,15 @@ class PlaceControllerTest {
         assertThat(response.getBody().getTitle(), is("someTitle"));
     }
 
+    @Test
+    public void testGetByIdShouldReturnNotFoundWhenPlaceNotExists(){
+        //GIVEN
+        String url = getPlaceUrl()+"/unknownId";
+        //WHEN
+        ResponseEntity<Place> response = restTemplate.getForEntity(url,Place.class);
+        // THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+
+    }
+
 }
