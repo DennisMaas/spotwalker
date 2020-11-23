@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -37,8 +38,8 @@ public class PlaceService {
     return placesMongoDao.findAll();
     }
 
-    public Place findById(String id) {
-        return placesMongoDao.findById(id).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)) );
+    public Place findById(String placeId) {
+        return placesMongoDao.findById(placeId).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)) );
     }
 
     public Place add(AddPlaceDto placeToBeAdded) {
@@ -65,29 +66,32 @@ public class PlaceService {
 
     }
 
-    public Place update(UpdatePlaceDto update){
-        Place place = placesMongoDao.findById(update.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public Place update(UpdatePlaceDto placeToBeUpdated, String placeId){
+        Place place = placesMongoDao.findById(placeToBeUpdated.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (!Objects.equals(place.getId(), placeId )){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         Place updatedPlace = Place.builder()
-                .id(update.getId())
-                .primaryPictureUrl(update.getPrimaryPictureUrl())
-                .type(update.getType())
-                .title(update.getTitle())
-                .street(update.getStreet())
-                .address(update.getAddress())
-                .latitude(update.getLatitude())
-                .longitude(update.getLongitude())
-                .placeDescription(update.getPlaceDescription())
-                .pictureDescription(update.getPictureDescription())
-                .aperture(update.getAperture())
-                .focalLength(update.getFocalLength())
-                .shutterSpeed(update.getShutterSpeed())
-                .iso(update.getIso())
-                .flash(update.getFlash())
-                .youTubeUrl(update.getYouTubeUrl())
-                .extraOne(update.getExtraOne())
-                .extraTwo(update.getExtraTwo())
-                .particularities(update.getParticularities())
+                .id(placeToBeUpdated.getId())
+                .primaryPictureUrl(placeToBeUpdated.getPrimaryPictureUrl())
+                .type(placeToBeUpdated.getType())
+                .title(placeToBeUpdated.getTitle())
+                .street(placeToBeUpdated.getStreet())
+                .address(placeToBeUpdated.getAddress())
+                .latitude(placeToBeUpdated.getLatitude())
+                .longitude(placeToBeUpdated.getLongitude())
+                .placeDescription(placeToBeUpdated.getPlaceDescription())
+                .pictureDescription(placeToBeUpdated.getPictureDescription())
+                .aperture(placeToBeUpdated.getAperture())
+                .focalLength(placeToBeUpdated.getFocalLength())
+                .shutterSpeed(placeToBeUpdated.getShutterSpeed())
+                .iso(placeToBeUpdated.getIso())
+                .flash(placeToBeUpdated.getFlash())
+                .youTubeUrl(placeToBeUpdated.getYouTubeUrl())
+                .extraOne(placeToBeUpdated.getExtraOne())
+                .extraTwo(placeToBeUpdated.getExtraTwo())
+                .particularities(placeToBeUpdated.getParticularities())
                 .build();
         return placesMongoDao.save(updatedPlace);
     }

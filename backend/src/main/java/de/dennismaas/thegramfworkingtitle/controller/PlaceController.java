@@ -39,12 +39,12 @@ public class PlaceController {
         return this.placeService.add(addPlaceDto);
     }
 
-    @PutMapping("{placeId")
-    public Place update(@RequestBody UpdatePlaceDto updatedPlace, @PathVariable String placeId){
+    @PutMapping ("{placeId}")
+    public Place update(@PathVariable String placeId, @RequestBody UpdatePlaceDto updatedPlace) {
         if(!placeId.equals(updatedPlace.getId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return
-                placeService.update(updatedPlace);
+        return placeService.update(updatedPlace, placeId);
     }
+
 }

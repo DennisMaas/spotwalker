@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class AddPlaceDto {
+
     private String type;
     private String title;
     private String street;
