@@ -22,14 +22,16 @@ export default function TopBar({ title }) {
       <HideOnScroll>
         <AppBar position={'fixed'}>
           <Toolbar>
-            <IconButton
-              edge={'start'}
-              color={'inherit'}
-              aria-label={'go back'}
-              onClick={onBack}
-            >
-              <ArrowBackOutlinedIcon />
-            </IconButton>
+            {title && (
+              <IconButton
+                edge={'start'}
+                color={'inherit'}
+                aria-label={'go back'}
+                onClick={onBack}
+              >
+                <ArrowBackOutlinedIcon />
+              </IconButton>
+            )}
             <Typography variant="h6" className={classes.title}>
               {title}
             </Typography>
