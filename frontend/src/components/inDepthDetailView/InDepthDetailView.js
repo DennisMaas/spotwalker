@@ -14,6 +14,7 @@ import FlashOnOutlinedIcon from '@material-ui/icons/FlashOnOutlined';
 import ShutterSpeedOutlinedIcon from '@material-ui/icons/ShutterSpeedOutlined';
 
 import Link from '@material-ui/core/Link';
+import TopBar from '../TopBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +64,9 @@ export default function InDepthDetailView() {
         alignItems={'center'}
         alignContent={'center'}
       >
+        <Grid item xs={12}>
+          <TopBar title={placeData.title} />
+        </Grid>
         <Grid item xs={12}>
           <img
             className={classes.image}
