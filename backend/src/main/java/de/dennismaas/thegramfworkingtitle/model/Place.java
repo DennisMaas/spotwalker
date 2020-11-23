@@ -37,5 +37,4 @@ public class Place {
     private String particularities;
     private Instant timestamp;
 
-
 }

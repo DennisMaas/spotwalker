@@ -2,6 +2,7 @@ package de.dennismaas.thegramfworkingtitle.service;
 
 import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
 import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
+import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
@@ -64,5 +65,31 @@ public class PlaceService {
 
     }
 
+    public Place update(UpdatePlaceDto update){
+        Place place = placesMongoDao.findById(update.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Place updatedPlace = Place.builder()
+                .id(update.getId())
+                .primaryPictureUrl(update.getPrimaryPictureUrl())
+                .type(update.getType())
+                .title(update.getTitle())
+                .street(update.getStreet())
+                .address(update.getAddress())
+                .latitude(update.getLatitude())
+                .longitude(update.getLongitude())
+                .placeDescription(update.getPlaceDescription())
+                .pictureDescription(update.getPictureDescription())
+                .aperture(update.getAperture())
+                .focalLength(update.getFocalLength())
+                .shutterSpeed(update.getShutterSpeed())
+                .iso(update.getIso())
+                .flash(update.getFlash())
+                .youTubeUrl(update.getYouTubeUrl())
+                .extraOne(update.getExtraOne())
+                .extraTwo(update.getExtraTwo())
+                .particularities(update.getParticularities())
+                .build();
+        return placesMongoDao.save(updatedPlace);
+    }
 
 }
