@@ -36,4 +36,6 @@ public class Place {
     private String extraTwo;
     private String particularities;
     private Instant timestamp;
+
+
 }
