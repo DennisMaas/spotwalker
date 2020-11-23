@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 public class AddPlaceDto {
 
+    private String primaryPictureUrl;
     private String type;
     private String title;
     private String street;
@@ -31,4 +32,5 @@ public class AddPlaceDto {
     private String extraOne;
     private String extraTwo;
     private String particularities;
+
 }

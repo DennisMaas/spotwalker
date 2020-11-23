@@ -1,13 +1,19 @@
 package de.dennismaas.thegramfworkingtitle.controller;
 
 import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
+import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
+import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
+import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,11 +24,19 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PlaceControllerTest {
+class PlaceControllerIntegrationTest {
 
     @LocalServerPort
     private int port;
+
+    @MockBean
+    private TimestampUtils mockedTimestampUtils;
+
+    @MockBean
+    private IdUtils mockedIdUtils;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -86,6 +100,66 @@ class PlaceControllerTest {
         // THEN
         assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
 
+    }
+
+    @Test
+    public void postPlaceShouldAddNewPlace(){
+        //GIVEN
+        String url = getPlaceUrl();
+        AddPlaceDto placeToAdd = new AddPlaceDto(
+                "someUrl",
+                "someType",
+                "someTitle",
+                "someStreet",
+                "someAddress",
+                "someLat",
+                "someLong",
+                "somePlaceDesc",
+                "somePicDesc",
+                "someAperture",
+                "someFocal",
+                "someShutter",
+                "someIso",
+                "someFlash",
+                "someYT",
+                "someX1",
+                "someX2",
+                "somePartic"
+                );
+        when(mockedIdUtils.generateId()).thenReturn("some generated Id");
+        when(mockedTimestampUtils.generateTimestampEpochSeconds()).thenReturn(Instant.parse("2018-11-30T18:35:24.00Z"));
+
+        //WHEN
+        HttpEntity<AddPlaceDto> entity = new HttpEntity<>(placeToAdd);
+        ResponseEntity<Place> response = restTemplate.exchange(url,
+                HttpMethod.POST,
+                entity,
+                Place.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is(new Place(
+                "some generated Id",
+                "someUrl",
+                "someType",
+                "someTitle",
+                "someStreet",
+                "someAddress",
+                "someLat",
+                "someLong",
+                "somePlaceDesc",
+                "somePicDesc",
+                "someAperture",
+                "someFocal",
+                "someShutter",
+                "someIso",
+                "someFlash",
+                "someYT",
+                "someX1",
+                "someX2",
+                "somePartic",
+                Instant.parse("2018-11-30T18:35:24.00Z")
+        )));
     }
 
 }

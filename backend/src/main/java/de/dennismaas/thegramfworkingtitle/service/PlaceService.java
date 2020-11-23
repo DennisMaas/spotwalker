@@ -27,6 +27,7 @@ public class PlaceService {
         this.placesMongoDao = placesMongoDao;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
+
     }
 
 
@@ -44,6 +45,8 @@ public class PlaceService {
 
     public Place add(AddPlaceDto placeToBeAdded) {
         Place placeObjectToBeSaved = Place.builder()
+                .id(idUtils.generateId())
+                .primaryPictureUrl(placeToBeAdded.getPrimaryPictureUrl())
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
                 .street(placeToBeAdded.getStreet())
@@ -61,6 +64,7 @@ public class PlaceService {
                 .extraOne(placeToBeAdded.getExtraOne())
                 .extraTwo(placeToBeAdded.getExtraTwo())
                 .particularities(placeToBeAdded.getParticularities())
+                .timestamp(timestampUtils.generateTimestampEpochSeconds())
                 .build();
         return placesMongoDao.save(placeObjectToBeSaved);
 
