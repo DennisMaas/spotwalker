@@ -1,5 +1,6 @@
 package de.dennismaas.thegramfworkingtitle.controller;
 
+import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,8 @@ public class PlaceController {
         return placeService.findById(placeId);
     }
 
+    @PostMapping
+    public Place add(@RequestBody AddPlaceDto addPlaceDto){
+        return this.placeService.add(addPlaceDto);
+    }
 }
