@@ -153,4 +153,38 @@ class PlaceServiceTest {
         verify(placesMongoDao).save(updatedPlace);
 
     }
+
+
+   @Test
+   void updateThrowsWennItemNotFound() {
+        // Given
+        String placeId = "aPrettyUniqueId";
+        Instant timestamp = Instant.parse("2020-10-25T08:00:00Z");
+
+       UpdatePlaceDto update = new UpdatePlaceDto(
+               placeId,
+               "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1", "someAddress1", "someLat1", "someLong1", "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+
+       );
+       Place updatedPlace = new Place(
+               placeId,
+               "old Url1", "old Type1", "old Title1", "old Street1", "someAddress1", "someLat1", "someLong1", "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
+       );
+
+
+        // When
+        when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
+        when(placesMongoDao.findById(placeId)).thenReturn(Optional.empty());
+        when(placesMongoDao.save(updatedPlace)).thenReturn(updatedPlace);
+
+        try {
+            placeService.update(update, placeId);
+            fail("missing exception");
+        } catch (ResponseStatusException exception) {
+            assertThat(exception.getStatus(), is(HttpStatus.NOT_FOUND));
+        }
+    }
+
+
+
 }
