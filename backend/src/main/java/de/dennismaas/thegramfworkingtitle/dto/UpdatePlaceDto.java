@@ -1,21 +1,18 @@
-package de.dennismaas.thegramfworkingtitle.model;
+package de.dennismaas.thegramfworkingtitle.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "places")
-public class Place {
-    @Id
+public class UpdatePlaceDto {
+
     private String id;
     private String primaryPictureUrl;
     private String type;
@@ -35,6 +32,5 @@ public class Place {
     private String extraOne;
     private String extraTwo;
     private String particularities;
-    private Instant timestamp;
 
 }

@@ -2,5 +2,3 @@ spring:
   data:
     mongodb:
       database: gramf
-      host: localhost
-      port: 27017
