@@ -251,6 +251,45 @@ class PlaceControllerIntegrationTest {
         assertThat(savedPlace.get(), is(expectedPlace));
     }
 
-    //TODO: updatePlaceShouldReturnBadRequestWhenIdsNotMatch
+    @Test
+    public void updatePlaceShouldReturnBadRequestWhenIdsNotMatch(){
+        //GIVEN
+        String url = getPlaceUrl() + "/someId";
+
+        long currentTimeInSeconds = Instant.now().getEpochSecond();
+        Instant now = Instant.ofEpochSecond(currentTimeInSeconds);
+
+        when(mockedTimestampUtils.generateTimestampEpochSeconds()).thenReturn(now);
+
+        UpdatePlaceDto updatePlace = UpdatePlaceDto.builder()
+                .id("mismatchedId")
+                .primaryPictureUrl("someUrl")
+                .type("someType")
+                .title("someTitle")
+                .street("someStreet")
+                .address("someAddress")
+                .latitude("someLat")
+                .longitude("someLong")
+                .placeDescription("somePlaceDesc")
+                .pictureDescription("somePicDesc")
+                .aperture("someAperture")
+                .focalLength("someFocal")
+                .shutterSpeed("someShutter")
+                .iso("someIso")
+                .flash("someFlash")
+                .youTubeUrl("someYT")
+                .extraOne("someX1")
+                .extraTwo("someX2")
+                .particularities("somePartic")
+                .build();
+
+        //WHEN
+        HttpEntity<UpdatePlaceDto> entity = new HttpEntity<>(updatePlace);
+        ResponseEntity<Place> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Place.class);
+
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+    }
 
 }
