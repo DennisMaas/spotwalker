@@ -64,4 +64,17 @@ class PlaceControllerTest {
     }
 
 
+    @Test
+    public void testGetByIdMapping(){
+        //GIVEN
+        String url = getPlaceUrl()+"/someId";
+
+        //WHEN
+        ResponseEntity<Place> response = restTemplate.getForEntity(url,Place.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody().getTitle(), is("someTitle"));
+    }
+
 }
