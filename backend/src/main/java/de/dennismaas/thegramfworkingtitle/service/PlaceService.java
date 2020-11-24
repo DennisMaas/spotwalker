@@ -96,6 +96,7 @@ public class PlaceService {
                 .extraOne(placeToBeUpdated.getExtraOne())
                 .extraTwo(placeToBeUpdated.getExtraTwo())
                 .particularities(placeToBeUpdated.getParticularities())
+                .timestamp(timestampUtils.generateTimestampEpochSeconds())
                 .build();
         return placesMongoDao.save(updatedPlace);
     }
