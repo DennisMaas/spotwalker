@@ -2,6 +2,7 @@ package de.dennismaas.thegramfworkingtitle.controller;
 
 import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
 import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
+import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
@@ -21,6 +22,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -181,7 +183,73 @@ class PlaceControllerIntegrationTest {
         )));
     }
 
-    //TODO: updatePlaceShouldUpdateExistingPlace(){}
+
+    @Test
+    public void updatePlaceShouldUpdateExistingPlace(){
+        //GIVEN
+        String url = getPlaceUrl() + "/someId";
+
+        long currentTimeInSeconds = Instant.now().getEpochSecond();
+        Instant now = Instant.ofEpochSecond(currentTimeInSeconds);
+
+        when(mockedTimestampUtils.generateTimestampEpochSeconds()).thenReturn(now);
+
+        UpdatePlaceDto updatePlace = UpdatePlaceDto.builder()
+                .id("someId")
+                .primaryPictureUrl("someUrl")
+                .type("someType")
+                .title("someTitle")
+                .street("someStreet")
+                .address("someAddress")
+                .latitude("someLat")
+                .longitude("someLong")
+                .placeDescription("somePlaceDesc")
+                .pictureDescription("somePicDesc")
+                .aperture("someAperture")
+                .focalLength("someFocal")
+                .shutterSpeed("someShutter")
+                .iso("someIso")
+                .flash("someFlash")
+                .youTubeUrl("someYT")
+                .extraOne("someX1")
+                .extraTwo("someX2")
+                .particularities("somePartic")
+                .build();
+
+        //WHEN
+        HttpEntity<UpdatePlaceDto> entity = new HttpEntity<>(updatePlace);
+        ResponseEntity<Place> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Place.class);
+
+
+        //THEN
+        Optional<Place> savedPlace = placesMongoDao.findById("someId");
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        Place expectedPlace = Place.builder()
+                .id("someId")
+                .primaryPictureUrl("someUrl")
+                .type("someType")
+                .title("someTitle")
+                .street("someStreet")
+                .address("someAddress")
+                .latitude("someLat")
+                .longitude("someLong")
+                .placeDescription("somePlaceDesc")
+                .pictureDescription("somePicDesc")
+                .aperture("someAperture")
+                .focalLength("someFocal")
+                .shutterSpeed("someShutter")
+                .iso("someIso")
+                .flash("someFlash")
+                .youTubeUrl("someYT")
+                .extraOne("someX1")
+                .extraTwo("someX2")
+                .particularities("somePartic")
+                .timestamp(now)
+                .build();
+        assertThat(response.getBody(), is(expectedPlace));
+        assertThat(savedPlace.get(), is(expectedPlace));
+    }
 
     //TODO: updatePlaceShouldReturnBadRequestWhenIdsNotMatch
 
