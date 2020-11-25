@@ -8,6 +8,7 @@ import {
 import OverView from './components/OverView';
 import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView';
 import PlacesContextProvider from './contexts/PlacesContextProvider';
+import NewPlacePage from './components/NewPlacePage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <PlacesContextProvider>
         <Switch>
           <Route path="/overview" component={OverView} />
+          <Route path="/places/new" component={NewPlacePage} />
           <Route path="/places/:id" component={InDepthDetailView} />
           <Route path="/">
             <Redirect to="/overview" />
