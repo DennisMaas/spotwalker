@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import HideOnScroll from './HideOnScroll';
+import HideOnScroll from '../HideOnScroll';
 
 const useStyles = makeStyles({
   title: { flexGrow: 1 },

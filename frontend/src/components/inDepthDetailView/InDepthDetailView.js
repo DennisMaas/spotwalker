@@ -14,7 +14,7 @@ import FlashOnOutlinedIcon from '@material-ui/icons/FlashOnOutlined';
 import ShutterSpeedOutlinedIcon from '@material-ui/icons/ShutterSpeedOutlined';
 
 import Link from '@material-ui/core/Link';
-import TopBar from '../TopBar';
+import TopBar from '../commons/TopBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
