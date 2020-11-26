@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const initialState = {
   primaryPictureUrl: '',
-  type: '',
+  type: 'cityscape',
   title: '',
   street: '',
   address: '',
@@ -62,7 +62,6 @@ const types = [
 export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
-  const [type, setType] = useState('cityscape');
   const [placeData, setPlaceData] = useState(place);
 
   return (
@@ -302,8 +301,8 @@ export default function PlaceForm({ onSave, place = initialState }) {
             <Tooltip title={'Bitte auswählen'} arrow>
               <TextField
                 select
-                value={type}
-                onChange={handleChangeType}
+                value={placeData.type}
+                onChange={handleChange}
                 name={'type'}
                 variant={'outlined'}
                 fullWidth
@@ -353,9 +352,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
     history.goBack();
   }
 
-  function handleChangeType(event) {
-    setType(event.target.value);
-  }
 
   function handleChange(event) {
     setPlaceData({ ...placeData, [event.target.name]: event.target.value });
