@@ -3,8 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { ImageSearchOutlined } from '@material-ui/icons';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
   picture: {
     maxWidth: '100%',
     maxHeight: '60vh',
@@ -21,26 +29,28 @@ export default function UploadPicture() {
 
   return (
     <>
-      <input
-        hidden
-        id={'contained-button-file'}
-        accept={'image/*'}
-        type={'file'}
-        onChange={handlePicture}
-      />
-      <label htmlFor={'contained-button-file'}>
-        <Button
-          className={classes.button}
-          variant={'contained'}
-          color={'primary'}
-          aria-label={'upload picture'}
-          component={'span'}
-          startIcon={<ImageSearchOutlined />}
-        >
-          Foto auswählen
-        </Button>
-      </label>
-      <img className={classes.picture} alt={''} src={picture} />
+      <Grid container item justify={'center'}>
+        <input
+          hidden
+          id={'contained-button-file'}
+          accept={'image/*'}
+          type={'file'}
+          onChange={handlePicture}
+        />
+        <label htmlFor={'contained-button-file'}>
+          <Button
+            className={classes.button}
+            variant={'contained'}
+            color={'primary'}
+            aria-label={'upload picture'}
+            component={'span'}
+            startIcon={<ImageSearchOutlined />}
+          >
+            Foto auswählen
+          </Button>
+        </label>
+        <img className={classes.picture} alt={''} src={picture} />
+      </Grid>
     </>
   );
 

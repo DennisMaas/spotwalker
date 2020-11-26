@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PlaceCard from './cards/PlaceCard';
 import { Container, Grid } from '@material-ui/core';
-import PlacesContext from '../contexts/PlacesContext';
 import TopBar from './commons/TopBar';
 import Paper from '@material-ui/core/Paper';
 
-export default function OverView() {
-  const { places } = useContext(PlacesContext);
-
+export default function OverView({ places }) {
   return (
     <Paper>
       <Container component={'main'} disableGutters={false}>

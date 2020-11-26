@@ -1,15 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
-import UploadPicture from './commons/UploadPicture';
 import PlaceForm from './commons/PlaceForm';
-import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,13 +13,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-
   button: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-export default function NewPlacePage() {
+export default function NewPlacePage({ create }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -35,41 +29,52 @@ export default function NewPlacePage() {
         <Typography component="h1" variant="h5">
           Neues Foto anlegen
         </Typography>
-        <Grid container item justify={'center'}>
-          <UploadPicture />
-        </Grid>
-        <PlaceForm />
+        <PlaceForm onSave={handleSave} />
       </div>
-      <Grid container justify={'flex-end'}>
-        <Grid item xs={6}>
-          <Button
-            onClick={onCancel}
-            type="cancel"
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            startIcon={<CancelOutlinedIcon />}
-          >
-            Abbrechen
-          </Button>
-        </Grid>
-        <Grid item xs={6}>
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<SaveOutlinedIcon />}
-          >
-            Foto anlegen
-          </Button>
-        </Grid>
-      </Grid>
     </Container>
   );
 
-  function onCancel() {
-    history.goBack();
+  function handleSave(place) {
+    const {
+      primaryPictureUrl,
+      type,
+      title,
+      street,
+      address,
+      latitude,
+      longitude,
+      placeDescription,
+      pictureDescription,
+      aperture,
+      focalLength,
+      shutterSpeed,
+      iso,
+      flash,
+      youTubeUrl,
+      extraOne,
+      extraTwo,
+      particularities,
+    } = place;
+    create(
+      primaryPictureUrl,
+      type,
+      title,
+      street,
+      address,
+      latitude,
+      longitude,
+      placeDescription,
+      pictureDescription,
+      aperture,
+      focalLength,
+      shutterSpeed,
+      iso,
+      flash,
+      youTubeUrl,
+      extraOne,
+      extraTwo,
+      particularities
+    );
+    history.push('/overview');
   }
 }
