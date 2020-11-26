@@ -352,7 +352,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
     history.goBack();
   }
 
-
   function handleChange(event) {
     setPlaceData({ ...placeData, [event.target.name]: event.target.value });
   }
