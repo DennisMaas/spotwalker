@@ -1,3 +1,6 @@
 *.iml
 .idea
 /frontend/public/images/
+*.env
+/frontend/.env.production
+/frontend/.env.development
