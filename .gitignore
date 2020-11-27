@@ -6,3 +6,6 @@
 .env.development.local
 .env.test.local
 .env.production.local
+/frontend/.env.production
+/frontend/.env.development
+/frontend/.env.local
