@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
 import PlaceForm from './commons/PlaceForm';
 import Typography from '@material-ui/core/Typography';
-import GetGoogleMap from './commons/GetGoogleMap';
+import GetGoogleMap from './googleMaps/GetGoogleMap';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

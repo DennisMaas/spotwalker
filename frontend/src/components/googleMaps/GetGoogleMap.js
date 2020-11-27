@@ -5,28 +5,16 @@ import {
   Marker,
   useLoadScript,
 } from '@react-google-maps/api';
-import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxList,
-} from '@reach/combobox';
 import '@reach/combobox/styles.css';
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
-import IconButton from '@material-ui/core/IconButton';
+import SearchGoogleMaps from './SearchGoogleMaps';
+import LocateMapsUser from './LocateMapsUser';
 
 const libraries = ['places'];
 
 const mapContainerStyle = {
-  width: '400px',
-  height: '600px',
+  width: '100%',
+  height: '60vh',
 };
 
 const options = {
@@ -70,13 +58,12 @@ export default function GetGoogleMap() {
   if (loadError) return 'Fehler beim Laden der Karte';
   if (!isLoaded) return 'Karte wird geladen';
   return (
-    <Grid item xs={12}>
-      <Search panTo={panTo} />
-      <Locate panTo={panTo} />
-
+    <>
+      <SearchGoogleMaps className={'search'} panTo={panTo} />
+      <LocateMapsUser panTo={panTo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={11}
+        zoom={10}
         center={center}
         options={options}
         onClick={onMapClick}
@@ -99,35 +86,13 @@ export default function GetGoogleMap() {
             }}
           >
             <div>
-              <Typography variant={'body1'}>
+              <Typography variant={'body2'}>
                 {selected.lat}, {selected.lng}
               </Typography>
             </div>
           </InfoWindow>
         ) : null}
       </GoogleMap>
-    </Grid>
+    </>
   );
-
-  function Locate({ panTo }) {
-    return (
-      <IconButton
-        size={'large'}
-        onClick={() => {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              panTo({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              });
-            },
-            () => null
-          );
-        }}
-        aria-label={'compass'}
-      >
-        <ExploreOutlinedIcon />
-      </IconButton>
-    );
-  }
 }

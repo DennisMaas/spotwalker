@@ -2,7 +2,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
 import React from 'react';
 
-export default function LocateUser({ panTo }) {
+export default function LocateMapsUser({ panTo }) {
   return (
     <IconButton
       onClick={() => {
