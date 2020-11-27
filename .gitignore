@@ -4,3 +4,4 @@
 *.env
 /frontend/.env.production
 /frontend/.env.development
+/frontend/.env.local
