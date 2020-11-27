@@ -16,8 +16,11 @@ import {
   ComboboxInput,
   ComboboxOption,
   ComboboxPopover,
+  ComboboxList,
 } from '@reach/combobox';
 import '@reach/combobox/styles.css';
+import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import IconButton from '@material-ui/core/IconButton';
 
 const libraries = ['places'];
 
@@ -69,6 +72,7 @@ export default function GetGoogleMap() {
   return (
     <Grid item xs={12}>
       <Search panTo={panTo} />
+      <Locate panTo={panTo} />
 
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -105,50 +109,25 @@ export default function GetGoogleMap() {
     </Grid>
   );
 
-  function Search({ panTo }) {
-    const {
-      ready,
-      value,
-      suggestions: { status, data },
-      setValue,
-      clearSuggestions,
-    } = usePlacesAutocomplete({
-      requestOptions: {
-        location: { lat: () => 53.55009, lng: () => 9.991636 },
-        radius: 200 * 1000,
-      },
-    });
+  function Locate({ panTo }) {
     return (
-      <div className={'search'}>
-        <Combobox
-          onSelect={async (address) => {
-            setValue(address, false);
-            clearSuggestions();
-            try {
-              const results = await getGeocode({ address });
-              const { lat, lng } = await getLatLng(results[0]);
-              panTo({ lat, lng });
-            } catch (error) {
-              console.log('error!');
-            }
-          }}
-        >
-          <ComboboxInput
-            value={value}
-            onChange={(event) => {
-              setValue(event.target.value);
-            }}
-            disabled={!ready}
-            placeholder={'Suche einen Ort'}
-          />
-          <ComboboxPopover>
-            {status === 'OK' &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxPopover>
-        </Combobox>
-      </div>
+      <IconButton
+        size={'large'}
+        onClick={() => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              panTo({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            () => null
+          );
+        }}
+        aria-label={'compass'}
+      >
+        <ExploreOutlinedIcon />
+      </IconButton>
     );
   }
 }
