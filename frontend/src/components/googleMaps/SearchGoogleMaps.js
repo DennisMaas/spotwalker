@@ -10,7 +10,6 @@ import {
   ComboboxPopover,
 } from '@reach/combobox';
 import React from 'react';
-import { Box } from '@material-ui/core';
 
 export default function SearchGoogleMaps({ panTo }) {
   const {
@@ -43,23 +42,21 @@ export default function SearchGoogleMaps({ panTo }) {
   };
 
   return (
-    <Box component={'div'}>
-      <Combobox onSelect={handleSelect}>
-        <ComboboxInput
-          value={value}
-          onChange={handleInput}
-          disabled={!ready}
-          placeholder="Search your location"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === 'OK' &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </Box>
+    <Combobox onSelect={handleSelect}>
+      <ComboboxInput
+        value={value}
+        onChange={handleInput}
+        disabled={!ready}
+        placeholder="Von wo hast du fotografiert?"
+      />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === 'OK' &&
+            data.map(({ id, description }) => (
+              <ComboboxOption key={id} value={description} />
+            ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
   );
 }

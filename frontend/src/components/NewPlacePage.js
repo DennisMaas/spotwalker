@@ -31,7 +31,6 @@ export default function NewPlacePage({ create }) {
           Neues Foto anlegen
         </Typography>
         <PlaceForm onSave={handleSave} />
-        <GetGoogleMap />
       </div>
     </Container>
   );

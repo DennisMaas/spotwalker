@@ -7,6 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
+import GetGoogleMap from '../googleMaps/GetGoogleMap';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -80,6 +81,9 @@ export default function PlaceForm({ onSave, place = initialState }) {
               required
               autoFocus
             />
+          </Grid>
+          <Grid item xs={12}>
+            <GetGoogleMap />
           </Grid>
           <Grid item xs={12}>
             <TextField
