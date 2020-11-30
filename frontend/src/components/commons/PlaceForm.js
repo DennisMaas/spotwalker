@@ -3,11 +3,12 @@ import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
+import GetGoogleMap from '../googleMaps/GetGoogleMap';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -25,8 +26,8 @@ const initialState = {
   title: '',
   street: '',
   address: '',
-  latitude: '',
-  longitude: '',
+  lat: 0,
+  lng: 0,
   placeDescription: '',
   pictureDescription: '',
   aperture: '',
@@ -63,10 +64,14 @@ export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
   const [placeData, setPlaceData] = useState(place);
-
+  /*
+  const [marker, setMarker] = useState({ lat: 0, lng: 0 });
+*/
+  const setMarker = (lat, lng) =>
+    setPlaceData({ ...placeData, lat: lat, lng: lng });
   return (
     <>
-      {/*<UploadPicture />*/}
+      {/*      <UploadPicture />*/}
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -83,6 +88,13 @@ export default function PlaceForm({ onSave, place = initialState }) {
             />
           </Grid>
           <Grid item xs={12}>
+            <GetGoogleMap
+              lat={placeData.lat}
+              lng={placeData.lng}
+              setMarker={setMarker}
+            />
+          </Grid>
+          {/*          <Grid item xs={12}>
             <TextField
               value={placeData.primaryPictureUrl}
               onChange={handleChange}
@@ -94,7 +106,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+              <Grid item xs={12}>
             <TextField
               value={placeData.street}
               onChange={handleChange}
@@ -117,30 +129,12 @@ export default function PlaceForm({ onSave, place = initialState }) {
               label={'address'}
               required
             />
+          </Grid>*/}
+          <Grid item xs={6}>
+            <Typography>Latitude: {placeData.lat}</Typography>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={placeData.latitude}
-              onChange={handleChange}
-              name={'latitude'}
-              variant={'outlined'}
-              fullWidth
-              id={'latitude'}
-              label={'latitude'}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={placeData.longitude}
-              onChange={handleChange}
-              name={'longitude'}
-              variant={'outlined'}
-              fullWidth
-              id={'longitude'}
-              label={'longitude'}
-              required
-            />
+          <Grid item xs={6}>
+            <Typography>Longitude {placeData.lng}</Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -173,74 +167,69 @@ export default function PlaceForm({ onSave, place = initialState }) {
             />
           </Grid>
           <Grid item xs={6} sm={4}>
-            <Tooltip title={'z.B. f8'} arrow>
-              <TextField
-                value={placeData.aperture}
-                onChange={handleChange}
-                name={'aperture'}
-                variant={'outlined'}
-                fullWidth
-                id={'aperture'}
-                label={'Blende'}
-                required
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.aperture}
+              onChange={handleChange}
+              name={'aperture'}
+              variant={'outlined'}
+              fullWidth
+              id={'aperture'}
+              label={'Blende'}
+              helperText={'z.B. f8, nicht 8 oder f 8'}
+              required
+            />
           </Grid>
           <Grid item xs={6} sm={4}>
-            <Tooltip title={'z.B. 20mm'} arrow>
-              <TextField
-                value={placeData.focalLength}
-                onChange={handleChange}
-                name={'focalLength'}
-                variant={'outlined'}
-                fullWidth
-                id={'focalLength'}
-                label={'Brennweite'}
-                required
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.focalLength}
+              onChange={handleChange}
+              name={'focalLength'}
+              variant={'outlined'}
+              fullWidth
+              id={'focalLength'}
+              label={'Brennweite'}
+              required
+              helperText={'z.B. 20mm, nicht 20 mm oder 20'}
+            />
           </Grid>
           <Grid item xs={6} sm={4}>
-            <Tooltip title={'z.B. 1/50s oder 50s'} arrow>
-              <TextField
-                value={placeData.shutterSpeed}
-                onChange={handleChange}
-                name={'shutterSpeed'}
-                variant={'outlined'}
-                fullWidth
-                id={'shutterSpeed'}
-                label={'Belichtungszeit'}
-                required
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.shutterSpeed}
+              onChange={handleChange}
+              name={'shutterSpeed'}
+              variant={'outlined'}
+              fullWidth
+              id={'shutterSpeed'}
+              label={'Belichtungszeit'}
+              required
+              helperText={'z.B. 1/50s oder 50s'}
+            />
           </Grid>
           <Grid item xs={6} sm={4}>
-            <Tooltip title={'z.B. 200'} arrow>
-              <TextField
-                value={placeData.iso}
-                onChange={handleChange}
-                name={'iso'}
-                variant={'outlined'}
-                fullWidth
-                id={'iso'}
-                label={'ISO'}
-                required
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.iso}
+              onChange={handleChange}
+              name={'iso'}
+              variant={'outlined'}
+              fullWidth
+              id={'iso'}
+              label={'ISO'}
+              required
+              helperText={'nur eine Zahl, z.B 200'}
+            />
           </Grid>
           <Grid item xs={6} sm={4}>
-            <Tooltip title={'z.B. kein'} arrow>
-              <TextField
-                value={placeData.flash}
-                onChange={handleChange}
-                name={'flash'}
-                variant={'outlined'}
-                required
-                fullWidth
-                id={'flash'}
-                label={'Blitz'}
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.flash}
+              onChange={handleChange}
+              name={'flash'}
+              variant={'outlined'}
+              required
+              fullWidth
+              id={'flash'}
+              label={'Blitz'}
+              helperText={'z.B. kein, 1. Verschluss, 2. Verschluss'}
+            />
           </Grid>
           <Grid item xs={6} sm={4}>
             <TextField
@@ -251,71 +240,63 @@ export default function PlaceForm({ onSave, place = initialState }) {
               fullWidth
               id={'youTubeUrl'}
               label={'YouTube'}
+              helperText={'https://youtu.be/...'}
             />
           </Grid>
           <Grid item xs={6}>
-            <Tooltip title={'Ein Stichwort, z.B. Stativ'} arrow>
-              <TextField
-                value={placeData.extraOne}
-                onChange={handleChange}
-                name={'extraOne'}
-                variant={'outlined'}
-                fullWidth
-                id={'extraOne'}
-                label={'Zubehör 1'}
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.extraOne}
+              onChange={handleChange}
+              name={'extraOne'}
+              variant={'outlined'}
+              fullWidth
+              id={'extraOne'}
+              label={'Zubehör 1'}
+              helperText={'Ein Stichwort, z.B. Stativ'}
+            />
           </Grid>
           <Grid item xs={6}>
-            <Tooltip title={'Ein Stichwort, z.B. ND 60'} arrow>
-              <TextField
-                value={placeData.extraTwo}
-                onChange={handleChange}
-                name={'extraTwo'}
-                variant={'outlined'}
-                fullWidth
-                id={'extraTwo'}
-                label={'Zubehör 2'}
-              />
-            </Tooltip>
+            <TextField
+              value={placeData.extraTwo}
+              onChange={handleChange}
+              name={'extraTwo'}
+              variant={'outlined'}
+              fullWidth
+              id={'extraTwo'}
+              label={'Zubehör 2'}
+              helperText={'Ein Stichwort, z.B. ND 60'}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Tooltip
-              title={
-                'Stichwortartig, z.B. Mehrfachbelichtung, Stitchingsoftware'
-              }
-              arrow
+            <TextField
+              value={placeData.particularities}
+              onChange={handleChange}
+              name={'particularities'}
+              variant={'outlined'}
+              fullWidth
+              id={'particularities'}
+              label={'Besonderheiten'}
+              helperText={'Auch mehr als ein Stichwort'}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              select
+              value={placeData.type}
+              onChange={handleChange}
+              name={'type'}
+              variant={'outlined'}
+              fullWidth
+              id={'type'}
+              label={'Bildtyp'}
+              helperText={'Fehlt etwas? Dann sag´s mir!'}
             >
-              <TextField
-                value={placeData.particularities}
-                onChange={handleChange}
-                name={'particularities'}
-                variant={'outlined'}
-                fullWidth
-                id={'particularities'}
-                label={'Besonderheiten'}
-              />
-            </Tooltip>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Tooltip title={'Bitte auswählen'} arrow>
-              <TextField
-                select
-                value={placeData.type}
-                onChange={handleChange}
-                name={'type'}
-                variant={'outlined'}
-                fullWidth
-                id={'type'}
-                label={'Bildtyp'}
-              >
-                {types.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Tooltip>
+              {types.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </Grid>
         <Grid container justify={'flex-end'}>

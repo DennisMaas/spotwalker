@@ -5,7 +5,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
 import PlaceForm from './commons/PlaceForm';
 import Typography from '@material-ui/core/Typography';
-import GetGoogleMap from './commons/GetGoogleMap';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,7 +30,6 @@ export default function NewPlacePage({ create }) {
           Neues Foto anlegen
         </Typography>
         <PlaceForm onSave={handleSave} />
-        <GetGoogleMap />
       </div>
     </Container>
   );
@@ -43,8 +41,8 @@ export default function NewPlacePage({ create }) {
       title,
       street,
       address,
-      latitude,
-      longitude,
+      lat,
+      lng,
       placeDescription,
       pictureDescription,
       aperture,
@@ -63,8 +61,8 @@ export default function NewPlacePage({ create }) {
       title,
       street,
       address,
-      latitude,
-      longitude,
+      lat,
+      lng,
       placeDescription,
       pictureDescription,
       aperture,

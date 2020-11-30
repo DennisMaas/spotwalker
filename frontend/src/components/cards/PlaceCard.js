@@ -22,16 +22,16 @@ const useStyles = makeStyles((theme) => ({
 export default function PlaceCard({ placeData }) {
   const classes = useStyles();
   const history = useHistory();
-  const { latitude, longitude } = placeData;
+  const { lat, lng } = placeData;
   const gMapUrl =
     'https://www.google.com/maps/dir//' +
-    latitude +
+    lat +
     ',' +
-    longitude +
+    lng +
     '/@' +
-    latitude +
+    lat +
     ',' +
-    longitude +
+    lng +
     ',20z';
 
   return (

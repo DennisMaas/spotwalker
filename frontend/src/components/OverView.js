@@ -4,6 +4,7 @@ import { Container, Grid } from '@material-ui/core';
 import TopBar from './commons/TopBar';
 import Paper from '@material-ui/core/Paper';
 
+
 export default function OverView({ places }) {
   return (
     <Paper>
