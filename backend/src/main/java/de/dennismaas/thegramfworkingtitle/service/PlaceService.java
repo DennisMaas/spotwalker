@@ -101,4 +101,10 @@ public class PlaceService {
         return placesMongoDao.save(updatedPlace);
     }
 
+    public void remove(String placeId) {
+        if(!placesMongoDao.existsById(placeId)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        placesMongoDao.deleteById(placeId);
+    }
 }
