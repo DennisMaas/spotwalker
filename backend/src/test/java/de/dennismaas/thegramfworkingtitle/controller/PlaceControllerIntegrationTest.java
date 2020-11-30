@@ -292,4 +292,33 @@ class PlaceControllerIntegrationTest {
         assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
+    @Test
+    public void deletePlaceByIdShouldDeletePlace(){
+        //GIVEN
+        String url = getPlaceUrl() + "/someId";
+
+        //WHEN
+        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        boolean placePresent = placesMongoDao.findById("someId").isPresent();
+        assertThat(placePresent, is(false));
+
+    }
+
+    @Test
+    public void deletePlaceWithNotExistingIdShouldReturnNotFound(){
+        //GIVEN
+        String url = getPlaceUrl() + "/NotExistingID";
+
+
+        //WHEN
+        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+
+    }
+
 }
