@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { addPlace, getPlaces, updatePlace } from '../../service/PlaceService';
+import {
+  addPlace,
+  getPlaces,
+  removePlace,
+  updatePlace,
+} from '../../service/PlaceService';
 
 export default function usePlaces() {
   const [places, setPlaces] = useState([]);
@@ -49,6 +54,11 @@ export default function usePlaces() {
       particularities
     ).then((newPlace) => setPlaces([...places, newPlace]));
 
+  const remove = (id) =>
+    removePlace(id).then(() =>
+      setPlaces(places.filter((place) => place.id !== id))
+    );
+
   const update = (
     id,
     primaryPictureUrl,
@@ -97,5 +107,5 @@ export default function usePlaces() {
       ])
     );
   };
-  return [places, create, update];
+  return [places, create, update, remove];
 }

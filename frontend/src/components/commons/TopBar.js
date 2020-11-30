@@ -1,16 +1,16 @@
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import React, { useState } from 'react';
+
+import { useHistory } from 'react-router-dom';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import { useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
+import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import HideOnScroll from '../HideOnScroll';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   title: { flexGrow: 1 },
 });
 
-export default function TopBar({ title }) {
+export default function TopBar({ title, id, remove }) {
   const history = useHistory();
   const classes = useStyles();
 
@@ -109,7 +109,7 @@ export default function TopBar({ title }) {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Löschen</MenuItem>
+                  <MenuItem onClick={handleDelete}>Löschen</MenuItem>
                 </Menu>
               </div>
             )}
@@ -120,6 +120,10 @@ export default function TopBar({ title }) {
     </>
   );
   function onBack() {
+    history.goBack();
+  }
+  function handleDelete() {
+    remove(id);
     history.goBack();
   }
 }

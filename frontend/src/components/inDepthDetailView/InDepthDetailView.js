@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import FocalLengthIcon from '../nonMuiIcons/exifIcons/FocalLengthIcon';
@@ -6,7 +8,6 @@ import IsoIcon from '../nonMuiIcons/exifIcons/IsoIcon';
 import YouTubeIcon from '../nonMuiIcons/exifIcons/YouTubeIcon';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { useParams } from 'react-router-dom';
 import PlacesContext from '../../contexts/PlacesContext';
 import CameraOutlinedIcon from '@material-ui/icons/CameraOutlined';
 import LoupeOutlinedIcon from '@material-ui/icons/LoupeOutlined';
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InDepthDetailView() {
+export default function InDepthDetailView({ remove }) {
   const classes = useStyles();
   const { id } = useParams();
   const { places } = useContext(PlacesContext);
@@ -65,7 +66,7 @@ export default function InDepthDetailView() {
         alignContent={'center'}
       >
         <Grid item xs={12}>
-          <TopBar title={placeData.title} />
+          <TopBar id={id} remove={remove} title={placeData.title} />
         </Grid>
         <Grid item xs={12}>
           <img

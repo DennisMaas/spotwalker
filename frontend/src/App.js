@@ -12,7 +12,7 @@ import NewPlacePage from './components/NewPlacePage';
 import usePlaces from './components/hooks/usePlaces';
 
 function App() {
-  const [places, create, update] = usePlaces();
+  const [places, create, remove, update] = usePlaces();
 
   return (
     <Router>
@@ -25,7 +25,7 @@ function App() {
             <NewPlacePage create={create} />
           </Route>
           <Route path={'/places/:id'}>
-            <InDepthDetailView places={places} />
+            <InDepthDetailView places={places} remove={remove} />
           </Route>
           <Route path={'/'}>
             <Redirect to={'/overview'} />
