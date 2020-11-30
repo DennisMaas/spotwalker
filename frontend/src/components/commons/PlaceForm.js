@@ -8,6 +8,7 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import GetGoogleMap from '../googleMaps/GetGoogleMap';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -25,8 +26,8 @@ const initialState = {
   title: '',
   street: '',
   address: '',
-  latitude: '',
-  longitude: '',
+  lat: 0,
+  lng: 0,
   placeDescription: '',
   pictureDescription: '',
   aperture: '',
@@ -63,10 +64,14 @@ export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
   const [placeData, setPlaceData] = useState(place);
-
+  /*
+  const [marker, setMarker] = useState({ lat: 0, lng: 0 });
+*/
+  const setMarker = (lat, lng) =>
+    setPlaceData({ ...placeData, lat: lat, lng: lng });
   return (
     <>
-      {/*<UploadPicture />*/}
+      {/*      <UploadPicture />*/}
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -83,9 +88,13 @@ export default function PlaceForm({ onSave, place = initialState }) {
             />
           </Grid>
           <Grid item xs={12}>
-            <GetGoogleMap />
+            <GetGoogleMap
+              lat={placeData.lat}
+              lng={placeData.lng}
+              setMarker={setMarker}
+            />
           </Grid>
-          <Grid item xs={12}>
+          {/*          <Grid item xs={12}>
             <TextField
               value={placeData.primaryPictureUrl}
               onChange={handleChange}
@@ -97,7 +106,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+              <Grid item xs={12}>
             <TextField
               value={placeData.street}
               onChange={handleChange}
@@ -120,30 +129,12 @@ export default function PlaceForm({ onSave, place = initialState }) {
               label={'address'}
               required
             />
+          </Grid>*/}
+          <Grid item xs={6}>
+            <Typography>Latitude: {placeData.lat}</Typography>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={placeData.latitude}
-              onChange={handleChange}
-              name={'latitude'}
-              variant={'outlined'}
-              fullWidth
-              id={'latitude'}
-              label={'latitude'}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={placeData.longitude}
-              onChange={handleChange}
-              name={'longitude'}
-              variant={'outlined'}
-              fullWidth
-              id={'longitude'}
-              label={'longitude'}
-              required
-            />
+          <Grid item xs={6}>
+            <Typography>Longitude {placeData.lng}</Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField

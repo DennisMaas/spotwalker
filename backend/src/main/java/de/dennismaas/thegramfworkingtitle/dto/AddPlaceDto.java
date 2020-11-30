@@ -19,8 +19,8 @@ public class AddPlaceDto {
     private String title;
     private String street;
     private String address;
-    private String latitude;
-    private String longitude;
+    private String lat;
+    private String lng;
     private String placeDescription;
     private String pictureDescription;
     private String aperture;

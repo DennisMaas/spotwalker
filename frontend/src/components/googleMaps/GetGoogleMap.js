@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import '@reach/combobox/styles.css';
 import LocateMapsUser from './LocateMapsUser';
@@ -16,26 +16,22 @@ const options = {
 };
 
 const center = {
-  lat: 53.55009,
+  lat: 53.55008,
   lng: 9.991636,
 };
 
-export default function GetGoogleMap() {
+export default function GetGoogleMap({ lat, lng, setMarker }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const onMapClick = useCallback((event) => {
-    setMarkers(() => [
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, []);
+
+  const onMapClick = useCallback(
+    (event) => {
+      setMarker(event.latLng.lat(), event.latLng.lng());
+    },
+    [setMarker]
+  );
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -49,27 +45,25 @@ export default function GetGoogleMap() {
 
   if (loadError) return 'Fehler beim Laden der Karte';
   if (!isLoaded) return 'Karte wird geladen';
+
   return (
     <>
       <SearchGoogleMaps panTo={panTo} />
       <LocateMapsUser panTo={panTo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={10}
+        zoom={11}
         center={center}
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map((marker) => (
-          <Marker
-            key={`${marker.lat}-${marker.lng}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onClick={() => {
-              setSelected(marker);
-            }}
-          />
-        ))}
+        <Marker
+          clickable={false}
+          draggable={false}
+          key={`${lat}-${lng}`}
+          position={{ lat: lat, lng: lng }}
+        />
       </GoogleMap>
     </>
   );
