@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
 import PlaceForm from './commons/PlaceForm';
 import Typography from '@material-ui/core/Typography';
-import PlacesContext from '../contexts/PlacesContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewPlacePage() {
-  const { create } = useContext(PlacesContext);
+export default function EditPlacePage({ create, update, places }) {
   const classes = useStyles();
   const history = useHistory();
 

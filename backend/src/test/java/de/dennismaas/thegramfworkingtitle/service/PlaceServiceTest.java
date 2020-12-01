@@ -189,7 +189,7 @@ class PlaceServiceTest {
     void removeTest(){
         //GIVEN
         String placeId = "ToBeRemovedId";
-        when(placesMongoDao.existsById(placeId)).thenReturn(true);
+        when(placesMongoDao.findById(placeId)).thenReturn(Optional.of(Place.builder().id(placeId).build()));
 
         //WHEN
         placeService.remove(placeId);

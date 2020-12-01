@@ -67,7 +67,7 @@ export default function TopBar({ title, id, remove }) {
                 color={'inherit'}
                 edge={'end'}
                 aria-label={'edit this picture'}
-                onClick={() => history.push(`/places/edit`)}
+                onClick={() => history.push(`/places/edit/:id`)}
               >
                 <EditOutlinedIcon />
               </IconButton>
@@ -124,6 +124,6 @@ export default function TopBar({ title, id, remove }) {
   }
   function handleDelete() {
     remove(id);
-    history.goBack();
+    history.push('/overview');
   }
 }

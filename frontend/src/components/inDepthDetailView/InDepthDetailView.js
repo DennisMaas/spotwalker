@@ -51,13 +51,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InDepthDetailView({ remove }) {
+export default function InDepthDetailView() {
   const classes = useStyles();
   const { id } = useParams();
-  const { places } = useContext(PlacesContext);
-  const placeData = places.find((place) => place.id === id);
+  const { places, update, remove } = useContext(PlacesContext);
+  const place = places.find((place) => place.id === id);
 
-  return !placeData ? null : (
+  return !place ? null : (
     <Container disableGutters={true}>
       <Grid
         container
@@ -66,58 +66,58 @@ export default function InDepthDetailView({ remove }) {
         alignContent={'center'}
       >
         <Grid item xs={12}>
-          <TopBar id={id} remove={remove} title={placeData.title} />
+          <TopBar id={id} update={update} remove={remove} title={place.title} />
         </Grid>
         <Grid item xs={12}>
           <img
             className={classes.image}
-            src={placeData.primaryPictureUrl}
-            alt={placeData.title}
+            src={place.primaryPictureUrl}
+            alt={place.title}
           />
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <CameraOutlinedIcon />
-            <Typography variant={'body2'}>{placeData.aperture}</Typography>
+            <Typography variant={'body2'}>{place.aperture}</Typography>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <FocalLengthIcon />
-            <Typography variant={'body2'}>{placeData.focalLength}</Typography>
+            <Typography variant={'body2'}>{place.focalLength}</Typography>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <ShutterSpeedOutlinedIcon />
-            <Typography variant={'body2'}>{placeData.shutterSpeed}</Typography>
+            <Typography variant={'body2'}>{place.shutterSpeed}</Typography>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <IsoIcon />
-            <Typography variant={'body2'}>{placeData.iso}</Typography>
+            <Typography variant={'body2'}>{place.iso}</Typography>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
             <FlashOnOutlinedIcon />
-            <Typography variant={'body2'}>{placeData.flash}</Typography>
+            <Typography variant={'body2'}>{place.flash}</Typography>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <div className={classes.toprow}>
-            {placeData.youTubeUrl && (
+            {place.youTubeUrl && (
               <Link
                 underline={'none'}
                 className={classes.link}
-                href={placeData.youTubeUrl}
+                href={place.youTubeUrl}
               >
                 <YouTubeIcon />
                 <Typography variant={'body2'}>Video</Typography>
@@ -127,7 +127,7 @@ export default function InDepthDetailView({ remove }) {
         </Grid>
 
         <Grid container item xs={12}>
-          {(placeData.extraOne || placeData.particularities) && (
+          {(place.extraOne || place.particularities) && (
             <Grid item xs={2}>
               <div className={classes.toprow}>
                 <LoupeOutlinedIcon />
@@ -136,18 +136,14 @@ export default function InDepthDetailView({ remove }) {
           )}
           <Grid item xs={10}>
             <div className={classes.bottomrow}>
-              <Typography variant={'body2'}>{placeData.extraOne}</Typography>
-              <Typography variant={'body2'}>{placeData.extraTwo}</Typography>
-              <Typography variant={'body2'}>
-                {placeData.particularities}
-              </Typography>
+              <Typography variant={'body2'}>{place.extraOne}</Typography>
+              <Typography variant={'body2'}>{place.extraTwo}</Typography>
+              <Typography variant={'body2'}>{place.particularities}</Typography>
             </div>
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.description}>
-          <Typography variant={'body2'}>
-            {placeData.pictureDescription}
-          </Typography>
+          <Typography variant={'body2'}>{place.pictureDescription}</Typography>
         </Grid>
       </Grid>
     </Container>

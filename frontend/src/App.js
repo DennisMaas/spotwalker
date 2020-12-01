@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,25 +7,25 @@ import {
 } from 'react-router-dom';
 import OverView from './components/OverView';
 import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView';
-import PlacesContextProvider from './contexts/PlacesContextProvider';
 import NewPlacePage from './components/NewPlacePage';
-import usePlaces from './components/hooks/usePlaces';
+import PlacesContextProvider from './contexts/PlacesContextProvider';
 
 function App() {
-  const [places, create, remove, update] = usePlaces();
-
   return (
     <Router>
       <PlacesContextProvider>
         <Switch>
           <Route path={'/overview'}>
-            <OverView places={places} />
+            <OverView />
           </Route>
           <Route path={'/places/new'}>
-            <NewPlacePage create={create} />
+            <NewPlacePage />
           </Route>
+          {/*          <Route path={'/places/edit/:id'}>
+            <EditPlacePage places={places} update={update} />
+          </Route>*/}
           <Route path={'/places/:id'}>
-            <InDepthDetailView places={places} remove={remove} />
+            <InDepthDetailView />
           </Route>
           <Route path={'/'}>
             <Redirect to={'/overview'} />
