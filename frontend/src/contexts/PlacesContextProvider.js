@@ -11,7 +11,7 @@ export default function PlacesContextProvider({ children }) {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    getPlaces().then(setPlaces).catch(console.lo);
+    getPlaces().then(setPlaces).catch(console.log);
   }, []);
 
   const create = (

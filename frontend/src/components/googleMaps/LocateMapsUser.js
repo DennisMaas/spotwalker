@@ -18,7 +18,7 @@ export default function LocateMapsUser({ panTo }) {
       }}
       aria-label={'compass'}
     >
-      <ExploreOutlinedIcon fontSize={'large'} />
+      <ExploreOutlinedIcon color={'secondary'} fontSize={'large'} />
     </IconButton>
   );
 }
