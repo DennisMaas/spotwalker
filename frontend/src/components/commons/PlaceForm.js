@@ -265,7 +265,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
           <Grid item xs={6}>
             <Button
               onClick={onCancel}
-              type={'cancel'}
+              type={}
               variant={'outlined'}
               color={'primary'}
               className={classes.button}
@@ -292,7 +292,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   );
 
   function onCancel() {
-    history.goBack();
+    history.push('/overview');
   }
 
   function handleChange(event) {

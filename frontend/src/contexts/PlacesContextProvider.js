@@ -53,7 +53,9 @@ export default function PlacesContextProvider({ children }) {
       extraOne,
       extraTwo,
       particularities
-    ).then((newPlace) => setPlaces([...places, newPlace]));
+    )
+      .then((newPlace) => setPlaces([...places, newPlace]))
+      .catch(console.log);
 
   const update = (
     id,
@@ -96,18 +98,20 @@ export default function PlacesContextProvider({ children }) {
       extraOne,
       extraTwo,
       particularities
-    ).then((updatedPlace) =>
-      setPlaces([
-        ...places.filter((place) => place.id !== updatedPlace.id),
-        updatedPlace,
-      ])
-    );
+    )
+      .then((updatedPlace) =>
+        setPlaces([
+          ...places.filter((place) => place.id !== updatedPlace.id),
+          updatedPlace,
+        ])
+      )
+      .catch(console.log);
   };
 
   const remove = (id) =>
-    removePlace(id).then(() =>
-      setPlaces(places.filter((place) => place.id !== id)).catch(console.log)
-    );
+    removePlace(id)
+      .then(() => setPlaces(places.filter((place) => place.id !== id)))
+      .catch(console.log);
 
   return (
     <PlacesContext.Provider value={{ places, create, remove, update }}>
