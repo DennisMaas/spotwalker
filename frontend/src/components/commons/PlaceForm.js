@@ -64,9 +64,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
   const [placeData, setPlaceData] = useState(place);
-  /*
-  const [marker, setMarker] = useState({ lat: 0, lng: 0 });
-*/
+
   const setMarker = (lat, lng) =>
     setPlaceData({ ...placeData, lat: lat, lng: lng });
   return (
@@ -94,46 +92,10 @@ export default function PlaceForm({ onSave, place = initialState }) {
               setMarker={setMarker}
             />
           </Grid>
-          {/*          <Grid item xs={12}>
-            <TextField
-              value={placeData.primaryPictureUrl}
-              onChange={handleChange}
-              name={'primaryPictureUrl'}
-              variant={'outlined'}
-              fullWidth
-              id={'primaryPictureUrl'}
-              label={'primaryPictureUrl'}
-              required
-            />
-          </Grid>
-              <Grid item xs={12}>
-            <TextField
-              value={placeData.street}
-              onChange={handleChange}
-              name={'street'}
-              variant={'outlined'}
-              fullWidth
-              id={'street'}
-              label={'street'}
-              required
-            />
-          </Grid>
           <Grid item xs={12}>
-            <TextField
-              value={placeData.address}
-              onChange={handleChange}
-              name={'address'}
-              variant={'outlined'}
-              fullWidth
-              id={'address'}
-              label={'address'}
-              required
-            />
-          </Grid>*/}
-          <Grid item xs={6}>
             <Typography>Latitude: {placeData.lat}</Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Typography>Longitude {placeData.lng}</Typography>
           </Grid>
           <Grid item xs={12}>

@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PlaceCard({ placeData }) {
+export default function PlaceCard({ place }) {
   const classes = useStyles();
   const history = useHistory();
-  const { lat, lng } = placeData;
+  const { lat, lng } = place;
   const gMapUrl =
     'https://www.google.com/maps/dir//' +
     lat +
@@ -38,8 +38,8 @@ export default function PlaceCard({ placeData }) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label={placeData.type} className={classes.avatar}>
-            <PlaceTypeIcon type={placeData.type} />
+          <Avatar aria-label={place.type} className={classes.avatar}>
+            <PlaceTypeIcon type={place.type} />
           </Avatar>
         }
         action={
@@ -47,15 +47,15 @@ export default function PlaceCard({ placeData }) {
             <DirectionsOutlinedIcon className={classes.directions} />
           </IconButton>
         }
-        title={placeData.title}
-        subheader={placeData.street}
+        title={place.title}
+        subheader={place.street}
       />
-      <CardActionArea onClick={() => history.push(`/places/${placeData.id}`)}>
+      <CardActionArea onClick={() => history.push(`/places/${place.id}`)}>
         <CardMedia
           className={classes.media}
           component={'img'}
-          image={placeData.primaryPictureUrl}
-          title={placeData.title}
+          image={place.primaryPictureUrl}
+          title={place.title}
         />
       </CardActionArea>
     </Card>

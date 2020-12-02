@@ -185,6 +185,30 @@ class PlaceServiceTest {
         }
     }
 
+    @Test
+    void removeTest(){
+        //GIVEN
+        String placeId = "ToBeRemovedId";
+        when(placesMongoDao.findById(placeId)).thenReturn(Optional.of(Place.builder().id(placeId).build()));
 
+        //WHEN
+        placeService.remove(placeId);
 
+        //THEN
+        verify(placesMongoDao).deleteById(placeId);
+    }
+
+    @Test
+    void removeTestThrows(){
+        //GIVEN
+        String placeId = "ToBeRemovedId";
+        when(placesMongoDao.existsById(placeId)).thenReturn(false);
+        // When
+        try {
+            placeService.remove(placeId);
+            fail("missing exception");
+        } catch (ResponseStatusException exception) {
+            assertThat(exception.getStatus(), is(HttpStatus.NOT_FOUND));
+        }
+    }
 }

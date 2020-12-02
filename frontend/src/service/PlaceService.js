@@ -68,7 +68,7 @@ export const updatePlace = (
   particularities
 ) =>
   axios
-    .put('/api/places' + id, {
+    .put('/api/places/' + id, {
       id,
       primaryPictureUrl,
       type,
@@ -90,3 +90,5 @@ export const updatePlace = (
       particularities,
     })
     .then((response) => response.data);
+
+export const removePlace = (id) => axios.delete('/api/places/' + id);

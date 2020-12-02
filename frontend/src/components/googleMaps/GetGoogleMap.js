@@ -1,8 +1,24 @@
 import React, { useCallback, useRef } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import '@reach/combobox/styles.css';
 import LocateMapsUser from './LocateMapsUser';
 import SearchGoogleMaps from './SearchGoogleMaps';
+import Grid from '@material-ui/core/Grid';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
+const useStyles = makeStyles((theme) => ({
+  map: {
+    position: 'relative',
+  },
+  search: {
+    position: 'absolute',
+    zIndex: 10,
+  },
+  locate: {
+    position: 'absolute',
+    zIndex: 10,
+    right: 0,
+  },
+}));
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -21,6 +37,7 @@ const center = {
 };
 
 export default function GetGoogleMap({ lat, lng, setMarker }) {
+  const classes = useStyles();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries,
@@ -47,9 +64,13 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
   if (!isLoaded) return 'Karte wird geladen';
 
   return (
-    <>
-      <SearchGoogleMaps panTo={panTo} />
-      <LocateMapsUser panTo={panTo} />
+    <Grid container item className={classes.map}>
+      <Grid xs={5} item className={classes.search}>
+        <SearchGoogleMaps panTo={panTo} />
+      </Grid>
+      <Grid item xs={2} className={classes.locate}>
+        <LocateMapsUser panTo={panTo} />
+      </Grid>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={11}
@@ -65,6 +86,6 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
           position={{ lat: lat, lng: lng }}
         />
       </GoogleMap>
-    </>
+    </Grid>
   );
 }

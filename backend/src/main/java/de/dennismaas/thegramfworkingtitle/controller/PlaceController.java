@@ -39,7 +39,7 @@ public class PlaceController {
         return this.placeService.add(addPlaceDto);
     }
 
-    @PutMapping ("{placeId}")
+    @PutMapping("{placeId}")
     public Place update(@PathVariable String placeId, @RequestBody UpdatePlaceDto updatedPlace) {
         if(!placeId.equals(updatedPlace.getId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -47,7 +47,7 @@ public class PlaceController {
         return placeService.update(updatedPlace, placeId);
     }
 
-    @DeleteMapping ("{placeId}")
+    @DeleteMapping("{placeId}")
     public void remove(@PathVariable String placeId) {placeService.remove(placeId);}
 
 }
