@@ -265,7 +265,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
           <Grid item xs={6}>
             <Button
               onClick={onCancel}
-              type={}
+              type={'button'}
               variant={'outlined'}
               color={'primary'}
               className={classes.button}
