@@ -1,10 +1,11 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
 import PlaceForm from './commons/PlaceForm';
 import Typography from '@material-ui/core/Typography';
+import PlacesContext from '../contexts/PlacesContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,24 +19,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditPlacePage({ create, update, places }) {
+export default function NewPlacePage() {
+  const { update, places } = useContext(PlacesContext);
+  const { id } = useParams();
   const classes = useStyles();
   const history = useHistory();
+  const place = places.find((place) => place.id === id);
 
-  return (
+  return !place ? null : (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Neues Foto anlegen
+          Foto bearbeiten
         </Typography>
-        <PlaceForm onSave={handleSave} />
+        <PlaceForm place={place} onSave={handleSave} />
       </div>
     </Container>
   );
 
   function handleSave(place) {
     const {
+      id,
       primaryPictureUrl,
       type,
       title,
@@ -54,7 +59,8 @@ export default function EditPlacePage({ create, update, places }) {
       extraTwo,
       particularities,
     } = place;
-    create(
+    update(
+      id,
       primaryPictureUrl,
       type,
       title,
@@ -73,6 +79,6 @@ export default function EditPlacePage({ create, update, places }) {
       extraTwo,
       particularities
     );
-    history.push('/overview');
+    history.goBack();
   }
 }

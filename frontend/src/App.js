@@ -5,10 +5,11 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import OverView from './components/OverView';
+import OverViewList from './components/OverViewList';
 import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView';
 import NewPlacePage from './components/NewPlacePage';
 import PlacesContextProvider from './contexts/PlacesContextProvider';
+import EditPlacePage from './components/EditPlacePage';
 
 function App() {
   return (
@@ -16,14 +17,14 @@ function App() {
       <PlacesContextProvider>
         <Switch>
           <Route path={'/overview'}>
-            <OverView />
+            <OverViewList />
           </Route>
           <Route path={'/places/new'}>
             <NewPlacePage />
           </Route>
-          {/*          <Route path={'/places/edit/:id'}>
-            <EditPlacePage places={places} update={update} />
-          </Route>*/}
+          <Route path={'/places/edit/:id'}>
+            <EditPlacePage />
+          </Route>
           <Route path={'/places/:id'}>
             <InDepthDetailView />
           </Route>

@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import GetGoogleMap from '../googleMaps/GetGoogleMap';
 import { Typography } from '@material-ui/core';
 import axios from 'axios';
+import UploadPicture from './UploadPicture';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -72,7 +73,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
       .get(url)
       .then((response) => response.data)
       .then((data) => {
-        /*want to filter array results for type "sublocality_level_2" and then print formatted_adress to placeData.address*/
         const getAddress = data.results[0].formatted_address;
         setPlaceData({ ...placeData, address: getAddress, lat: lat, lng: lng });
       })
@@ -80,7 +80,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   };
   return (
     <>
-      {/*      <UploadPicture />*/}
+      <UploadPicture />
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -115,21 +115,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
               fullWidth
               id={'pictureDescription'}
               label={'Bildbeschreibung'}
-              multiline
-              rows={3}
-              rowsMax={6}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={placeData.placeDescription}
-              onChange={handleChange}
-              name={'placeDescription'}
-              variant={'outlined'}
-              fullWidth
-              id={'placeDescription'}
-              label={'placeDescription'}
               multiline
               rows={3}
               rowsMax={6}

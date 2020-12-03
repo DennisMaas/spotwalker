@@ -28,30 +28,28 @@ export default function UploadPicture() {
   const classes = useStyles();
 
   return (
-    <>
-      <Grid container item justify={'center'}>
-        <input
-          hidden
-          id={'contained-button-file'}
-          accept={'image/*'}
-          type={'file'}
-          onChange={handlePicture}
-        />
-        <label htmlFor={'contained-button-file'}>
-          <Button
-            className={classes.button}
-            variant={'contained'}
-            color={'primary'}
-            aria-label={'upload picture'}
-            component={'span'}
-            startIcon={<ImageSearchOutlined />}
-          >
-            Foto auswählen
-          </Button>
-        </label>
-        <img className={classes.picture} alt={''} src={picture} />
-      </Grid>
-    </>
+    <Grid container item justify={'center'}>
+      <input
+        hidden
+        id={'contained-button-file'}
+        accept={'image/*'}
+        type={'file'}
+        onChange={handlePicture}
+      />
+      <label htmlFor={'contained-button-file'}>
+        <Button
+          className={classes.button}
+          variant={'contained'}
+          color={'primary'}
+          aria-label={'upload picture'}
+          component={'span'}
+          startIcon={<ImageSearchOutlined />}
+        >
+          Foto auswählen
+        </Button>
+      </label>
+      <img className={classes.picture} alt={''} src={picture} />
+    </Grid>
   );
 
   function handlePicture(event) {
