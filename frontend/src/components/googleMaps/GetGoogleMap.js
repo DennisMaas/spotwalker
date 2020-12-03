@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   search: {
+    width: '100&',
+    maxWidth: '300px',
+    top: '4%',
+    left: '50%',
+    transform: 'translateX(-50%)',
     position: 'absolute',
     zIndex: 10,
   },
@@ -28,6 +33,7 @@ const mapContainerStyle = {
 
 const options = {
   disableDefaultUI: true,
+  mapTypeControl: true,
   zoomControl: true,
 };
 

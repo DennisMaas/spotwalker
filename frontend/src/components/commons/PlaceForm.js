@@ -9,6 +9,7 @@ import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import GetGoogleMap from '../googleMaps/GetGoogleMap';
 import { Typography } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -24,7 +25,6 @@ const initialState = {
   primaryPictureUrl: '',
   type: 'cityscape',
   title: '',
-  street: '',
   address: '',
   lat: 0,
   lng: 0,
@@ -59,14 +59,25 @@ const types = [
     label: 'Nachtaufnahme',
   },
 ];
+const key = process.env['REACT_APP_MAPS_API_KEY'];
 
 export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
   const [placeData, setPlaceData] = useState(place);
+  const setMarker = (lat, lng) => {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`;
 
-  const setMarker = (lat, lng) =>
-    setPlaceData({ ...placeData, lat: lat, lng: lng });
+    axios
+      .get(url)
+      .then((response) => response.data)
+      .then((data) => {
+        /*want to filter array results for type "sublocality_level_2" and then print formatted_adress to placeData.address*/
+        const getAddress = data.results[0].formatted_address;
+        setPlaceData({ ...placeData, address: getAddress, lat: lat, lng: lng });
+      })
+      .catch(console.error);
+  };
   return (
     <>
       {/*      <UploadPicture />*/}
@@ -93,10 +104,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography>Latitude: {placeData.lat}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>Longitude {placeData.lng}</Typography>
+            <Typography>Ort {placeData.address}</Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -265,7 +273,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
           <Grid item xs={6}>
             <Button
               onClick={onCancel}
-              type={}
+              type={'button'}
               variant={'outlined'}
               color={'primary'}
               className={classes.button}

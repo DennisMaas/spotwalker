@@ -25,6 +25,7 @@ export default function SearchGoogleMaps({ panTo }) {
       location: { lat: () => 53.55009, lng: () => 9.991636 },
       radius: 200 * 1000,
     },
+    debounce: 500,
   });
 
   const handleSelect = async (address) => {
@@ -49,7 +50,7 @@ export default function SearchGoogleMaps({ panTo }) {
         value={value}
         onChange={handleInput}
         disabled={!ready}
-        placeholder="Ort der Auslösung"
+        placeholder="Suche"
       />
       <ComboboxPopover>
         <ComboboxList>
