@@ -5,7 +5,7 @@ import TopBar from './commons/TopBar';
 import Paper from '@material-ui/core/Paper';
 import PlacesContext from '../contexts/PlacesContext';
 
-export default function OverView() {
+export default function OverViewList() {
   const { places } = useContext(PlacesContext);
   return (
     <Paper>

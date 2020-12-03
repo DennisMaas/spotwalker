@@ -10,9 +10,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   search: {
-    width: '100&',
     maxWidth: '300px',
-    top: '4%',
+    bottom: '4%',
     left: '50%',
     transform: 'translateX(-50%)',
     position: 'absolute',
@@ -41,6 +40,10 @@ const center = {
   lat: 53.55008,
   lng: 9.991636,
 };
+
+/*const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
+const iconUrl = https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=;
+ */
 
 export default function GetGoogleMap({ lat, lng, setMarker }) {
   const classes = useStyles();
@@ -71,7 +74,7 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
 
   return (
     <Grid container item className={classes.map}>
-      <Grid xs={5} item className={classes.search}>
+      <Grid xs={7} item className={classes.search}>
         <SearchGoogleMaps panTo={panTo} />
       </Grid>
       <Grid item xs={2} className={classes.locate}>
@@ -90,6 +93,10 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
           draggable={false}
           key={`${lat}-${lng}`}
           position={{ lat: lat, lng: lng }}
+          icon={{
+            url:
+              "https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=d8704ba07b9741129b3995cc9a4e01d2"
+          }}
         />
       </GoogleMap>
     </Grid>

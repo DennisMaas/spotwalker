@@ -67,7 +67,7 @@ export default function TopBar({ title, id, remove }) {
                 color={'inherit'}
                 edge={'end'}
                 aria-label={'edit this picture'}
-                onClick={() => history.push(`/places/edit/:id`)}
+                onClick={() => history.push(`/places/edit/${id}`)}
               >
                 <EditOutlinedIcon />
               </IconButton>
