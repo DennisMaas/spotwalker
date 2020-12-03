@@ -7,7 +7,6 @@ export default function FetchAddress() {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       export const area = data.results[5].formatted_address;
       export const exactAddress = data.results[0].formatted_address;
     })
