@@ -17,7 +17,6 @@ public class UpdatePlaceDto {
     private String primaryPictureUrl;
     private String type;
     private String title;
-    private String street;
     private String address;
     private String lat;
     private String lng;
