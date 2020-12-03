@@ -78,7 +78,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
       })
       .catch(console.error);
   };
-  console.log(placeData.address);
   return (
     <>
       {/*      <UploadPicture />*/}
