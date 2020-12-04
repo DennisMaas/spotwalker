@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const libraries = ['places'];
 const mapContainerStyle = {
-  width: '100%',
+  width: '100vw',
   height: '60vh',
 };
 
@@ -41,9 +41,8 @@ const center = {
   lng: 9.991636,
 };
 
-/*const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
-const iconUrl = https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=;
- */
+const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
+const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=${key}`;
 
 export default function GetGoogleMap({ lat, lng, setMarker }) {
   const classes = useStyles();
@@ -82,7 +81,7 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
       </Grid>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={11}
+        zoom={12}
         center={center}
         options={options}
         onClick={onMapClick}
@@ -94,8 +93,7 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
           key={`${lat}-${lng}`}
           position={{ lat: lat, lng: lng }}
           icon={{
-            url:
-              "https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=d8704ba07b9741129b3995cc9a4e01d2"
+            url: iconUrl,
           }}
         />
       </GoogleMap>
