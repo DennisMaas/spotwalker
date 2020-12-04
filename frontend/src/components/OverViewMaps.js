@@ -42,13 +42,6 @@ export default function OverViewMap() {
   if (loadError) return 'Fehler beim Laden der Karte';
   if (!isLoaded) return 'Karte wird geladen';
 
-  const lat = places?.map((place) => place.lat);
-  const lng = places?.map((place) => place.lng);
-  const id = places?.map((place) => place.id);
-
-  /*  const markers = { lat, lng, id };*/
-  console.log(lat);
-
   return (
     <Container component={'main'} disableGutters={true}>
       <CssBaseline />

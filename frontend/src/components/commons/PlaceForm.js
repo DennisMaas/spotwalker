@@ -77,6 +77,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
       })
       .catch(console.error);
   };
+
   return (
     <>
       <UploadPicture />
