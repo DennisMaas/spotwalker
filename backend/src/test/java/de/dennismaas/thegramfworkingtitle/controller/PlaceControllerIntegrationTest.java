@@ -51,10 +51,10 @@ class PlaceControllerIntegrationTest {
     public void setupDb(){
         placesMongoDao.deleteAll();
         placesMongoDao.saveAll(List.of(
-                new Place("someId", "someUrl","someType", "someTitle",  "someAddress", "someLat", "someLong", "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter","someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z") ),
-                new Place("someId1", "someUrl1", "someType1", "someTitle1", "someAddress1", "someLat1", "someLong1", "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
-                new Place("someId2", "someUrl2", "someType2", "someTitle2",  "someAddress2", "someLat2", "someLong2", "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2","someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
-                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", "someLat3", "someLong3", "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
+                new Place("someId", "someUrl","someType", "someTitle",  "someAddress", 56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter","someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z") ),
+                new Place("someId1", "someUrl1", "someType1", "someTitle1", "someAddress1", 56.300, 3.10,"somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
+                new Place("someId2", "someUrl2", "someType2", "someTitle2",  "someAddress2", 6.000, 9.330, "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2","someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
+                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", 56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
         ));
 
     }
@@ -66,10 +66,10 @@ class PlaceControllerIntegrationTest {
     public void testGetMapping() {
         // GIVEN
         List<Place> stockPlaces = new ArrayList<>(List.of(
-                new Place("someId", "someUrl", "someType", "someTitle",  "someAddress", "someLat", "someLong", "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z")),
-                new Place("someId1", "someUrl1", "someType1", "someTitle1", "someAddress1", "someLat1", "someLong1", "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1", "someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
-                new Place("someId2", "someUrl2", "someType2", "someTitle2", "someAddress2", "someLat2", "someLong2", "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2", "someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
-                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", "someLat3", "someLong3", "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3", "someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
+                new Place("someId", "someUrl", "someType", "someTitle",  "someAddress", 56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z")),
+                new Place("someId1", "someUrl1", "someType1", "someTitle1", "someAddress1", 56.300, 3.10,"somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1", "someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
+                new Place("someId2", "someUrl2", "someType2", "someTitle2", "someAddress2", 6.000, 9.330, "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2", "someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
+                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", 56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3", "someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
         ));
         String url = getPlaceUrl();
 
@@ -91,10 +91,10 @@ class PlaceControllerIntegrationTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(Arrays.asList(response.getBody()), containsInAnyOrder(
-                new Place("someId", "someUrl","someType", "someTitle", "someAddress", "someLat", "someLong", "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter","someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z") ),
-                new Place("someId1", "someUrl1", "someType1", "someTitle1",  "someAddress1", "someLat1", "someLong1", "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
-                new Place("someId2", "someUrl2", "someType2", "someTitle2",  "someAddress2", "someLat2", "someLong2", "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2","someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
-                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", "someLat3", "someLong3", "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
+                new Place("someId", "someUrl","someType", "someTitle", "someAddress", 56.000, 9.10,"somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter","someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z") ),
+                new Place("someId1", "someUrl1", "someType1", "someTitle1",  "someAddress1", 56.300, 3.10, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
+                new Place("someId2", "someUrl2", "someType2", "someTitle2",  "someAddress2", 6.000, 9.330, "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2","someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
+                new Place("someId3", "someUrl3", "someType3", "someTitle3",  "someAddress3", 56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
         ));
     }
 
@@ -132,8 +132,7 @@ class PlaceControllerIntegrationTest {
                 "someType",
                 "someTitle",
                 "someAddress",
-                "someLat",
-                "someLong",
+                56.0300, 9.103,
                 "somePlaceDesc",
                 "somePicDesc",
                 "someAperture",
@@ -164,8 +163,7 @@ class PlaceControllerIntegrationTest {
                 "someType",
                 "someTitle",
                 "someAddress",
-                "someLat",
-                "someLong",
+                56.0300, 9.103,
                 "somePlaceDesc",
                 "somePicDesc",
                 "someAperture",
@@ -198,8 +196,8 @@ class PlaceControllerIntegrationTest {
                 .type("someType")
                 .title("someTitle")
                 .address("someAddress")
-                .lat("someLat")
-                .lng("someLong")
+                .lat(56.0300)
+                .lng( 9.103)
                 .placeDescription("somePlaceDesc")
                 .pictureDescription("somePicDesc")
                 .aperture("someAperture")
@@ -228,8 +226,8 @@ class PlaceControllerIntegrationTest {
                 .type("someType")
                 .title("someTitle")
                 .address("someAddress")
-                .lat("someLat")
-                .lng("someLong")
+                .lat(56.0300)
+                .lng( 9.103)
                 .placeDescription("somePlaceDesc")
                 .pictureDescription("somePicDesc")
                 .aperture("someAperture")
@@ -263,8 +261,8 @@ class PlaceControllerIntegrationTest {
                 .type("someType")
                 .title("someTitle")
                 .address("someAddress")
-                .lat("someLat")
-                .lng("someLong")
+                .lat(56.0300)
+                .lng( 9.103)
                 .placeDescription("somePlaceDesc")
                 .pictureDescription("somePicDesc")
                 .aperture("someAperture")

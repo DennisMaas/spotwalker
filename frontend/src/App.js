@@ -10,14 +10,18 @@ import InDepthDetailView from './components/inDepthDetailView/InDepthDetailView'
 import NewPlacePage from './components/NewPlacePage';
 import PlacesContextProvider from './contexts/PlacesContextProvider';
 import EditPlacePage from './components/EditPlacePage';
+import OverViewMaps from './components/OverViewMaps';
 
 function App() {
   return (
     <Router>
       <PlacesContextProvider>
         <Switch>
-          <Route path={'/overview'}>
+          <Route path={'/overviewlist'}>
             <OverViewList />
+          </Route>
+          <Route path={'/overviewmaps'}>
+            <OverViewMaps />
           </Route>
           <Route path={'/places/new'}>
             <NewPlacePage />
@@ -29,7 +33,7 @@ function App() {
             <InDepthDetailView />
           </Route>
           <Route path={'/'}>
-            <Redirect to={'/overview'} />
+            <Redirect to={'/overviewlist'} />
           </Route>
         </Switch>
       </PlacesContextProvider>

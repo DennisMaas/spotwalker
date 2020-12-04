@@ -8,7 +8,6 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import GetGoogleMap from '../googleMaps/GetGoogleMap';
-import { Typography } from '@material-ui/core';
 import axios from 'axios';
 import UploadPicture from './UploadPicture';
 
@@ -102,9 +101,6 @@ export default function PlaceForm({ onSave, place = initialState }) {
               lng={placeData.lng}
               setMarker={setMarker}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>Ort {placeData.address}</Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -276,7 +272,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
               className={classes.button}
               startIcon={<SaveOutlinedIcon />}
             >
-              Foto anlegen
+              Foto speichern
             </Button>
           </Grid>
         </Grid>
@@ -285,7 +281,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   );
 
   function onCancel() {
-    history.push('/overview');
+    history.push('/overviewlist');
   }
 
   function handleChange(event) {

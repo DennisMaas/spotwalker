@@ -18,8 +18,8 @@ public class UpdatePlaceDto {
     private String type;
     private String title;
     private String address;
-    private String lat;
-    private String lng;
+    private double lat;
+    private double lng;
     private String placeDescription;
     private String pictureDescription;
     private String aperture;
