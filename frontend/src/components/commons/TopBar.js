@@ -124,6 +124,6 @@ export default function TopBar({ title, id, remove }) {
   }
   function handleDelete() {
     remove(id);
-    history.push('/overview');
+    history.push('/overviewlist');
   }
 }

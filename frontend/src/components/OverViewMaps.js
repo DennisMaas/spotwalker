@@ -1,10 +1,16 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import TopBar from './commons/TopBar';
 import PlacesContext from '../contexts/PlacesContext';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useLoadScript,
+} from '@react-google-maps/api';
 import BottomBar from './commons/BottomBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -28,7 +34,7 @@ const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435
 
 export default function OverViewMap() {
   const { places } = useContext(PlacesContext);
-
+  const [selected, setSelected] = useState();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries,
@@ -41,13 +47,6 @@ export default function OverViewMap() {
 
   if (loadError) return 'Fehler beim Laden der Karte';
   if (!isLoaded) return 'Karte wird geladen';
-
-  const lat = places?.map((place) => place.lat);
-  const lng = places?.map((place) => place.lng);
-  const id = places?.map((place) => place.id);
-
-  /*  const markers = { lat, lng, id };*/
-  console.log(lat);
 
   return (
     <Container component={'main'} disableGutters={true}>
@@ -72,8 +71,21 @@ export default function OverViewMap() {
                 icon={{
                   url: iconUrl,
                 }}
+                onClick={() => {
+                  setSelected(place);
+                }}
               />
             ))}
+            {selected ? (
+              <InfoWindow
+                position={{ lat: selected.lat, lng: selected.lng }}
+                onCloseClick={() => {
+                  setSelected(null);
+                }}
+              >
+                <Typography>{places.title}</Typography>
+              </InfoWindow>
+            ) : null}
           </GoogleMap>
         </Grid>
       </Grid>
