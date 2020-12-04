@@ -99,13 +99,6 @@ public class PlaceService {
         return placesMongoDao.save(updatedPlace);
     }
 
-/*    TODO: Think about which remove is better
-       public void remove(String placeId) {
-        if(!placesMongoDao.existsById(placeId)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        placesMongoDao.deleteById(placeId);
-    }*/
 
     public void remove(String placeId) {
         Place place = placesMongoDao.findById(placeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

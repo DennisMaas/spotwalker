@@ -66,10 +66,12 @@ export default function OverViewMap() {
           >
             {places?.map((place) => (
               <Marker
-                key={`${place.id}`}
+                key={`${place.id}-${place.title}`}
                 position={{ lat: place.lat, lng: place.lng }}
                 icon={{
                   url: iconUrl,
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
                 }}
                 onClick={() => {
                   setSelected(place);
@@ -83,7 +85,7 @@ export default function OverViewMap() {
                   setSelected(null);
                 }}
               >
-                <Typography>{places.title}</Typography>
+                <Typography variant={'body1'}>{selected.title}</Typography>
               </InfoWindow>
             ) : null}
           </GoogleMap>

@@ -135,7 +135,7 @@ class PlaceServiceTest {
 
         Place updatedPlace = new Place(
                 placeId,
-                "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "someAddress1", 56.300, 9.20, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
+                "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "someAddress1", 46.300, 29.20,"somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
 
         );
 
