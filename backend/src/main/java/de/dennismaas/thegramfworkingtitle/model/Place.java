@@ -21,6 +21,9 @@ public class Place {
     private String type;
     private String title;
     private String address;
+    private String street;
+    private String city;
+    private String country;
     private double lat;
     private double lng;
     private String placeDescription;
