@@ -44,12 +44,21 @@ public class PlaceService {
     }
 
     public Place add(AddPlaceDto placeToBeAdded) {
+        String addressToSplit = placeToBeAdded.getAddress();
+        String[] addressArray = addressToSplit.trim().split("\\s*,\\s*");
+        String street = addressArray[0];
+        String city = addressArray[1];
+        String country = addressArray[2];
+
         Place placeObjectToBeSaved = Place.builder()
                 .id(idUtils.generateId())
                 .primaryPictureUrl(placeToBeAdded.getPrimaryPictureUrl())
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
                 .address(placeToBeAdded.getAddress())
+                .street(street)
+                .city(city)
+                .country(country)
                 .lat(placeToBeAdded.getLat())
                 .lng(placeToBeAdded.getLng())
                 .placeDescription(placeToBeAdded.getPlaceDescription())
@@ -75,12 +84,20 @@ public class PlaceService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
+        String addressToSplit = placeToBeUpdated.getAddress();
+        String[] addressArray = addressToSplit.trim().split("\\s*,\\s*");
+        String street = addressArray[0];
+        String city = addressArray[1];
+        String country = addressArray[2];
         Place updatedPlace = Place.builder()
                 .id(placeToBeUpdated.getId())
                 .primaryPictureUrl(placeToBeUpdated.getPrimaryPictureUrl())
                 .type(placeToBeUpdated.getType())
                 .title(placeToBeUpdated.getTitle())
                 .address(placeToBeUpdated.getAddress())
+                .street(street)
+                .city(city)
+                .country(country)
                 .lat(placeToBeUpdated.getLat())
                 .lng(placeToBeUpdated.getLng())
                 .placeDescription(placeToBeUpdated.getPlaceDescription())

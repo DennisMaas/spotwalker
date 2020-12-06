@@ -35,7 +35,7 @@ export default function PlaceCard({ place }) {
     ',20z';
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant={'outlined'}>
       <CardHeader
         avatar={
           <Avatar aria-label={place.type} className={classes.avatar}>
