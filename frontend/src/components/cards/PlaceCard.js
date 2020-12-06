@@ -48,7 +48,7 @@ export default function PlaceCard({ place }) {
           </IconButton>
         }
         title={place.title}
-        subheader={place.address}
+        subheader={place.street}
       />
       <CardActionArea onClick={() => history.push(`/places/${place.id}`)}>
         <CardMedia
