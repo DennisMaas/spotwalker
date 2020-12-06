@@ -38,7 +38,11 @@ export default function PlaceCard({ place }) {
     <Card className={classes.root} variant={'outlined'}>
       <CardHeader
         avatar={
-          <Avatar aria-label={place.type} className={classes.avatar}>
+          <Avatar
+            alt={place.type}
+            aria-label={place.type}
+            className={classes.avatar}
+          >
             <PlaceTypeIcon type={place.type} />
           </Avatar>
         }
