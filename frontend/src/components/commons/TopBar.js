@@ -44,7 +44,7 @@ export default function TopBar({ title, id, remove }) {
                 component={'h1'}
                 className={classes.title}
               >
-                The Gramf
+                SpotWalker
               </Typography>
             )}
             {title && (

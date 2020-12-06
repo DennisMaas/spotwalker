@@ -11,6 +11,7 @@ import {
 import BottomBar from './commons/BottomBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -85,7 +86,19 @@ export default function OverViewMap() {
                   setSelected(null);
                 }}
               >
-                <Typography variant={'body1'}>{selected.title}</Typography>
+                <Box justify={'center'} component={'div'}>
+                  <Typography variant={'h6'} component={'h2'}>
+                    {selected.title}
+                  </Typography>
+                  <img
+                    style={{
+                      width: '30vw',
+                      height: 'auto',
+                    }}
+                    alt={selected.title}
+                    src={selected.primaryPictureUrl}
+                  />
+                </Box>
               </InfoWindow>
             ) : null}
           </GoogleMap>
