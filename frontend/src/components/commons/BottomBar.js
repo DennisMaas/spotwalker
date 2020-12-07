@@ -10,27 +10,12 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import ViewListOutlinedIcon from '@material-ui/icons/ViewListOutlined';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
-    padding: theme.spacing(2, 2, 0),
-  },
-  paper: {
-    paddingBottom: 50,
-  },
-  list: {
-    marginBottom: theme.spacing(2),
-  },
-  subheader: {
-    backgroundColor: theme.palette.background.paper,
-  },
   appBar: {
     top: 'auto',
     bottom: 0,
   },
   grow: {
     flexGrow: 1,
-  },
-  bottomBarAction: {
-    color: theme.palette.action,
   },
 }));
 
@@ -46,7 +31,6 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               edge={'start'}
               color={'inherit'}
               onClick={handleListClick}
-              className={classes.bottomBarAction}
             >
               <ViewListIcon />
             </IconButton>
@@ -55,7 +39,6 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               edge={'end'}
               color={'inherit'}
               onClick={handleMapClick}
-              className={classes.bottomBarAction}
             >
               <MapOutlinedIcon />
             </IconButton>
@@ -67,7 +50,6 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               edge={'start'}
               color={'inherit'}
               onClick={handleListClick}
-              className={classes.bottomBarAction}
             >
               <ViewListOutlinedIcon />
             </IconButton>
@@ -76,7 +58,6 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               edge={'end'}
               color={'inherit'}
               onClick={handleMapClick}
-              className={classes.bottomBarAction}
             >
               <MapIcon />
             </IconButton>
