@@ -50,7 +50,7 @@ export default function MapBase({ children, onMapClick }) {
   const classes = useStyles();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    version: '3.42.9', //remove when Google fixes apply null bug
+    version: '3.42.9', //remove this line when Google fixes apply null bug
     libraries,
   });
 
