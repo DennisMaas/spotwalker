@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { useHistory } from 'react-router-dom';
 import { ListOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BottomBar() {
-  const history = useHistory();
+export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
   const classes = useStyles();
 
   return (
@@ -49,7 +47,8 @@ export default function BottomBar() {
           <IconButton
             edge={'end'}
             color={'inherit'}
-            onClick={() => history.push('/overviewlist')}
+            onClick={handleListClick}
+            className={bottomBarAction}
           >
             <ListOutlined />
           </IconButton>
@@ -57,7 +56,8 @@ export default function BottomBar() {
           <IconButton
             edge={'end'}
             color={'inherit'}
-            onClick={() => history.push('/overviewmaps')}
+            onClick={handleMapClick}
+            className={bottomBarAction}
           >
             <MapOutlinedIcon />
           </IconButton>
@@ -66,4 +66,10 @@ export default function BottomBar() {
       <Toolbar />
     </>
   );
+  function handleListClick() {
+    setBottomBarAction('list');
+  }
+  function handleMapClick() {
+    setBottomBarAction('map');
+  }
 }

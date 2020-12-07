@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
-import GetGoogleMap from '../googleMaps/GetGoogleMap';
+import MapForAddAndUpdate from '../googleMaps/MapForAddAndUpdate';
 import axios from 'axios';
 import UploadPicture from './UploadPicture';
 
@@ -34,7 +34,7 @@ const initialState = {
   focalLength: '',
   shutterSpeed: '',
   iso: '',
-  flash: '',
+  flash: 'kein',
   youTubeUrl: '',
   extraOne: '',
   extraTwo: '',
@@ -96,7 +96,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
             />
           </Grid>
           <Grid item xs={12}>
-            <GetGoogleMap
+            <MapForAddAndUpdate
               lat={placeData.lat}
               lng={placeData.lng}
               setMarker={setMarker}
@@ -281,7 +281,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   );
 
   function onCancel() {
-    history.push('/overviewlist');
+    history.push('/overview');
   }
 
   function handleChange(event) {

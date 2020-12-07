@@ -1,11 +1,15 @@
 import React, { useCallback, useRef } from 'react';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import LocateMapsUser from './LocateMapsUser';
 import SearchGoogleMaps from './SearchGoogleMaps';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import mapStyles from './mapStyles';
 
 const useStyles = makeStyles((theme) => ({
+  grow: {
+    flexGrow: 1,
+  },
   map: {
     position: 'relative',
   },
@@ -27,10 +31,11 @@ const useStyles = makeStyles((theme) => ({
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '60vh',
+  height: '79vh',
 };
 
 const options = {
+  styles: mapStyles,
   disableDefaultUI: true,
   mapTypeControl: true,
   zoomControl: true,
@@ -41,10 +46,7 @@ const center = {
   lng: 9.991636,
 };
 
-const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
-const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=${key}`;
-
-export default function GetGoogleMap({ lat, lng, setMarker }) {
+export default function MapBase({ children, setMarker }) {
   const classes = useStyles();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
@@ -65,7 +67,7 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(15);
+    mapRef.current.setZoom(17);
   }, []);
 
   if (loadError) return 'Fehler beim Laden der Karte';
@@ -73,10 +75,11 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
 
   return (
     <Grid container item className={classes.map}>
-      <Grid xs={7} item className={classes.search}>
+      <Grid item className={classes.search}>
         <SearchGoogleMaps panTo={panTo} />
       </Grid>
-      <Grid item xs={2} className={classes.locate}>
+      <div className={classes.grow} />
+      <Grid item className={classes.locate}>
         <LocateMapsUser panTo={panTo} />
       </Grid>
       <GoogleMap
@@ -87,15 +90,7 @@ export default function GetGoogleMap({ lat, lng, setMarker }) {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        <Marker
-          clickable={false}
-          draggable={false}
-          key={`${lat}-${lng}`}
-          position={{ lat: lat, lng: lng }}
-          icon={{
-            url: iconUrl,
-          }}
-        />
+        {children}
       </GoogleMap>
     </Grid>
   );

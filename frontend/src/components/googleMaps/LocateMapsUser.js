@@ -1,5 +1,5 @@
 import IconButton from '@material-ui/core/IconButton';
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import MyLocationOutlinedIcon from '@material-ui/icons/MyLocationOutlined';
 import React from 'react';
 
 export default function LocateMapsUser({ panTo }) {
@@ -16,9 +16,9 @@ export default function LocateMapsUser({ panTo }) {
           () => null
         );
       }}
-      aria-label={'compass'}
+      aria-label={'find-user-location'}
     >
-      <ExploreOutlinedIcon color={'secondary'} fontSize={'large'} />
+      <MyLocationOutlinedIcon color={'secondary'} fontSize={'large'} />
     </IconButton>
   );
 }
