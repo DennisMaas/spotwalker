@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PlaceCard({ place }) {
+export default function PlaceCard({
+  place,
+  bottomBarAction,
+  setBottomBarAction,
+}) {
   const classes = useStyles();
   const history = useHistory();
   const { lat, lng } = place;

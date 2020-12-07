@@ -3,9 +3,11 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import MapIcon from '@material-ui/icons/Map';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { ListOutlined } from '@material-ui/icons';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewListOutlinedIcon from '@material-ui/icons/ViewListOutlined';
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -27,13 +29,8 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  fabButton: {
-    position: 'absolute',
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: '0 auto',
+  bottomBarAction: {
+    color: theme.palette.action,
   },
 }));
 
@@ -43,25 +40,48 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
   return (
     <>
       <AppBar position={'fixed'} color={'primary'} className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge={'end'}
-            color={'inherit'}
-            onClick={handleListClick}
-            className={bottomBarAction}
-          >
-            <ListOutlined />
-          </IconButton>
-          <div className={classes.grow} />
-          <IconButton
-            edge={'end'}
-            color={'inherit'}
-            onClick={handleMapClick}
-            className={bottomBarAction}
-          >
-            <MapOutlinedIcon />
-          </IconButton>
-        </Toolbar>
+        {bottomBarAction === 'list' && (
+          <Toolbar>
+            <IconButton
+              edge={'start'}
+              color={'inherit'}
+              onClick={handleListClick}
+              className={classes.bottomBarAction}
+            >
+              <ViewListIcon />
+            </IconButton>
+            <div className={classes.grow} />
+            <IconButton
+              edge={'end'}
+              color={'inherit'}
+              onClick={handleMapClick}
+              className={classes.bottomBarAction}
+            >
+              <MapOutlinedIcon />
+            </IconButton>
+          </Toolbar>
+        )}
+        {bottomBarAction === 'map' && (
+          <Toolbar>
+            <IconButton
+              edge={'start'}
+              color={'inherit'}
+              onClick={handleListClick}
+              className={classes.bottomBarAction}
+            >
+              <ViewListOutlinedIcon />
+            </IconButton>
+            <div className={classes.grow} />
+            <IconButton
+              edge={'end'}
+              color={'inherit'}
+              onClick={handleMapClick}
+              className={classes.bottomBarAction}
+            >
+              <MapIcon />
+            </IconButton>
+          </Toolbar>
+        )}
       </AppBar>
       <Toolbar />
     </>

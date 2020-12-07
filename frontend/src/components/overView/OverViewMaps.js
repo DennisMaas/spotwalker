@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
 const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=camera_alt&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=${key}`;
 
-export default function OverViewMap() {
+export default function OverViewMap(bottomBarAction, setBottomBarAction) {
   const classes = useStyles();
   const { places } = useContext(PlacesContext);
   const [selected, setSelected] = useState(null);
@@ -44,7 +44,11 @@ export default function OverViewMap() {
             }}
           >
             <Box justify={'center'} component={'div'}>
-              <PlaceCard place={selected} />
+              <PlaceCard
+                bottomBarAction={bottomBarAction}
+                setBottomBarAction={setBottomBarAction}
+                place={selected}
+              />
             </Box>
           </InfoWindow>
         ) : null}
