@@ -35,11 +35,7 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               <ViewListIcon />
             </IconButton>
             <div className={classes.grow} />
-            <IconButton
-              edge={'end'}
-              color={'inherit'}
-              onClick={handleMapClick}
-            >
+            <IconButton edge={'end'} color={'inherit'} onClick={handleMapClick}>
               <MapOutlinedIcon />
             </IconButton>
           </Toolbar>
@@ -54,11 +50,7 @@ export default function BottomBar({ bottomBarAction, setBottomBarAction }) {
               <ViewListOutlinedIcon />
             </IconButton>
             <div className={classes.grow} />
-            <IconButton
-              edge={'end'}
-              color={'inherit'}
-              onClick={handleMapClick}
-            >
+            <IconButton edge={'end'} color={'inherit'} onClick={handleMapClick}>
               <MapIcon />
             </IconButton>
           </Toolbar>
