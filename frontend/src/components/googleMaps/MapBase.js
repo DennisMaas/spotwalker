@@ -46,19 +46,13 @@ const center = {
   lng: 9.991636,
 };
 
-export default function MapBase({ children, setMarker }) {
+export default function MapBase({ children, onMapClick }) {
   const classes = useStyles();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    version: '3.42.9', //remove when Google fixes apply null bug
     libraries,
   });
-
-  const onMapClick = useCallback(
-    (event) => {
-      setMarker(event.latLng.lat(), event.latLng.lng());
-    },
-    [setMarker]
-  );
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MapBase from './MapBase';
@@ -16,9 +16,21 @@ const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435
 export default function MapForAddAndUpdate({ lat, lng, setMarker }) {
   const classes = useStyles();
 
+  const onMapClick = useCallback(
+    (event) => {
+      setMarker(event.latLng.lat(), event.latLng.lng());
+    },
+    [setMarker]
+  );
   return (
     <Grid container item className={classes.map}>
-      <MapBase lat={lat} lng={lng} setMarker={setMarker} iconUrl={iconUrl}>
+      <MapBase
+        onMapClick={onMapClick}
+        lat={lat}
+        lng={lng}
+        setMarker={setMarker}
+        iconUrl={iconUrl}
+      >
         <Marker
           clickable={false}
           draggable={false}

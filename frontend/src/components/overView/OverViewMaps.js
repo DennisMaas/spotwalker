@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const key = process.env['REACT_APP_MAPS_MARKER_API_KEY'];
-const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=add_a_photo&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=${key}`;
+const iconUrl = `https://api.geoapify.com/v1/icon/?type=material&color=%23ea4435&size=small&icon=camera_alt&textSize=small&strokeColor=%23811411&noShadow&noWhiteCircle&apiKey=${key}`;
 
 export default function OverViewMap() {
   const classes = useStyles();
   const { places } = useContext(PlacesContext);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(null);
 
   return (
     <Grid container item className={classes.map}>
@@ -30,8 +30,6 @@ export default function OverViewMap() {
             position={{ lat: place.lat, lng: place.lng }}
             icon={{
               url: iconUrl,
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
             }}
             onClick={() => {
               setSelected(place);
