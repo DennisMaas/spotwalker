@@ -45,7 +45,7 @@ export default function SearchGoogleMaps({ panTo }) {
   };
 
   return (
-    <Combobox onSelect={handleSelect}>
+    <Combobox aria-label={'search for a place'} onSelect={handleSelect}>
       <ComboboxInput
         value={value}
         onChange={handleInput}
@@ -55,8 +55,8 @@ export default function SearchGoogleMaps({ panTo }) {
       <ComboboxPopover>
         <ComboboxList>
           {status === 'OK' &&
-            data.map(({ id, description }) => (
-              <ComboboxOption key={id} value={description} />
+            data.map(({ description, place_id }) => (
+              <ComboboxOption key={place_id} value={description} />
             ))}
         </ComboboxList>
       </ComboboxPopover>
