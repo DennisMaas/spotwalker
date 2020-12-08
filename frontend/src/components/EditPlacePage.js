@@ -33,7 +33,7 @@ export default function NewPlacePage() {
         <Typography component="h1" variant="h5">
           Foto bearbeiten
         </Typography>
-        <PlaceForm place={place} onSave={handleSave} />
+        <PlaceForm onSave={handleSave} />
       </div>
     </Container>
   );

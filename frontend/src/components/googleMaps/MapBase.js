@@ -4,7 +4,7 @@ import LocateMapsUser from './LocateMapsUser';
 import SearchGoogleMaps from './SearchGoogleMaps';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import mapStyles from './mapStyles';
+import { mapStyles } from './mapStyles';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
