@@ -11,7 +11,7 @@ import {
 } from '@reach/combobox';
 import React from 'react';
 
-import '@reach/combobox/styles.css';
+import './mySearchStyle.css';
 
 export default function SearchGoogleMaps({ panTo }) {
   const {

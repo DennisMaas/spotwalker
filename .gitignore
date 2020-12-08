@@ -9,3 +9,4 @@
 /frontend/.env.production
 /frontend/.env.development
 /frontend/.env.local
+.DS_Store
