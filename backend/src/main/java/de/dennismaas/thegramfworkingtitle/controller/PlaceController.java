@@ -23,7 +23,6 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @CrossOrigin
     @GetMapping
     public List<Place> searchPlace(@RequestParam Optional<String> title) {
         return placeService.search(title);
