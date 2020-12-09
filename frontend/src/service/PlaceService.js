@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { axiosClient } from './axiosClient';
 
 export const getPlaces = () =>
-  axios.get('/api/places').then((response) => response.data);
+  axiosClient.get('/api/places').then((response) => response.data);
 
 export const addPlace = (
   primaryPictureUrl,
@@ -22,7 +22,7 @@ export const addPlace = (
   extraTwo,
   particularities
 ) =>
-  axios
+  axiosClient
     .post('/api/places', {
       primaryPictureUrl,
       type,
@@ -64,7 +64,7 @@ export const updatePlace = (
   extraTwo,
   particularities
 ) =>
-  axios
+  axiosClient
     .put('/api/places/' + id, {
       id,
       primaryPictureUrl,
@@ -87,4 +87,4 @@ export const updatePlace = (
     })
     .then((response) => response.data);
 
-export const removePlace = (id) => axios.delete('/api/places/' + id);
+export const removePlace = (id) => axiosClient.delete('/api/places/' + id);
