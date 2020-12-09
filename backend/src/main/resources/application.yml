@@ -2,3 +2,10 @@ spring:
   data:
     mongodb:
       database: gramf
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
