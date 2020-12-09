@@ -11,7 +11,7 @@
 	<groupId>de.dennismaas</groupId>
 	<artifactId>SpotWalker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpotWalker</name>
+	<name>spotwalker</name>
 	<description>Capstone project for neuefische</description>
 
 	<properties>
@@ -49,7 +49,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>SpotWalker</finalName>
+		<finalName>spotwalker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

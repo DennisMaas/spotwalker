@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      database: gramf
+      uri: mongodb+srv://admin:39AJqMeWd3LEznw@cluster0.s1ml9.mongodb.net/spotwalker?retryWrites=true&w=majority
 
 management:
   endpoints:

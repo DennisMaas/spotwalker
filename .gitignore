@@ -12,3 +12,8 @@
 .DS_Store
 /backend/src/main/resources/static/
 
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
