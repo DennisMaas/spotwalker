@@ -47,7 +47,7 @@
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>f
+	</dependencies>
 	<build>
 		<finalName>SpotWalker</finalName>
 		<plugins>
