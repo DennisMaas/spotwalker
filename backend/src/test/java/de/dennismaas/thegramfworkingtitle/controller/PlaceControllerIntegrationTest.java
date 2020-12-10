@@ -130,7 +130,6 @@ class PlaceControllerIntegrationTest {
         //GIVEN
         String url = getPlaceUrl();
         AddPlaceDto placeToAdd = new AddPlaceDto(
-                "someUrl",
                 "someImage",
                 "someType",
                 "someTitle",
@@ -198,7 +197,6 @@ class PlaceControllerIntegrationTest {
 
         UpdatePlaceDto updatePlace = UpdatePlaceDto.builder()
                 .id("someId")
-                .primaryPictureUrl("someUrl")
                 .primaryImageName("someImage")
                 .type("someType")
                 .title("someTitle")
@@ -232,7 +230,7 @@ class PlaceControllerIntegrationTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         Place expectedPlace = Place.builder()
                 .id("someId")
-                .primaryPictureUrl("someUrl")
+                .primaryImageUrl("someUrl")
                 .primaryImageName("someImage")
                 .type("someType")
                 .title("someTitle")
@@ -271,7 +269,6 @@ class PlaceControllerIntegrationTest {
 
         UpdatePlaceDto updatePlace = UpdatePlaceDto.builder()
                 .id("mismatchedId")
-                .primaryPictureUrl("someUrl")
                 .primaryImageName("someImage")
                 .type("someType")
                 .title("someTitle")

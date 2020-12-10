@@ -9,7 +9,7 @@ import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import MapForAddAndUpdate from '../googleMaps/MapForAddAndUpdate';
 import axios from 'axios';
-import UploadPicture from './UploadPicture';
+import UploadImage from './UploadImage';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -79,7 +79,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   };
   return (
     <>
-      <UploadPicture />
+      <UploadImage placeData={placeData} setPlaceData={setPlaceData} />
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -272,7 +272,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
               className={classes.button}
               startIcon={<SaveOutlinedIcon />}
             >
-              Foto speichern
+              Speichern
             </Button>
           </Grid>
         </Grid>

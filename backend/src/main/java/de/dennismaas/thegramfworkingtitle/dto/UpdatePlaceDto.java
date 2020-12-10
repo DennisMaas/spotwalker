@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class UpdatePlaceDto {
 
     private String id;
-    private String primaryPictureUrl;
     private String primaryImageName;
     private String type;
     private String title;

@@ -1,10 +1,13 @@
 import axios from 'axios';
+import { axiosClient } from './axiosClient';
 
 export const getPlaces = () =>
-  axios.get('/api/places').then((response) => response.data);
+  axiosClient()
+    .get('/api/places')
+    .then((response) => response.data);
 
 export const addPlace = (
-  primaryPictureUrl,
+  primaryImageName,
   type,
   title,
   address,
@@ -22,9 +25,9 @@ export const addPlace = (
   extraTwo,
   particularities
 ) =>
-  axios
+  axiosClient
     .post('/api/places', {
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -46,7 +49,7 @@ export const addPlace = (
 
 export const updatePlace = (
   id,
-  primaryPictureUrl,
+  primaryImageName,
   type,
   title,
   address,
@@ -64,10 +67,10 @@ export const updatePlace = (
   extraTwo,
   particularities
 ) =>
-  axios
+  axiosClient
     .put('/api/places/' + id, {
       id,
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -87,4 +90,12 @@ export const updatePlace = (
     })
     .then((response) => response.data);
 
-export const removePlace = (id) => axios.delete('/api/places/' + id);
+export const removePlace = (id) => axiosClient.delete('/api/places/' + id);
+
+export const uploadImage = (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  return axiosClient
+    .post('/api/places/image', formData)
+    .then((response) => response.data);
+};

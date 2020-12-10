@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 public class AddPlaceDto {
 
-    private String primaryPictureUrl;
     private String primaryImageName;
     private String type;
     private String title;

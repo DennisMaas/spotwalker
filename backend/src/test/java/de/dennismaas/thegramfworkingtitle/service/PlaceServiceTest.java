@@ -85,7 +85,7 @@ class PlaceServiceTest {
         Instant expectedTime = Instant.parse("2020-10-26T10:00:00Z");
 
         AddPlaceDto placeDto = new AddPlaceDto(
-                "someUrl","someImage",
+                "someImage",
                 "someType",
                 "someTitle",
                 "someStreet, someCity, someCountry",  "someStreet", "someCity", "someCountry",
@@ -125,7 +125,7 @@ class PlaceServiceTest {
 
         UpdatePlaceDto update = new UpdatePlaceDto(
                 placeId,
-                "soon to be updated Url", "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+               "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
 
         );
 
@@ -162,7 +162,7 @@ class PlaceServiceTest {
 
        UpdatePlaceDto update = new UpdatePlaceDto(
                placeId,
-               "soon to be updated Url", "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1"  ,  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+                "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1"  ,  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
 
        );
        Place updatedPlace = new Place(

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { ImageSearchOutlined } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
+import { uploadImage } from '../../service/PlaceService';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadPicture() {
-  const [picture, setPicture] = useState(null);
+export default function UploadImage(placeData, setPlaceData) {
+  const [image, setImage] = useState(null);
   const classes = useStyles();
 
   return (
@@ -34,35 +34,35 @@ export default function UploadPicture() {
         id={'contained-button-file'}
         accept={'image/*'}
         type={'file'}
-        onChange={handlePicture}
+        onChange={handlePictureChange}
       />
       <label htmlFor={'contained-button-file'}>
         <Button
           className={classes.button}
           variant={'contained'}
           color={'primary'}
-          aria-label={'upload picture'}
+          aria-label={'upload image'}
           component={'span'}
           startIcon={<ImageSearchOutlined />}
         >
           Foto auswählen
         </Button>
       </label>
-      <img className={classes.picture} alt={''} src={picture} />
+      <img className={classes.picture} alt={''} src={image} />
     </Grid>
   );
 
-  function handlePicture(event) {
-    const pictureFile = event.target.files[0];
-    setPicture(URL.createObjectURL(pictureFile));
-    const formData = new FormData();
-    formData.append('file', pictureFile);
-    axios
-      .post('/api/image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((response) => response.data);
+  function handlePictureChange(event) {
+    const imageFile = event.target.files[0];
+    imageFile
+      ? uploadImage(imageFile)
+          .then((data) =>
+            setPlaceData({ ...placeData, primaryImageName: data })
+          )
+          .catch((error) => console.log(error))
+      : setPlaceData({
+          ...placeData,
+          primaryImageName: placeData.primaryImageName,
+        });
   }
 }

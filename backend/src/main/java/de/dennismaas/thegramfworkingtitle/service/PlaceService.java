@@ -51,7 +51,7 @@ public class PlaceService {
             if (!place.getPrimaryImageName().equals("")) {
                 GeneratePresignedUrlRequest generatePresignedUrlRequest =
                         new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
-                place.setPrimaryPictureUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
+                place.setPrimaryImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
             }
         }
         return placeList;
@@ -70,7 +70,6 @@ public class PlaceService {
 
         Place placeObjectToBeSaved = Place.builder()
                 .id(idUtils.generateId())
-                .primaryPictureUrl(placeToBeAdded.getPrimaryPictureUrl())
                 .primaryImageName(placeToBeAdded.getPrimaryImageName())
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
@@ -110,7 +109,6 @@ public class PlaceService {
         String country = addressArray[2];
         Place updatedPlace = Place.builder()
                 .id(placeToBeUpdated.getId())
-                .primaryPictureUrl(placeToBeUpdated.getPrimaryPictureUrl())
                 .primaryImageName(placeToBeUpdated.getPrimaryImageName())
                 .type(placeToBeUpdated.getType())
                 .title(placeToBeUpdated.getTitle())
