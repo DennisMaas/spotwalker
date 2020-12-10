@@ -1,6 +1,8 @@
 branch-defaults:
   deploy-aws:
     environment: spotwalker-dev
+  image-upload:
+    environment: spotwalker-dev
 deploy:
   artifact: backend-code.zip
 global:
