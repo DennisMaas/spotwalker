@@ -36,7 +36,7 @@ class PlaceServiceTest {
         //GIVEN
        when(placesMongoDao.findAll()).thenReturn(PlaceSeeder.getStockPlaces());
         //WHEN
-        List<Place> allPlaces = placeService.search(Optional.empty());
+        List<Place> allPlaces = placeService.getPlaces();
 
         //THEN
         assertThat(allPlaces, containsInAnyOrder(PlaceSeeder.getStockPlaces().toArray()));
