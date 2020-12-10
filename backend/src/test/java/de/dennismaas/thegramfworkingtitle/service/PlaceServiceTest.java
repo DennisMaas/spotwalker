@@ -5,6 +5,7 @@ import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.seeder.PlaceSeeder;
+import de.dennismaas.thegramfworkingtitle.utils.AmazonS3ClientUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,8 @@ class PlaceServiceTest {
     final IdUtils idUtils = mock(IdUtils.class);
     final TimestampUtils timestampUtils = mock(TimestampUtils.class);
     final PlacesMongoDao placesMongoDao = mock(PlacesMongoDao.class);
-    final PlaceService placeService = new PlaceService(placesMongoDao, idUtils, timestampUtils);
+    final AmazonS3ClientUtils amazonS3ClientUtils = mock(AmazonS3ClientUtils.class);
+    final PlaceService placeService = new PlaceService(placesMongoDao, idUtils, timestampUtils, amazonS3ClientUtils);
 
     @Test
     void search() {
@@ -47,7 +49,7 @@ class PlaceServiceTest {
         String placeId = "uniqueId";
 
         Place expectedPlace = new Place(
-                "someId1", "someUrl1", "someType1", "someTitle1", "someAddress1",   "someStreet1", "someCity1", "someCountry1", 56.000, 9.10, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")
+                "someId1", "someUrl1", "someImage", "someType1", "someTitle1", "someAddress1",   "someStreet1", "someCity1", "someCountry1", 56.000, 9.10, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")
         );
             when(placesMongoDao.findById("uniqueId")).thenReturn(Optional.of(expectedPlace));
 
@@ -83,7 +85,7 @@ class PlaceServiceTest {
         Instant expectedTime = Instant.parse("2020-10-26T10:00:00Z");
 
         AddPlaceDto placeDto = new AddPlaceDto(
-                "someUrl",
+                "someUrl","someImage",
                 "someType",
                 "someTitle",
                 "someStreet, someCity, someCountry",  "someStreet", "someCity", "someCountry",
@@ -102,7 +104,7 @@ class PlaceServiceTest {
         );
         Place expectedPlace = new Place(
                 expectedPlaceId,
-                "someUrl", "someType", "someTitle",  "someStreet, someCity, someCountry",   "someStreet", "someCity", "someCountry",56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", expectedTime
+                "someUrl", "someImage","someType", "someTitle",  "someStreet, someCity, someCountry",   "someStreet", "someCity", "someCountry",56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", expectedTime
                 );
         when(idUtils.generateId()).thenReturn(expectedPlaceId);
         when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(expectedTime);
@@ -123,19 +125,19 @@ class PlaceServiceTest {
 
         UpdatePlaceDto update = new UpdatePlaceDto(
                 placeId,
-                "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+                "soon to be updated Url", "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
 
         );
 
 
         Place place = new Place(
                 placeId,
-                "old Url1", "old Type1", "old Title1",  "oldStreet1, oldCity1, oldCountry1", "oldStreet1", "oldCity1", "oldCountry1",56.300, 9.20,  "oldlaceDesc1", "oldPicDesc1", "oldAperture1", "oldocal1", "oldShutter1","oldIso1", "oldFlash1", "oldYT1", "oldX11", "oldX21", "oldPartic1", timestamp
+                "old Url1", "someImage", "old Type1", "old Title1",  "oldStreet1, oldCity1, oldCountry1", "oldStreet1", "oldCity1", "oldCountry1",56.300, 9.20,  "oldlaceDesc1", "oldPicDesc1", "oldAperture1", "oldocal1", "oldShutter1","oldIso1", "oldFlash1", "oldYT1", "oldX11", "oldX21", "oldPartic1", timestamp
         );
 
         Place updatedPlace = new Place(
                 placeId,
-                "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
+                "soon to be updated Url", "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
         );
 
         //WHEN
@@ -160,12 +162,12 @@ class PlaceServiceTest {
 
        UpdatePlaceDto update = new UpdatePlaceDto(
                placeId,
-               "soon to be updated Url", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1"  ,  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+               "soon to be updated Url", "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1"  ,  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
 
        );
        Place updatedPlace = new Place(
                placeId,
-               "not updated Url", "not Type1", "soon to be updated Title1", "not to be updated Street1, not to be updated City1, not to be updated Country1",  "not to be updated Street1", "not to be updated City1", "not to be updated Country1", 46.300, 29.20, "not updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
+               "not updated Url", "someImage", "not Type1", "soon to be updated Title1", "not to be updated Street1, not to be updated City1, not to be updated Country1",  "not to be updated Street1", "not to be updated City1", "not to be updated Country1", 46.300, 29.20, "not updated PlaceDesc1",  "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
        );
 
 
