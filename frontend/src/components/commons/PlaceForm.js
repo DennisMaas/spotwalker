@@ -8,8 +8,8 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import MapForAddAndUpdate from '../googleMaps/MapForAddAndUpdate';
-import axios from 'axios';
 import UploadImage from './UploadImage';
+import { axiosClient } from '../../service/axiosClient';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -68,7 +68,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
   const setMarker = (lat, lng) => {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`;
 
-    axios
+    axiosClient()
       .get(url)
       .then((response) => response.data)
       .then((data) => {

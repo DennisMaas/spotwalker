@@ -41,7 +41,7 @@ export default function NewPlacePage() {
   function handleSave(place) {
     const {
       id,
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -61,7 +61,7 @@ export default function NewPlacePage() {
     } = place;
     update(
       id,
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
