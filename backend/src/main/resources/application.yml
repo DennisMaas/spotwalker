@@ -2,3 +2,7 @@ spring:
   data:
     mongodb:
       database: gramf
+aws:
+  access.key: testkey
+  secret.key: testkey
+  bucket.name: testname
