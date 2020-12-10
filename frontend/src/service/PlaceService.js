@@ -1,10 +1,7 @@
-import axios from 'axios';
 import { axiosClient } from './axiosClient';
 
 export const getPlaces = () =>
-  axiosClient()
-    .get('/api/places')
-    .then((response) => response.data);
+  axiosClient.get('/api/places').then((response) => response.data);
 
 export const addPlace = (
   primaryImageName,
