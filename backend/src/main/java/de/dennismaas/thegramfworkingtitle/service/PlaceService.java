@@ -48,7 +48,8 @@ public class PlaceService {
         AmazonS3 s3Client = amazonS3ClientUtils.getS3Client();
 
         for(Place place : placeList) {
-            if (!place.getPrimaryImageName().equals("")) {
+            if (place.getPrimaryImageName() != null &&
+                    !place.getPrimaryImageName().isBlank()) {
                 GeneratePresignedUrlRequest generatePresignedUrlRequest =
                         new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
                 place.setPrimaryImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
