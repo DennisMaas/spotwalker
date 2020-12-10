@@ -272,7 +272,7 @@ export default function PlaceForm({ onSave, place = initialState }) {
               className={classes.button}
               startIcon={<SaveOutlinedIcon />}
             >
-              Foto speichern
+              Speichern
             </Button>
           </Grid>
         </Grid>

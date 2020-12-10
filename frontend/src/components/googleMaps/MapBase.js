@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   search: {
-    maxWidth: '300px',
     bottom: '4%',
     left: '50%',
     transform: 'translateX(-50%)',

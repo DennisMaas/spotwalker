@@ -10,8 +10,10 @@
 	</parent>
 	<groupId>de.dennismaas</groupId>
 	<artifactId>SpotWalker</artifactId>
-	<version>0.9</version>
-	<name>SpotWalker</name>
+
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spotwalker</name>
+
 	<description>Capstone project for neuefische</description>
 
 	<properties>
@@ -23,7 +25,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -51,7 +56,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>SpotWalker</finalName>
+		<finalName>spotwalker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

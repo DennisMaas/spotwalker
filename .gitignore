@@ -9,3 +9,11 @@
 /frontend/.env.production
 /frontend/.env.development
 /frontend/.env.local
+.DS_Store
+/backend/src/main/resources/static/
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
