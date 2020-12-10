@@ -10,8 +10,10 @@
 	</parent>
 	<groupId>de.dennismaas</groupId>
 	<artifactId>SpotWalker</artifactId>
+
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spotwalker</name>
+
 	<description>Capstone project for neuefische</description>
 
 	<properties>
@@ -34,6 +36,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
@@ -47,6 +53,7 @@
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>spotwalker</finalName>
