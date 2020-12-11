@@ -44,7 +44,7 @@ export default function OverViewMap() {
             }}
           >
             <Box justify={'center'} component={'div'}>
-              <PlaceCard place={selected} />
+              <PlaceCard selected={selected} place={selected} />
             </Box>
           </InfoWindow>
         ) : null}

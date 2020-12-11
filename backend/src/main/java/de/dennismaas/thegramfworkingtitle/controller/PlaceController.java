@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -54,7 +53,7 @@ public class PlaceController {
     public void remove(@PathVariable String placeId) {placeService.remove(placeId);}
 
     @PostMapping("/image")
-    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
+    public String uploadImage(@RequestParam("image") MultipartFile file) {
         return awsService.upload(file);
     }
 }
