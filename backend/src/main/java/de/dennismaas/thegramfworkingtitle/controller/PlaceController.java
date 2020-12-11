@@ -27,6 +27,10 @@ public class PlaceController {
         this.awsService = awsService;
     }
 
+
+    @GetMapping("test")
+    public String test(){return "Hello";}
+
     @GetMapping
     public List<Place> getPlaces() {
         return placeService.getPlaces();

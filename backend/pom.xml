@@ -13,7 +13,6 @@
 	<version>0.9</version>
 	<name>SpotWalker</name>
 	<description>Capstone project for neuefische</description>
-
 	<properties>
 		<java.version>15</java.version>
 	</properties>
