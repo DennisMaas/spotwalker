@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PlaceCard({ place }) {
+export default function PlaceCard({ place, selected }) {
   const classes = useStyles();
   const history = useHistory();
   const { lat, lng } = place;
@@ -35,33 +35,49 @@ export default function PlaceCard({ place }) {
     ',20z';
 
   return (
-    <Card className={classes.root} variant={'outlined'}>
-      <CardHeader
-        avatar={
-          <Avatar
-            alt={place.type}
-            aria-label={place.type}
-            className={classes.avatar}
-          >
-            <PlaceTypeIcon type={place.type} />
-          </Avatar>
-        }
-        action={
-          <IconButton href={gMapUrl} aria-label="navigate">
-            <DirectionsOutlinedIcon className={classes.directions} />
-          </IconButton>
-        }
-        title={place.title}
-        subheader={place.street}
-      />
-      <CardActionArea onClick={() => history.push(`/places/${place.id}`)}>
-        <CardMedia
-          className={classes.media}
-          component={'img'}
-          image={place.primaryImageUrl}
-          title={place.title}
-        />
-      </CardActionArea>
-    </Card>
+    <>
+      {selected ? (
+        <Card className={classes.root} variant={'outlined'}>
+          <CardActionArea onClick={() => history.push(`/places/${place.id}`)}>
+            <CardMedia
+              className={classes.media}
+              component={'img'}
+              image={place.primaryImageUrl}
+              title={place.title}
+            />
+          </CardActionArea>
+        </Card>
+      ) : (
+        <Card className={classes.root} variant={'outlined'}>
+          <CardHeader
+            avatar={
+              <Avatar
+                alt={place.type}
+                aria-label={place.type}
+                className={classes.avatar}
+              >
+                <PlaceTypeIcon type={place.type} />
+              </Avatar>
+            }
+            action={
+              <IconButton href={gMapUrl} aria-label="navigate">
+                <DirectionsOutlinedIcon className={classes.directions} />
+              </IconButton>
+            }
+            title={place.title}
+            subheader={place.street}
+          />
+
+          <CardActionArea onClick={() => history.push(`/places/${place.id}`)}>
+            <CardMedia
+              className={classes.media}
+              component={'img'}
+              image={place.primaryImageUrl}
+              title={place.title}
+            />
+          </CardActionArea>
+        </Card>
+      )}
+    </>
   );
 }
