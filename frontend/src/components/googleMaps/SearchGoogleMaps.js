@@ -50,7 +50,7 @@ export default function SearchGoogleMaps({ panTo }) {
         value={value}
         onChange={handleInput}
         disabled={!ready}
-        placeholder={'Search'}
+        placeholder={'Suche'}
       />
       <ComboboxPopover>
         <ComboboxList>
