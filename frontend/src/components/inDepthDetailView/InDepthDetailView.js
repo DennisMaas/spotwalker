@@ -16,6 +16,7 @@ import ShutterSpeedOutlinedIcon from '@material-ui/icons/ShutterSpeedOutlined';
 
 import Link from '@material-ui/core/Link';
 import TopBar from '../commons/TopBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +59,8 @@ export default function InDepthDetailView() {
   const place = places.find((place) => place.id === id);
 
   return !place ? null : (
-    <Container disableGutters={true}>
+    <Container component={'main'} maxWidth={'sm'} disableGutters={true}>
+      <CssBaseline />
       <Grid
         container
         justify={'space-evenly'}
