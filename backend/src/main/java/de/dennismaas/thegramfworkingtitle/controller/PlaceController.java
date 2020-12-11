@@ -3,29 +3,33 @@ package de.dennismaas.thegramfworkingtitle.controller;
 import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
+import de.dennismaas.thegramfworkingtitle.service.AwsService;
 import de.dennismaas.thegramfworkingtitle.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/places")
 public class PlaceController {
     private final PlaceService placeService;
+    private final AwsService awsService;
 
     @Autowired
-    public PlaceController(PlaceService placeService){
+    public PlaceController(PlaceService placeService, AwsService awsService){
         this.placeService = placeService;
+        this.awsService = awsService;
     }
 
     @GetMapping
-    public List<Place> searchPlace(@RequestParam Optional<String> title) {
-        return placeService.search(title);
+    public List<Place> getPlaces() {
+        return placeService.getPlaces();
     }
 
     @GetMapping("{placeId}")
@@ -49,4 +53,8 @@ public class PlaceController {
     @DeleteMapping("{placeId}")
     public void remove(@PathVariable String placeId) {placeService.remove(placeId);}
 
+    @PostMapping("/image")
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
+        return awsService.upload(file);
+    }
 }

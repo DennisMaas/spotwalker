@@ -17,7 +17,8 @@ import java.time.Instant;
 public class Place {
     @Id
     private String id;
-    private String primaryPictureUrl;
+    private String primaryImageUrl;
+    private String primaryImageName;
     private String type;
     private String title;
     private String address;

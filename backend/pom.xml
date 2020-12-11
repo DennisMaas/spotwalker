@@ -15,7 +15,6 @@
 	<name>spotwalker</name>
 
 	<description>Capstone project for neuefische</description>
-
 	<properties>
 		<java.version>15</java.version>
 	</properties>
@@ -43,6 +42,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--		security-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!--		aws-->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.899</version>
+		</dependency>
 		<!--		mongo db-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,7 +63,6 @@
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<finalName>spotwalker</finalName>

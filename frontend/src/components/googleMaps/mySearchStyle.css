@@ -37,7 +37,7 @@
 }
 
 [data-reach-combobox] input {
-    width: 55vw;
-    height: 6vh;
+    width: 200px;
+    height: 5vh;
     font-size: 1rem;
 }

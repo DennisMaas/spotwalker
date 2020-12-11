@@ -15,7 +15,7 @@ export default function PlacesContextProvider({ children }) {
   }, []);
 
   const create = (
-    primaryPictureUrl,
+    primaryImageName,
     type,
     title,
     address,
@@ -34,7 +34,7 @@ export default function PlacesContextProvider({ children }) {
     particularities
   ) =>
     addPlace(
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -57,7 +57,7 @@ export default function PlacesContextProvider({ children }) {
 
   const update = (
     id,
-    primaryPictureUrl,
+    primaryImageName,
     type,
     title,
     address,
@@ -77,7 +77,7 @@ export default function PlacesContextProvider({ children }) {
   ) => {
     updatePlace(
       id,
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,

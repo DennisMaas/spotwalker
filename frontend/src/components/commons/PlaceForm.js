@@ -8,8 +8,9 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import MapForAddAndUpdate from '../googleMaps/MapForAddAndUpdate';
-import axios from 'axios';
-import UploadPicture from './UploadPicture';
+import UploadImage from './UploadImage';
+import { axiosClient } from '../../service/axiosClient';
+import { uploadImage } from '../../service/PlaceService';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialState = {
-  primaryPictureUrl: '',
+  primaryImageName: '',
   type: 'cityscape',
   title: '',
   address: '',
@@ -65,10 +66,12 @@ export default function PlaceForm({ onSave, place = initialState }) {
   const classes = useStyles();
   const history = useHistory();
   const [placeData, setPlaceData] = useState(place);
+  const [imageUrl, setImageUrl] = useState();
+
   const setMarker = (lat, lng) => {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`;
 
-    axios
+    axiosClient
       .get(url)
       .then((response) => response.data)
       .then((data) => {
@@ -79,7 +82,11 @@ export default function PlaceForm({ onSave, place = initialState }) {
   };
   return (
     <>
-      <UploadPicture />
+      <UploadImage
+        handleImageChange={handleImageChange}
+        placeData={placeData}
+        imageUrl={imageUrl}
+      />
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -291,5 +298,20 @@ export default function PlaceForm({ onSave, place = initialState }) {
   function handleSubmit(event) {
     event.preventDefault();
     onSave(placeData);
+  }
+
+  function handleImageChange(event) {
+    const imageFile = event.target.files[0];
+    setImageUrl(URL.createObjectURL(imageFile));
+    imageFile
+      ? uploadImage(imageFile)
+          .then((data) =>
+            setPlaceData({ ...placeData, primaryImageName: data })
+          )
+          .catch((error) => console.log(error))
+      : setPlaceData({
+          ...placeData,
+          primaryImageName: placeData.primaryImageName,
+        });
   }
 }

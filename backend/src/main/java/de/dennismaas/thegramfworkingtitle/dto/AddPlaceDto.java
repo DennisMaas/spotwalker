@@ -2,17 +2,19 @@ package de.dennismaas.thegramfworkingtitle.dto;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class AddPlaceDto {
 
-    private String primaryPictureUrl;
+    private String primaryImageName;
     private String type;
     private String title;
     private String address;

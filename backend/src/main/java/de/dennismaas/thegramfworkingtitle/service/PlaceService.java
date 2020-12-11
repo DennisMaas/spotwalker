@@ -1,46 +1,68 @@
 package de.dennismaas.thegramfworkingtitle.service;
 
+import com.amazonaws.HttpMethod;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
 import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
+import de.dennismaas.thegramfworkingtitle.utils.DateExpirationUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
 public class PlaceService {
+
+
+    @Value("${aws.bucket.name}")
+    private String bucketName;
+
     private final PlacesMongoDao placesMongoDao;
     private final IdUtils idUtils;
     private final TimestampUtils timestampUtils;
+    private final AmazonS3 amazonS3;
+    private final DateExpirationUtils expirationUtils;
+
 
     @Autowired
-    public PlaceService(PlacesMongoDao placesMongoDao, IdUtils idUtils, TimestampUtils timestampUtils){
+    public PlaceService(PlacesMongoDao placesMongoDao, AmazonS3 amazonS3,  IdUtils idUtils, TimestampUtils timestampUtils, DateExpirationUtils expirationUtils){
         this.placesMongoDao = placesMongoDao;
+        this.amazonS3 = amazonS3;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
-
+        this.expirationUtils = expirationUtils;
     }
 
 
-    public List<Place> search(Optional<String> title) {
-    if(title.isPresent() && !title.get().isBlank()){
-        return placesMongoDao.findAllByTitle(title.get());
+    public List<Place> getPlaces() {
+        List<Place> placeList = placesMongoDao.findAll();
+        Date expiration = expirationUtils.getExpirationTime();
 
-    }
-    return placesMongoDao.findAll();
+
+        for(Place place : placeList) {
+            if (place.getPrimaryImageName() != null &&
+                    !place.getPrimaryImageName().isBlank()) {
+                GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                        new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+                place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());
+            }
+        }
+        return placeList;
     }
 
     public Place findById(String placeId) {
-        return placesMongoDao.findById(placeId).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)) );
+        return placesMongoDao.findById(placeId).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)));
     }
 
     public Place add(AddPlaceDto placeToBeAdded) {
@@ -52,7 +74,7 @@ public class PlaceService {
 
         Place placeObjectToBeSaved = Place.builder()
                 .id(idUtils.generateId())
-                .primaryPictureUrl(placeToBeAdded.getPrimaryPictureUrl())
+                .primaryImageName(placeToBeAdded.getPrimaryImageName())
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
                 .address(placeToBeAdded.getAddress())
@@ -74,7 +96,15 @@ public class PlaceService {
                 .particularities(placeToBeAdded.getParticularities())
                 .timestamp(timestampUtils.generateTimestampEpochSeconds())
                 .build();
-        return placesMongoDao.save(placeObjectToBeSaved);
+
+        Place place = placesMongoDao.save(placeObjectToBeSaved);
+        Date expiration = expirationUtils.getExpirationTime();
+        if (place.getPrimaryImageName() != null &&
+                !place.getPrimaryImageName().isBlank()) {
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+            place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());}
+        return place;
 
     }
 
@@ -91,7 +121,7 @@ public class PlaceService {
         String country = addressArray[2];
         Place updatedPlace = Place.builder()
                 .id(placeToBeUpdated.getId())
-                .primaryPictureUrl(placeToBeUpdated.getPrimaryPictureUrl())
+                .primaryImageName(placeToBeUpdated.getPrimaryImageName())
                 .type(placeToBeUpdated.getType())
                 .title(placeToBeUpdated.getTitle())
                 .address(placeToBeUpdated.getAddress())

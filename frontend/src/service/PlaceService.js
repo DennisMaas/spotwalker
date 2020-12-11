@@ -4,7 +4,7 @@ export const getPlaces = () =>
   axiosClient.get('/api/places').then((response) => response.data);
 
 export const addPlace = (
-  primaryPictureUrl,
+  primaryImageName,
   type,
   title,
   address,
@@ -24,7 +24,7 @@ export const addPlace = (
 ) =>
   axiosClient
     .post('/api/places', {
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -46,7 +46,7 @@ export const addPlace = (
 
 export const updatePlace = (
   id,
-  primaryPictureUrl,
+  primaryImageName,
   type,
   title,
   address,
@@ -67,7 +67,7 @@ export const updatePlace = (
   axiosClient
     .put('/api/places/' + id, {
       id,
-      primaryPictureUrl,
+      primaryImageName,
       type,
       title,
       address,
@@ -88,3 +88,11 @@ export const updatePlace = (
     .then((response) => response.data);
 
 export const removePlace = (id) => axiosClient.delete('/api/places/' + id);
+
+export const uploadImage = (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  return axiosClient
+    .post('/api/places/image', formData)
+    .then((response) => response.data);
+};
