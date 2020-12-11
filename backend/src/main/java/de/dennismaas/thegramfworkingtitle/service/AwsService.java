@@ -1,36 +1,34 @@
 package de.dennismaas.thegramfworkingtitle.service;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import de.dennismaas.thegramfworkingtitle.utils.AmazonS3ClientUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import org.springframework.web.server.ResponseStatusException;
 @Service
+@Slf4j
 public class AwsService {
 
     @Value("${aws.bucket.name}")
     private String bucketName;
 
-    private final AmazonS3ClientUtils s3ClientUtils;
+    private final AmazonS3 s3Client;
     private final IdUtils idUtils;
 
     @Autowired
-    public AwsService(AmazonS3ClientUtils s3ClientUtils, IdUtils idUtils) {
-        this.s3ClientUtils = s3ClientUtils;
+    public AwsService(AmazonS3 s3Client, IdUtils idUtils) {
+        this.s3Client = s3Client;
         this.idUtils = idUtils;
     }
 
-    public String upload(MultipartFile file) throws IOException {
+    public String upload(MultipartFile file) {
 
-        AmazonS3 s3Client = s3ClientUtils.getS3Client();
         String randomImageName = idUtils.generateId();
         try {
             ObjectMetadata metadata = new ObjectMetadata();
@@ -39,13 +37,10 @@ public class AwsService {
 
             return randomImageName;
 
-        } catch (AmazonServiceException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("failed to upload image", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        } catch (SdkClientException e) {
-            e.printStackTrace();
         }
-
-        return "";
     }
 }
