@@ -1,6 +1,5 @@
 package de.dennismaas.thegramfworkingtitle.utils;
 
-
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;

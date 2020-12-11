@@ -82,12 +82,12 @@ export default function PlaceForm({ onSave, place = initialState }) {
   };
   return (
     <>
+      <UploadImage
+        handleImageChange={handleImageChange}
+        placeData={placeData}
+        imageUrl={imageUrl}
+      />
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
-        <UploadImage
-          handleImageChange={handleImageChange}
-          placeData={placeData}
-          imageUrl={imageUrl}
-        />
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
