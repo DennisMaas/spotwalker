@@ -15,7 +15,7 @@ public class CorsConfiguration {
                 public void addCorsMappings(CorsRegistry registry) {
                     registry.addMapping("/**")
                             .allowedOrigins("http://localhost:8080",
-                                    "https://spotwalker.de", "https://www.spotwalker.de");
+                                    "https://spotwalker.de", "https://www.spotwalker.de", "https://api.spotwalker.de");
                 }
             };
         }

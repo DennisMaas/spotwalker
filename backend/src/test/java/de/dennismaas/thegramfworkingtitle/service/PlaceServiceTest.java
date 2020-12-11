@@ -4,6 +4,7 @@ import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.utils.AmazonS3ClientUtils;
+import de.dennismaas.thegramfworkingtitle.utils.DateExpirationUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,8 @@ class PlaceServiceTest {
     final TimestampUtils timestampUtils = mock(TimestampUtils.class);
     final PlacesMongoDao placesMongoDao = mock(PlacesMongoDao.class);
     final AmazonS3ClientUtils amazonS3ClientUtils = mock(AmazonS3ClientUtils.class);
-    final PlaceService placeService = new PlaceService(placesMongoDao, idUtils, timestampUtils, amazonS3ClientUtils);
+    final DateExpirationUtils expirationUtils = mock(DateExpirationUtils.class);
+    final PlaceService placeService = new PlaceService(placesMongoDao, amazonS3ClientUtils, idUtils, timestampUtils,  expirationUtils);
 
 /*    @Test
     void search() {

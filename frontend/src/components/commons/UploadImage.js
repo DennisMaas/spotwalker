@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { ImageSearchOutlined } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
-import { uploadImage } from '../../service/PlaceService';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadImage(placeData, setPlaceData) {
-  const [image, setImage] = useState(null);
+export default function UploadImage(handleImageChange, placeData, imageUrl) {
   const classes = useStyles();
 
   return (
@@ -34,7 +32,7 @@ export default function UploadImage(placeData, setPlaceData) {
         id={'contained-button-file'}
         accept={'image/*'}
         type={'file'}
-        onChange={handlePictureChange}
+        onChange={handleImageChange}
       />
       <label htmlFor={'contained-button-file'}>
         <Button
@@ -48,21 +46,15 @@ export default function UploadImage(placeData, setPlaceData) {
           Foto auswählen
         </Button>
       </label>
-      <img className={classes.picture} alt={''} src={image} />
+      {imageUrl ? (
+        <img className={classes.picture} alt={''} src={imageUrl} />
+      ) : (
+        <img
+          className={classes.picture}
+          alt={''}
+          src={placeData.primaryImageUrl}
+        />
+      )}
     </Grid>
   );
-
-  function handlePictureChange(event) {
-    const imageFile = event.target.files[0];
-    imageFile
-      ? uploadImage(imageFile)
-          .then((data) =>
-            setPlaceData({ ...placeData, primaryImageName: data })
-          )
-          .catch((error) => console.log(error))
-      : setPlaceData({
-          ...placeData,
-          primaryImageName: placeData.primaryImageName,
-        });
-  }
 }

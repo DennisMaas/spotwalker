@@ -28,7 +28,7 @@ public class AwsService {
         this.idUtils = idUtils;
     }
 
-    public String upload(MultipartFile file) throws IOException, InterruptedException {
+    public String upload(MultipartFile file) throws IOException {
 
         AmazonS3 s3Client = s3ClientUtils.getS3Client();
         String randomImageName = idUtils.generateId();

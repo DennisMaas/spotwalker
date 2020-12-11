@@ -8,6 +8,7 @@ import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
 import de.dennismaas.thegramfworkingtitle.utils.AmazonS3ClientUtils;
+import de.dennismaas.thegramfworkingtitle.utils.DateExpirationUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +33,22 @@ public class PlaceService {
     private final IdUtils idUtils;
     private final TimestampUtils timestampUtils;
     private final AmazonS3ClientUtils amazonS3ClientUtils;
+    private final DateExpirationUtils expirationUtils;
+
 
     @Autowired
-    public PlaceService(PlacesMongoDao placesMongoDao, IdUtils idUtils, TimestampUtils timestampUtils, AmazonS3ClientUtils amazonS3ClientUtils){
+    public PlaceService(PlacesMongoDao placesMongoDao, AmazonS3ClientUtils amazonS3ClientUtils,  IdUtils idUtils, TimestampUtils timestampUtils, DateExpirationUtils expirationUtils){
         this.placesMongoDao = placesMongoDao;
+        this.amazonS3ClientUtils = amazonS3ClientUtils;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
-        this.amazonS3ClientUtils = amazonS3ClientUtils;
+        this.expirationUtils = expirationUtils;
     }
 
 
     public List<Place> getPlaces() {
         List<Place> placeList = placesMongoDao.findAll();
-        Date expiration = getExpirationTime();
+        Date expiration = expirationUtils.getExpirationTime();
         AmazonS3 s3Client = amazonS3ClientUtils.getS3Client();
 
         for(Place place : placeList) {
@@ -146,11 +150,4 @@ public class PlaceService {
 
     }
 
-    private Date getExpirationTime() {
-        Date expiration = new Date();
-        long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 60;
-        expiration.setTime(expTimeMillis);
-        return expiration;
-    }
 }

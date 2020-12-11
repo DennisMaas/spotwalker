@@ -28,11 +28,10 @@ public class AmazonS3ClientUtils {
 
     @Bean
     public AmazonS3 getS3Client() {
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+
+        return AmazonS3ClientBuilder.standard()
                 .withRegion(clientRegion).withCredentials(new AWSStaticCredentialsProvider(getAwsCredentials()))
                 .build();
-
-        return s3Client;
     }
 }
 

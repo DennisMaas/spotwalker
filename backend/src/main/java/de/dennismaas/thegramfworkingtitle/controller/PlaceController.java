@@ -27,7 +27,6 @@ public class PlaceController {
         this.awsService = awsService;
     }
 
-
     @GetMapping
     public List<Place> getPlaces() {
         return placeService.getPlaces();
@@ -55,7 +54,7 @@ public class PlaceController {
     public void remove(@PathVariable String placeId) {placeService.remove(placeId);}
 
     @PostMapping("/image")
-    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
         return awsService.upload(file);
     }
 }
