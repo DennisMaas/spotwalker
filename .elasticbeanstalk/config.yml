@@ -3,6 +3,8 @@ branch-defaults:
     environment: spotwalker-dev
   image-upload:
     environment: spotwalker-dev
+  security:
+    environment: spotwalker-dev
 deploy:
   artifact: backend-code.zip
 global:
