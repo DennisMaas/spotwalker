@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadImage(handleImageChange, placeData, imageUrl) {
+export default function UploadImage({
+  handleImageChange,
+  placeData,
+  imageUrl,
+}) {
   const classes = useStyles();
 
   return (

@@ -58,7 +58,7 @@ export default function PlaceCard({ place }) {
         <CardMedia
           className={classes.media}
           component={'img'}
-          image={place.primaryPictureUrl}
+          image={place.primaryImageUrl}
           title={place.title}
         />
       </CardActionArea>

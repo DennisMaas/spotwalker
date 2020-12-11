@@ -71,7 +71,7 @@ export default function InDepthDetailView() {
         <Grid item xs={12}>
           <img
             className={classes.image}
-            src={place.primaryPictureUrl}
+            src={place.primaryImageUrl}
             alt={place.title}
           />
         </Grid>
