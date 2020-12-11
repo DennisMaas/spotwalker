@@ -9,3 +9,5 @@
 /frontend/.env.production
 /frontend/.env.development
 /frontend/.env.local
+/frontend/package-lock.json
+/backend-code.zip
