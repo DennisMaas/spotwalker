@@ -111,7 +111,7 @@ public class PlaceService {
     public Place update(UpdatePlaceDto placeToBeUpdated, String placeId){
         Place place = placesMongoDao.findById(placeToBeUpdated.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (!Objects.equals(place.getId(), placeId )){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         String addressToSplit = placeToBeUpdated.getAddress();

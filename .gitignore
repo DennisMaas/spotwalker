@@ -11,3 +11,9 @@
 /frontend/.env.local
 /frontend/package-lock.json
 /backend-code.zip
+.DS_Store
+/backend/src/main/resources/static/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
