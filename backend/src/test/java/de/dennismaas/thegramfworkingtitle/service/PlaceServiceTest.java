@@ -1,10 +1,11 @@
-/*
+
 package de.dennismaas.thegramfworkingtitle.service;
 
+import com.amazonaws.services.s3.AmazonS3;
 import de.dennismaas.thegramfworkingtitle.dao.PlacesMongoDao;
+import de.dennismaas.thegramfworkingtitle.dto.AddPlaceDto;
 import de.dennismaas.thegramfworkingtitle.dto.UpdatePlaceDto;
 import de.dennismaas.thegramfworkingtitle.model.Place;
-import de.dennismaas.thegramfworkingtitle.utils.AmazonS3ClientUtils;
 import de.dennismaas.thegramfworkingtitle.utils.DateExpirationUtils;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
@@ -12,7 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,19 +33,6 @@ class PlaceServiceTest {
     final AmazonS3 amazonS3 = mock(AmazonS3.class);
     final DateExpirationUtils expirationUtils = mock(DateExpirationUtils.class);
     final PlaceService placeService = new PlaceService(placesMongoDao, amazonS3, idUtils, timestampUtils,  expirationUtils);
-
-*/
-/*    @Test
-    void search() {
-        //GIVEN
-       when(placesMongoDao.findAll()).thenReturn(PlaceSeeder.getStockPlaces());
-        //WHEN
-        List<Place> allPlaces = placeService.getPlaces();
-
-        //THEN
-        assertThat(allPlaces, containsInAnyOrder(PlaceSeeder.getStockPlaces().toArray()));
-
-    }*//*
 
 
     @Test
@@ -79,18 +70,20 @@ class PlaceServiceTest {
 
     }
 
-   */
-/* @Test
+   @Test
     void add() {
         //GIVEN
+       String expectedUrl = "https://www.url.com";
         String expectedPlaceId = "uniqueId";
         Instant expectedTime = Instant.parse("2020-10-26T10:00:00Z");
-
         AddPlaceDto placeDto = new AddPlaceDto(
                 "someImage",
                 "someType",
                 "someTitle",
-                "someStreet, someCity, someCountry",  "someStreet", "someCity", "someCountry",
+                "someStreet, someCity, someCountry",
+                "someStreet",
+                "someCity",
+                "someCountry",
                 56.000, 9.10,
                 "somePlaceDesc",
                 "somePicDesc",
@@ -106,33 +99,34 @@ class PlaceServiceTest {
         );
         Place expectedPlace = new Place(
                 expectedPlaceId,
-                "someUrl", "someImage","someType", "someTitle",  "someStreet, someCity, someCountry",   "someStreet", "someCity", "someCountry",56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", expectedTime
+                expectedUrl, "someImage","someType", "someTitle",  "someStreet, someCity, someCountry",   "someStreet", "someCity", "someCountry",56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", expectedTime
                 );
         when(idUtils.generateId()).thenReturn(expectedPlaceId);
         when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(expectedTime);
-        when(placesMongoDao.save(expectedPlace)).thenReturn(expectedPlace);
 
-        //WHEN
+        when(expirationUtils.getExpirationTime()).thenReturn(new Date());
+       try {
+           when(amazonS3.generatePresignedUrl(any())).thenReturn(new URL(expectedUrl));
+       } catch (MalformedURLException e) {
+           e.printStackTrace();
+       }
+       when(placesMongoDao.save(any())).thenReturn(expectedPlace);
+       //WHEN
         Place newPlace = placeService.add(placeDto);
 
         //THEN
         assertThat(newPlace, is(expectedPlace));
-    }*//*
+    }
 
-
-   */
-/* @Test
+     @Test
     void update() {
         //GIVEN
         String placeId = "uniqueId";
         Instant timestamp = Instant.parse("2020-11-24T08:00:00Z");
-
         UpdatePlaceDto update = new UpdatePlaceDto(
                 placeId,
                "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
-
         );
-
 
         Place place = new Place(
                 placeId,
@@ -143,6 +137,7 @@ class PlaceServiceTest {
                 placeId,
                 "old Url1", "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
         );
+
 
         //WHEN
         when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
@@ -155,7 +150,7 @@ class PlaceServiceTest {
         assertThat(result, is(updatedPlace));
         verify(placesMongoDao).save(updatedPlace);
 
-    }*//*
+    }
 
 
 
@@ -216,4 +211,3 @@ class PlaceServiceTest {
         }
     }
 }
-*/
