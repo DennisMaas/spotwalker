@@ -125,17 +125,17 @@ class PlaceServiceTest {
         Instant timestamp = Instant.parse("2020-11-24T08:00:00Z");
         UpdatePlaceDto update = new UpdatePlaceDto(
                 placeId,
-               "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
+               "someImage","soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.3, 29.2, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1"
         );
 
         Place place = new Place(
                 placeId,
-                "old Url1", "someImage", "old Type1", "old Title1",  "oldStreet1, oldCity1, oldCountry1", "oldStreet1", "oldCity1", "oldCountry1",56.300, 9.20,  "oldlaceDesc1", "oldPicDesc1", "oldAperture1", "oldocal1", "oldShutter1","oldIso1", "oldFlash1", "oldYT1", "oldX11", "oldX21", "oldPartic1", timestamp
+                null, "someImage", "old Type1", "old Title1",  "oldStreet1, oldCity1, oldCountry1", "oldStreet1", "oldCity1", "oldCountry1",56.3, 9.2,  "oldlaceDesc1", "oldPicDesc1", "oldAperture1", "oldocal1", "oldShutter1","oldIso1", "oldFlash1", "oldYT1", "oldX11", "oldX21", "oldPartic1", timestamp
         );
 
         Place updatedPlace = new Place(
                 placeId,
-                "old Url1", "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.300, 29.20, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
+                null, "someImage", "soon to be updated Type1", "soon to be updated Title1", "soon to be updated Street1, soon to be updated City1, soon to be updated Country1",  "soon to be updated Street1", "soon to be updated City1", "soon to be updated Country1", 46.3, 29.2, "soon to be updated PlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1","someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", timestamp
         );
 
 
