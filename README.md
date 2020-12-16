@@ -1,4 +1,4 @@
-# the-gramf-working-title
+# SpotWalker repo
 My capstone project, developed during the final stage at neue fische bootcamp. 
 
 The goal of this project is to apply the techniques that I have learned during the last 12 weeks. 
