@@ -1,5 +1,6 @@
 package de.dennismaas.thegramfworkingtitle.utils;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
@@ -29,7 +30,8 @@ public class AmazonS3ClientUtils {
     public AmazonS3 getS3Client() {
 
         return AmazonS3ClientBuilder.standard()
-                .withRegion(clientRegion).withCredentials(new InstanceProfileCredentialsProvider(true))
+        //TODO find out, why '.withCredentials(new InstanceProfileCredentialsProvider(true))' does not work in local dev and if deployed works with comment
+                .withRegion(clientRegion)//.withCredentials(new InstanceProfileCredentialsProvider(true)) worked on Mac and on deployed
                 .build();
     }
 
