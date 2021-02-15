@@ -14,6 +14,9 @@ target/
 .springBeans
 .sts4-cache
 
+### Sensible Data ###
+src/main/resources/application.yml
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

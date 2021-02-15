@@ -10,7 +10,8 @@
 
 # production
 /build
-
+### Sensible Data ###
+backend/src/main/resources/application.yml
 # misc
 .DS_Store
 .env.local

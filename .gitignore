@@ -17,3 +17,5 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+### Sensible Data ###
+backend/src/main/resources/application.yml
