@@ -54,9 +54,7 @@ public class PlaceService {
             if (place.getPrimaryImageName() != null &&
                     !place.getPrimaryImageName().isBlank()) {
                 GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        //TODO find out why you need "spotwalker-images" instead of 'bucketName' for local development.
-                        //TODO before deployment: change string to variable
-                        new GeneratePresignedUrlRequest("spotwalker-images", place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+                        new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
                 place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());
             }
         }
@@ -104,9 +102,7 @@ public class PlaceService {
         if (place.getPrimaryImageName() != null &&
                 !place.getPrimaryImageName().isBlank()) {
             GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                    //TODO find out why you need "spotwalker-images" instead of 'bucketName' for local development.
-                    //TODO before deployment: change string to variable
-                    new GeneratePresignedUrlRequest("spotwalker-images", place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+                    new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
             place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());}
         return place;
 
