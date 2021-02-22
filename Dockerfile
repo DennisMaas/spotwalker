@@ -2,7 +2,7 @@ FROM openjdk:15-oracle
 
 MAINTAINER Dennis Maas <mail@dennismaas.de>
 
-ADD backend/target/SpotWalker.jar app.jar
+ADD spotwalker.jar app.jar
 
 EXPOSE 5000
 
