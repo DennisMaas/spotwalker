@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,8 @@ public class PlaceController {
     }
 
     @PostMapping
-    public Place add(@RequestBody AddPlaceDto addPlaceDto){
+    public Place add(@RequestBody AddPlaceDto addPlaceDto, Principal principal){
+        addPlaceDto.setCreatorOfEntry(principal.getName());
         return this.placeService.add(addPlaceDto);
     }
 

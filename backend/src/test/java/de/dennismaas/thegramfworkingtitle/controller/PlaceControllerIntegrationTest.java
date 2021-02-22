@@ -32,7 +32,7 @@ class PlaceControllerIntegrationTest {
     @Autowired
     private PlacesMongoDao placesMongoDao;
 
-    @BeforeEach
+  /*  @BeforeEach
     public void setupDb(){
         placesMongoDao.deleteAll();
         placesMongoDao.saveAll(List.of(
@@ -42,7 +42,7 @@ class PlaceControllerIntegrationTest {
                 new Place("someId3", "someUrl3", "someImage3","someType3", "someTitle3",  "someStreet3, someCity3, someCountry3", "someStreet3", "someCity3", "someCountry3",56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
         ));
 
-    }
+    }*/
 
     private String getPlaceUrl() { return "http://localhost:" + port + "/api/places";}
 

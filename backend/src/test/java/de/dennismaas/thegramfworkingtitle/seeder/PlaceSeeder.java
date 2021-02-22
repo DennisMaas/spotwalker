@@ -1,3 +1,4 @@
+/*
 package de.dennismaas.thegramfworkingtitle.seeder;
 
 import de.dennismaas.thegramfworkingtitle.model.Place;
@@ -16,3 +17,4 @@ public class PlaceSeeder {
 
     public static List<Place> getStockPlaces() {return places;}
 }
+*/
