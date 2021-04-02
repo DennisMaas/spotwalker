@@ -6,6 +6,7 @@ import {
   removePlace,
   updatePlace,
 } from '../service/PlaceService';
+import UserContext from './UserContext';
 
 export default function PlacesContextProvider({ children }) {
   const [places, setPlaces] = useState([]);
@@ -15,6 +16,7 @@ export default function PlacesContextProvider({ children }) {
   }, []);
 
   const create = (
+    creatorOfEntry,
     primaryImageName,
     type,
     title,
@@ -34,6 +36,7 @@ export default function PlacesContextProvider({ children }) {
     particularities
   ) =>
     addPlace(
+      creatorOfEntry,
       primaryImageName,
       type,
       title,
@@ -56,6 +59,7 @@ export default function PlacesContextProvider({ children }) {
       .catch(console.log);
 
   const update = (
+    creatorOfEntry,
     id,
     primaryImageName,
     type,
@@ -76,6 +80,7 @@ export default function PlacesContextProvider({ children }) {
     particularities
   ) => {
     updatePlace(
+      creatorOfEntry,
       id,
       primaryImageName,
       type,

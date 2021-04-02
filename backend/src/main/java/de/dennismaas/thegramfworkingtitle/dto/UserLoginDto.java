@@ -1,4 +1,4 @@
-package de.dennismaas.thegramfworkingtitle.model;
+package de.dennismaas.thegramfworkingtitle.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

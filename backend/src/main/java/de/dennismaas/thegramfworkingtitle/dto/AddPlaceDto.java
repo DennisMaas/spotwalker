@@ -34,6 +34,6 @@ public class AddPlaceDto {
     private String extraOne;
     private String extraTwo;
     private String particularities;
-    private String creatorOfEntry;
+
 
 }

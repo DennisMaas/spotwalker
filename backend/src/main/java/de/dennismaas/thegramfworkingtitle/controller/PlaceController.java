@@ -39,20 +39,21 @@ public class PlaceController {
 
     @PostMapping
     public Place add(@RequestBody AddPlaceDto addPlaceDto, Principal principal){
-        addPlaceDto.setCreatorOfEntry(principal.getName());
-        return this.placeService.add(addPlaceDto);
+        return this.placeService.add(principal.getName(), addPlaceDto);
     }
 
     @PutMapping("{placeId}")
-    public Place update(@PathVariable String placeId, @RequestBody UpdatePlaceDto updatedPlace) {
+    public Place update(@PathVariable String placeId, @RequestBody UpdatePlaceDto updatedPlace, Principal principal) {
         if(!placeId.equals(updatedPlace.getId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return placeService.update(updatedPlace, placeId);
+        return placeService.update(updatedPlace, principal.getName());
     }
 
     @DeleteMapping("{placeId}")
-    public void remove(@PathVariable String placeId) {placeService.remove(placeId);}
+    public void remove(@PathVariable String placeId, Principal principal) {
+        placeService.remove(principal.getName(), placeId);
+    }
 
     @PostMapping("/image")
     public String uploadImage(@RequestParam("image") MultipartFile file) {

@@ -47,17 +47,7 @@ public class PlaceService {
 
     public List<Place> getPlaces() {
         List<Place> placeList = placesMongoDao.findAll();
-        Date expiration = expirationUtils.getExpirationTime();
 
-
-        for(Place place : placeList) {
-            if (place.getPrimaryImageName() != null &&
-                    !place.getPrimaryImageName().isBlank()) {
-                GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
-                place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());
-            }
-        }
         return placeList;
     }
 
@@ -65,7 +55,7 @@ public class PlaceService {
         return placesMongoDao.findById(placeId).orElseThrow( () -> new ResponseStatusException((HttpStatus.NOT_FOUND)));
     }
 
-    public Place add(AddPlaceDto placeToBeAdded) {
+    public Place add(String creatorOfEntry, AddPlaceDto placeToBeAdded) {
         String addressToSplit = placeToBeAdded.getAddress();
         String[] addressArray = addressToSplit.trim().split("\\s*,\\s*");
         String street = addressArray[0];
@@ -77,6 +67,7 @@ public class PlaceService {
                 .primaryImageName(placeToBeAdded.getPrimaryImageName())
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
+                .creatorOfEntry(creatorOfEntry)
                 .address(placeToBeAdded.getAddress())
                 .street(street)
                 .city(city)
@@ -108,10 +99,10 @@ public class PlaceService {
 
     }
 
-    public Place update(UpdatePlaceDto placeToBeUpdated, String placeId){
+    public Place update(UpdatePlaceDto placeToBeUpdated, String username){
         Place place = placesMongoDao.findById(placeToBeUpdated.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (!Objects.equals(place.getId(), placeId )){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if (!Objects.equals(place.getCreatorOfEntry(), username )){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         String addressToSplit = placeToBeUpdated.getAddress();
@@ -120,6 +111,7 @@ public class PlaceService {
         String city = addressArray[1];
         String country = addressArray[2];
         Place updatedPlace = Place.builder()
+                .creatorOfEntry(username)
                 .id(placeToBeUpdated.getId())
                 .primaryImageName(placeToBeUpdated.getPrimaryImageName())
                 .type(placeToBeUpdated.getType())
@@ -147,11 +139,11 @@ public class PlaceService {
     }
 
 
-    public void remove(String placeId) {
+    public void remove(String placeId, String username) {
         Place place = placesMongoDao.findById(placeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (!Objects.equals(place.getId(), placeId)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (!Objects.equals(place.getCreatorOfEntry(), username)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         placesMongoDao.deleteById(placeId);
 

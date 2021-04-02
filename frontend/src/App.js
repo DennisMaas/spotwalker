@@ -10,12 +10,16 @@ import NewPlacePage from './components/NewPlacePage';
 import PlacesContextProvider from './contexts/PlacesContextProvider';
 import EditPlacePage from './components/EditPlacePage';
 import OverView from './components/overView/OverView';
+import LoginPage from "./components/LoginPage";
 
 function App() {
   return (
     <Router>
       <PlacesContextProvider>
         <Switch>
+          <Route path={'/login'}>
+            <LoginPage />
+          </Route>
           <Route path={'/overview'}>
             <OverView />
           </Route>

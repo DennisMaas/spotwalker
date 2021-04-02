@@ -30,8 +30,7 @@ class PlaceServiceTest {
     final DateExpirationUtils expirationUtils = mock(DateExpirationUtils.class);
     final PlaceService placeService = new PlaceService(placesMongoDao, amazonS3, idUtils, timestampUtils,  expirationUtils);
 
-*/
-/*    @Test
+    @Test
     void search() {
         //GIVEN
        when(placesMongoDao.findAll()).thenReturn(PlaceSeeder.getStockPlaces());
@@ -41,7 +40,7 @@ class PlaceServiceTest {
         //THEN
         assertThat(allPlaces, containsInAnyOrder(PlaceSeeder.getStockPlaces().toArray()));
 
-    }*//*
+    }
 
 
     @Test
@@ -79,8 +78,7 @@ class PlaceServiceTest {
 
     }
 
-   */
-/* @Test
+ @Test
     void add() {
         //GIVEN
         String expectedPlaceId = "uniqueId";
@@ -117,11 +115,10 @@ class PlaceServiceTest {
 
         //THEN
         assertThat(newPlace, is(expectedPlace));
-    }*//*
+    }
 
 
-   */
-/* @Test
+ @Test
     void update() {
         //GIVEN
         String placeId = "uniqueId";
@@ -155,7 +152,7 @@ class PlaceServiceTest {
         assertThat(result, is(updatedPlace));
         verify(placesMongoDao).save(updatedPlace);
 
-    }*//*
+    }
 
 
 

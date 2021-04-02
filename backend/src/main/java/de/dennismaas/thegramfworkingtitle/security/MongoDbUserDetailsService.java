@@ -1,6 +1,5 @@
 package de.dennismaas.thegramfworkingtitle.security;
 
-
 import de.dennismaas.thegramfworkingtitle.dao.UserMongoDao;
 import de.dennismaas.thegramfworkingtitle.model.SpotwalkerUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class MongoDbUserDetailsService implements UserDetailsService {
 
     private final UserMongoDao userRepository;
 
-    @Autowired
     public MongoDbUserDetailsService(UserMongoDao userRepository){
         this.userRepository = userRepository;
     }
