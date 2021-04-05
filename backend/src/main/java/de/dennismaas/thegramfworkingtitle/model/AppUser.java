@@ -1,6 +1,7 @@
 package de.dennismaas.thegramfworkingtitle.model;
 
 import lombok.*;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,30 +12,41 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-@Data
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "user")
+@Document(collection = "users")
 public class AppUser implements UserDetails{
 
     @Id
     private String id;
-    private String email;
     private String firstName;
     private String lastName;
+    private String email;
     private String password;
-    @Builder.Default
-    private AppUserRole appUserRole = AppUserRole.USER;
-    private Boolean locked = false;
-    private Boolean enabled = false;
+    private AppUserRole appUserRole;
+    private boolean locked = false;
+    private boolean enabled = false;
+    private DateTime accountCreationDate;
+
+    public AppUser(String firstName,
+                   String lastName,
+                   String email,
+                   String password,
+                   AppUserRole appUserRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
+        SimpleGrantedAuthority authority =
+                new SimpleGrantedAuthority(appUserRole.name());
         return Collections.singletonList(authority);
     }
 

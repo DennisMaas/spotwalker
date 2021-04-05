@@ -5,7 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-
 public interface PlacesMongoDao extends PagingAndSortingRepository<Place,String> {
     List<Place> findAll();
 }
