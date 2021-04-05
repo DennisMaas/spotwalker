@@ -1,5 +1,6 @@
 package de.dennismaas.thegramfworkingtitle.dto;
 
+import de.dennismaas.thegramfworkingtitle.validation.PasswordMatches;
 import de.dennismaas.thegramfworkingtitle.validation.ValidEmail;
 import de.dennismaas.thegramfworkingtitle.validation.ValidPassword;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@PasswordMatches
 public class AddNewUserDto {
 
     @NotNull
