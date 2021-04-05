@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/registration")
 public class AppUserController {
@@ -21,7 +23,7 @@ public class AppUserController {
     }
 
     @PostMapping
-    public AppUser registerNewUser(@RequestBody AddNewUserDto addNewUserDto){
+    public AppUser registerNewUser(@RequestBody @Valid AddNewUserDto addNewUserDto){
         return this.appUserService.registerNewUserAccount(addNewUserDto);
     }
 }

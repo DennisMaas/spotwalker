@@ -1,5 +1,6 @@
 package de.dennismaas.thegramfworkingtitle.dto;
 
+import de.dennismaas.thegramfworkingtitle.validation.ValidEmail;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @AllArgsConstructor
@@ -16,22 +18,20 @@ import javax.validation.constraints.NotNull;
 public class AddNewUserDto {
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1, message = "{Size.AddNewUserDto.firstName}")
     private String firstName;
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1, message = "{Size.AddNewUserDto.lastName}")
     private String lastName;
 
+    @ValidEmail
     @NotNull
-    @NotEmpty
+    @Size(min = 1, message = "{Size.AddNewUserDto.email}")
     private String email;
 
     @NotNull
     @NotEmpty
     private String password;
 
-    @NotNull
-    @NotEmpty
-    private DateTime accountCreationDate;
 }

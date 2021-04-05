@@ -7,13 +7,13 @@ import de.dennismaas.thegramfworkingtitle.model.AppUser;
 import de.dennismaas.thegramfworkingtitle.model.AppUserRole;
 import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import lombok.AllArgsConstructor;
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 
 @Service
@@ -29,8 +29,7 @@ public class AppUserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userMongoDao.findByEmail(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
@@ -52,7 +51,7 @@ public class AppUserService implements UserDetailsService {
         user.setLastName(userToBeRegistered.getLastName());
         user.setPassword(bCryptPasswordEncoder.encode(userToBeRegistered.getPassword()));
         user.setEmail(userToBeRegistered.getEmail());
-        user.setAccountCreationDate(DateTime.now());
+        user.setAccountCreationDate(LocalDateTime.now());
         user.setAppUserRole(AppUserRole.USER);
 
         return userMongoDao.save(user);

@@ -1,7 +1,6 @@
 package de.dennismaas.thegramfworkingtitle.model;
 
 import lombok.*;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -28,7 +28,7 @@ public class AppUser implements UserDetails{
     private AppUserRole appUserRole;
     private boolean locked = false;
     private boolean enabled = false;
-    private DateTime accountCreationDate;
+    private LocalDateTime accountCreationDate;
 
     public AppUser(String firstName,
                    String lastName,

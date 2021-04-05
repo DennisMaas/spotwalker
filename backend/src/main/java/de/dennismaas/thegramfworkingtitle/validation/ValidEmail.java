@@ -1,4 +1,3 @@
-/*
 package de.dennismaas.thegramfworkingtitle.validation;
 
 import javax.validation.Constraint;
@@ -22,4 +21,3 @@ public @interface ValidEmail {
 
     Class<? extends Payload>[] payload() default {};
 }
-*/
