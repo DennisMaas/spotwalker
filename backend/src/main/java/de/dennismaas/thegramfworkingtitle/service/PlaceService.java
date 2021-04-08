@@ -49,12 +49,13 @@ public class PlaceService {
         List<Place> placeList = placesMongoDao.findAll();
         Date expiration = expirationUtils.getExpirationTime();
 
-
         for(Place place : placeList) {
             if (place.getPrimaryImageName() != null &&
                     !place.getPrimaryImageName().isBlank()) {
-                GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+                GeneratePresignedUrlRequest generatePresignedUrlRequest
+                        = new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName());
+                generatePresignedUrlRequest.withMethod(HttpMethod.GET);
+                generatePresignedUrlRequest.withExpiration(expiration);
                 place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());
             }
         }
