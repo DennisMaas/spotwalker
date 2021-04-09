@@ -52,11 +52,9 @@ public class PlaceService {
         for(Place place : placeList) {
             if (place.getPrimaryImageName() != null &&
                     !place.getPrimaryImageName().isBlank()) {
-                GeneratePresignedUrlRequest generatePresignedUrlRequest
-                        = new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName());
-                generatePresignedUrlRequest.withMethod(HttpMethod.GET);
-                generatePresignedUrlRequest.withExpiration(expiration);
-                place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());
+                GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                        new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+                place.setPrimaryImageUrl(String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest)));
             }
         }
         return placeList;
@@ -104,7 +102,7 @@ public class PlaceService {
                 !place.getPrimaryImageName().isBlank()) {
             GeneratePresignedUrlRequest generatePresignedUrlRequest =
                     new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
-            place.setPrimaryImageUrl(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString());}
+            place.setPrimaryImageUrl(String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest)));}
         return place;
 
     }
@@ -154,6 +152,7 @@ public class PlaceService {
         if (!Objects.equals(place.getId(), placeId)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        //TODO: remove from aws s3 bucket
         placesMongoDao.deleteById(placeId);
 
     }
