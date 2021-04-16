@@ -12,6 +12,7 @@ import de.dennismaas.thegramfworkingtitle.utils.IdUtils;
 import de.dennismaas.thegramfworkingtitle.utils.TimestampUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,6 +29,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
@@ -39,13 +41,13 @@ class PlaceServiceTest {
     final IdUtils idUtils = mock(IdUtils.class);
     final TimestampUtils timestampUtils = mock(TimestampUtils.class);
     final DateExpirationUtils expirationUtils = mock(DateExpirationUtils.class);
+    final GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest("test-bucket", "someImage" );
     final PlaceService placeService = new PlaceService(placesMongoDao, amazonS3, idUtils, timestampUtils, expirationUtils);
 
     @Test
     @DisplayName("get list of all places")
     void itShouldGetPlaces() throws MalformedURLException {
         //GIVEN
-        // String bucketName = "test-bucket";
         List<Place> places = (List.of(
                 new Place("someId", "http://www.url.de", "someImage", "someType", "someTitle", "someStreet, someCity, someCountry", "someStreet", "someCity", "someCountry", 56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2016-11-30T18:35:24.00Z")),
                 new Place("someId1", "http://www.url1.de", "someImage1", "someType1", "someTitle1", "someStreet1, someCity1, someCountry1", "someStreet1", "someCity1", "someCountry1", 56.300, 3.10, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1", "someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
@@ -107,17 +109,25 @@ class PlaceServiceTest {
     }
 
     @Test
-    void add() {
+    void add() throws MalformedURLException {
         //GIVEN
-        String expectedPlaceId = "uniqueId";
-        Instant expectedTime = Instant.parse("2020-10-26T10:00:00Z");
+        String placeId = "uniqueId";
+        String url = "http://url.de";
+        Instant timestamp = Instant.parse("2020-11-24T08:00:00Z");
+        Date expiration = new Date(2030, Calendar.JANUARY, 1);
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest("test-bucket", "someImage").withMethod(HttpMethod.GET).withExpiration(expiration);
 
-        AddPlaceDto placeDto = new AddPlaceDto(
-                "someImage",
+
+        AddPlaceDto placeToBeAdded = new AddPlaceDto(
+                "someImageName",
                 "someType",
                 "someTitle",
-                "someStreet, someCity, someCountry",  "someStreet", "someCity", "someCountry",
-                56.000, 9.10,
+                "someStreet, someCity, someCountry",
+                "someStreet",
+                "someCity",
+                "someCountry",
+                46.300,
+                29.20,
                 "somePlaceDesc",
                 "somePicDesc",
                 "someAperture",
@@ -126,23 +136,49 @@ class PlaceServiceTest {
                 "someIso",
                 "someFlash",
                 "someYT",
-                "someX1",
-                "someX2",
-                "somePartic"
-        );
-        Place expectedPlace = new Place(
-                expectedPlaceId,
-                "someUrl", "someImage","someType", "someTitle",  "someStreet, someCity, someCountry",   "someStreet", "someCity", "someCountry",56.000, 9.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", expectedTime
+                "someEx1",
+                "someEx2",
+                "somePart"
                 );
-        when(idUtils.generateId()).thenReturn(expectedPlaceId);
-        when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(expectedTime);
-        when(placesMongoDao.save(expectedPlace)).thenReturn(expectedPlace);
+
+
+        Place newPlace = new Place(
+                placeId,
+                url,
+                "someImageName",
+                "someType",
+                "someTitle",
+                "someStreet, someCity, someCountry",
+                "someStreet",
+                "someCity",
+                "someCountry",
+                46.300,
+                29.20,
+                "somePlaceDesc",
+                "somePicDesc",
+                "someAperture",
+                "someFocal",
+                "someShutter",
+                "someIso",
+                "someFlash",
+                "someYT",
+                "someEx1",
+                "someEx2",
+                "somePart",
+                timestamp
+        );
+
+        when(idUtils.generateId()).thenReturn(placeId);
+        when(amazonS3.generatePresignedUrl(request)).thenReturn(new URL(url));
+        when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
+        when(placesMongoDao.save(newPlace)).thenReturn(newPlace);
 
         //WHEN
-        Place newPlace = placeService.add(placeDto);
+        Place result = placeService.add(placeToBeAdded);
 
         //THEN
-        assertThat(newPlace, is(expectedPlace));
+        assertThat(result, is(newPlace));
+        verify(placesMongoDao).save(newPlace);
     }
 
     @Test
@@ -219,18 +255,17 @@ class PlaceServiceTest {
                 "somePartic1",
                 timestamp);
 
-        //WHEN
-        when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
         when(placesMongoDao.findById(placeId)).thenReturn(Optional.of(oldPlace));
-        Place result = placeService.update(update, placeId);
-
+        when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
         when(placesMongoDao.save(updatedPlace)).thenReturn(updatedPlace);
 
-
+        //WHEN
+        Place result = placeService.update(update,placeId);
 
         //THEN
-        assertThat(updatedPlace, is(result));
+        assertThat(result, is(updatedPlace));
         verify(placesMongoDao).save(updatedPlace);
+
 
     }
 

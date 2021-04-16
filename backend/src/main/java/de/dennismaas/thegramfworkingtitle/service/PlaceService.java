@@ -74,6 +74,7 @@ public class PlaceService {
         Place placeObjectToBeSaved = Place.builder()
                 .id(idUtils.generateId())
                 .primaryImageName(placeToBeAdded.getPrimaryImageName())
+                .primaryImageUrl("")
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
                 .address(placeToBeAdded.getAddress())
@@ -96,14 +97,15 @@ public class PlaceService {
                 .timestamp(timestampUtils.generateTimestampEpochSeconds())
                 .build();
 
-        Place place = placesMongoDao.save(placeObjectToBeSaved);
+        Place newPlace = placesMongoDao.save(placeObjectToBeSaved);
         Date expiration = expirationUtils.getExpirationTime();
-        if (place.getPrimaryImageName() != null &&
-                !place.getPrimaryImageName().isBlank()) {
+        if (newPlace.getPrimaryImageName() != null &&
+                !newPlace.getPrimaryImageName().isBlank()) {
             GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                    new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
-            place.setPrimaryImageUrl(String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest)));}
-        return place;
+                    new GeneratePresignedUrlRequest(bucketName, newPlace.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+            newPlace.setPrimaryImageUrl(String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest)));
+        }
+        return newPlace;
 
     }
 
