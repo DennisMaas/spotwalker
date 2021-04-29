@@ -32,6 +32,7 @@ import static org.mockito.Mockito.*;
 class PlaceServiceTest {
     // Given
     final PlacesMongoDao placesMongoDao = mock(PlacesMongoDao.class);
+    final GeneratePresignedUrlRequest generatePresignedUrlRequest = mock(GeneratePresignedUrlRequest.class);
     final AmazonS3 amazonS3 = mock(AmazonS3.class);
     final IdUtils idUtils = mock(IdUtils.class);
     final TimestampUtils timestampUtils = mock(TimestampUtils.class);
@@ -54,7 +55,17 @@ class PlaceServiceTest {
                 new Place("someId2", "http://www.url2.de", "someImage2", "someType2", "someTitle2", "someStreet2, someCity2, someCountry2", "someStreet2", "someCity2", "someCountry2", 6.000, 9.330, "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2", "someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
                 new Place("someId3", "http://www.ur13.de", "someImage3", "someType3", "someTitle3", "someStreet3, someCity3, someCountry3", "someStreet3", "someCity3", "someCountry3", 56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3", "someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))));
 
+        //Date expiration = new Date(2030, Calendar.JANUARY,1);
+
         when(placesMongoDao.findAll()).thenReturn(places);
+    /*
+        when(expirationUtils.getExpirationTime()).thenReturn(expiration);
+        when(generatePresignedUrlRequest.getBucketName()).thenReturn("test-bucket");
+        when(amazonS3.generatePresignedUrl("test-bucket", "BROKENsomeImage", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url.de"));
+        when(amazonS3.generatePresignedUrl("test-bucket", "someImage1", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url1.de"));
+        when(amazonS3.generatePresignedUrl("test-bucket", "someImage2", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url2.de"));
+        when(amazonS3.generatePresignedUrl("test-bucket", "someImage3", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url3.de"));
+    */
 
         //WHEN
         List<Place> foundPlaces = placeService.getPlaces();
@@ -105,6 +116,7 @@ class PlaceServiceTest {
     @DisplayName("Add should create new place in db")
     void add() throws MalformedURLException {
         //GIVEN
+        String bucketName = "test-bucket";
         String placeId = "uniqueId";
         String primaryImageUrl = "http://www.url.de";
         Instant timestamp = Instant.parse("2020-11-24T08:00:00Z");
@@ -159,11 +171,11 @@ class PlaceServiceTest {
                 .timestamp(timestamp)
                 .build();
 
-        when(expirationUtils.getExpirationTime()).thenReturn(expiration);
         when(idUtils.generateId()).thenReturn(placeId);
+        when(expirationUtils.getExpirationTime()).thenReturn(expiration);
         when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
-        when(placesMongoDao.save(newPlace)).thenReturn(newPlace);
-        when(amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest("test-bucket", "primaryImageName").withMethod(HttpMethod.GET).withExpiration(expiration))).thenReturn(new URL(primaryImageUrl));
+        when(generatePresignedUrlRequest.getBucketName()).thenReturn("test-bucket");
+        when(amazonS3.generatePresignedUrl("test-bucket", "someImage2", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url.de"));
         when(placesMongoDao.save(newPlace)).thenReturn(newPlace);
 
 
@@ -171,6 +183,7 @@ class PlaceServiceTest {
         Place result = placeService.add(placeToBeAdded);
 
         //THEN
+
         assertThat(result, is(newPlace));
         verify(placesMongoDao).save(newPlace);
     }
@@ -210,7 +223,7 @@ class PlaceServiceTest {
         Place oldPlace = Place.builder()
                 .id(placeId)
                 .primaryImageName("oldPrimaryImageName")
-                .primaryImageUrl(primaryImageUrl)
+                .primaryImageUrl("")
                 .type("oldType")
                 .title("oldTtitle")
                 .address("oldStreet, city, country")
@@ -259,16 +272,21 @@ class PlaceServiceTest {
                 .timestamp(timestamp)
                 .build();
 
+
+        when(amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest("test-bucket", "primaryImageName").withMethod(HttpMethod.GET).withExpiration(expiration))).thenReturn(new URL(primaryImageUrl));
         when(idUtils.generateId()).thenReturn(placeId);
         when(placesMongoDao.findById(placeId)).thenReturn(Optional.of(oldPlace));
         when(timestampUtils.generateTimestampEpochSeconds()).thenReturn(timestamp);
-        when(amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest("test-bucket", "primaryImageName").withMethod(HttpMethod.GET).withExpiration(expiration))).thenReturn(new URL(primaryImageUrl));
         when(placesMongoDao.save(updatedPlace)).thenReturn(updatedPlace);
 
         //WHEN
         Place result = placeService.update(updatePlaceDto,placeId);
 
         //THEN
+        System.out.println(updatePlaceDto);
+        System.out.println(placeId);
+        System.out.println(result);
+
         assertThat(result, is(updatedPlace));
         verify(placesMongoDao).save(updatedPlace);
     }
