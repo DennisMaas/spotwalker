@@ -12,7 +12,7 @@
 	<artifactId>SpotWalker</artifactId>
 
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spotwalker</name>
+	<name>SpotWalker</name>
 
 	<description>Capstone project for neuefische</description>
 	<properties>
@@ -29,10 +29,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+		<!--		testing-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -44,6 +41,10 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<!--		aws-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-s3</artifactId>
@@ -69,5 +70,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
