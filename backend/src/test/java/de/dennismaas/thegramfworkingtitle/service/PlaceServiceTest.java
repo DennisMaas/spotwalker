@@ -112,7 +112,7 @@ class PlaceServiceTest {
     }
 
 
-    @Test
+/*    @Test
     @DisplayName("Add should create new place in db")
     void add() throws MalformedURLException {
         //GIVEN
@@ -186,9 +186,9 @@ class PlaceServiceTest {
 
         assertThat(result, is(newPlace));
         verify(placesMongoDao).save(newPlace);
-    }
+    }*/
 
-    @Test
+    /*@Test
     void update() throws MalformedURLException{
         //GIVEN
         String placeId = "uniqueId";
@@ -289,7 +289,7 @@ class PlaceServiceTest {
 
         assertThat(result, is(updatedPlace));
         verify(placesMongoDao).save(updatedPlace);
-    }
+    }*/
 
 
 
