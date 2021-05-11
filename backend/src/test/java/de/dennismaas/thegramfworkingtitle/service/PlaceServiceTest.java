@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -33,6 +34,27 @@ class PlaceServiceTest {
     final AmazonS3 amazonS3 = mock(AmazonS3.class);
     final DateExpirationUtils expirationUtils = mock(DateExpirationUtils.class);
     final PlaceService placeService = new PlaceService(placesMongoDao, amazonS3, idUtils, timestampUtils,  expirationUtils);
+
+
+
+    @Test
+    void itShouldGetPlaces() throws MalformedURLException {
+        //GIVEN
+        List<Place> places = (List.of(
+                new Place("someId", "http://www.url.de", "someImage", "someType", "someTitle", "someStreet, someCity, someCountry", "someStreet", "someCity", "someCountry", 56.300, 3.10, "somePlaceDesc", "somePicDesc", "someAperture", "someFocal", "someShutter", "someIso", "someFlash", "someYT", "someX1", "someX2", "somePartic", Instant.parse("2017-11-30T18:35:24.00Z")),
+                new Place("someId1", "http://www.url1.de", "someImage1", "someType1", "someTitle1", "someStreet1, someCity1, someCountry1", "someStreet1", "someCity1", "someCountry1", 56.300, 3.10, "somePlaceDesc1", "somePicDesc1", "someAperture1", "someFocal1", "someShutter1", "someIso1", "someFlash1", "someYT1", "someX11", "someX21", "somePartic1", Instant.parse("2017-11-30T18:35:24.00Z")),
+                new Place("someId2", "http://www.url2.de", "someImage2", "someType2", "someTitle2", "someStreet2, someCity2, someCountry2", "someStreet2", "someCity2", "someCountry2", 6.000, 9.330, "somePlaceDesc2", "somePicDesc2", "someAperture2", "someFocal2", "someShutter2", "someIso2", "someFlash2", "someYT2", "someX12", "someX22", "somePartic2", Instant.parse("2018-11-30T18:35:24.00Z")),
+                new Place("someId3", "http://www.ur13.de", "someImage3", "someType3", "someTitle3", "someStreet3, someCity3, someCountry3", "someStreet3", "someCity3", "someCountry3", 56.0300, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3", "someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))));
+
+        when(placesMongoDao.findAll()).thenReturn(places);
+
+
+        //WHEN
+        List<Place> foundPlaces = placeService.getPlaces();
+
+        //THEN
+        assertThat(foundPlaces, is(places));
+    }
 
 
     @Test
@@ -73,7 +95,7 @@ class PlaceServiceTest {
    @Test
     void add() {
         //GIVEN
-       String expectedUrl = "https://www.url.com";
+        String expectedUrl = "https://www.url.com";
         String expectedPlaceId = "uniqueId";
         Instant expectedTime = Instant.parse("2020-10-26T10:00:00Z");
         AddPlaceDto placeDto = new AddPlaceDto(
