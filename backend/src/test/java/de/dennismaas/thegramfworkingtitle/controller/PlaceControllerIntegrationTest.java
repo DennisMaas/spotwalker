@@ -1,3 +1,4 @@
+/*
 
 package de.dennismaas.thegramfworkingtitle.controller;
 
@@ -67,7 +68,7 @@ class PlaceControllerIntegrationTest {
     private String getPlaceUrl() { return "http://localhost:" + port + "/api/places";}
 
 
-    /*@Test
+    @Test
     public void testGetMapping() {
         // GIVEN
         List<Place> stockPlaces = new ArrayList<>(List.of(
@@ -85,10 +86,9 @@ class PlaceControllerIntegrationTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(stockPlaces.toArray()));
 
-    }*/
+    }
 
 
-/*
      @Test
     public void getPlacesShouldReturnAllItemsFromDb() {
         //GIVEN
@@ -107,7 +107,6 @@ class PlaceControllerIntegrationTest {
                 new Place("someId3", "someUrl3","someImage3", "someType3", "someTitle3",  "someStreet3, someCity3, someCountry3", "someStreet3", "someCity3", "someCountry3",56.03, 9.103, "somePlaceDesc3", "somePicDesc3", "someAperture3", "someFocal3", "someShutter3","someIso3", "someFlash3", "someYT3", "someX13", "someX23", "somePartic3", Instant.parse("2019-11-30T18:35:24.00Z"))
         ));
     }
-*/
 
 
     @Test
@@ -136,7 +135,7 @@ class PlaceControllerIntegrationTest {
 
 
 
-    /*@Test
+    @Test
     public void postPlaceShouldAddNewPlace(){
         //GIVEN
         String url = getPlaceUrl();
@@ -193,12 +192,12 @@ class PlaceControllerIntegrationTest {
                 "somePartic",
                 Instant.parse("2018-11-30T18:35:24.00Z")
         )));
-    }*/
+    }
 
 
 
 
-    /*@Test
+    @Test
     public void updatePlaceShouldUpdateExistingPlace(){
         //GIVEN
         String url = getPlaceUrl() + "/someId";
@@ -268,7 +267,7 @@ class PlaceControllerIntegrationTest {
                 .build();
         assertThat(response.getBody(), is(expectedPlace));
         assertThat(savedPlace.get(), is(expectedPlace));
-    }*/
+    }
 
 
     @Test
@@ -347,3 +346,4 @@ class PlaceControllerIntegrationTest {
     }
 }
 
+*/
