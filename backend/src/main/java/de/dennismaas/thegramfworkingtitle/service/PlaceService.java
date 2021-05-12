@@ -147,6 +147,7 @@ public class PlaceService {
 
 
     public void remove(String placeId) {
+        //TODO: Remove file from S3 Bucket
         Place place = placesMongoDao.findById(placeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (!Objects.equals(place.getId(), placeId)){
