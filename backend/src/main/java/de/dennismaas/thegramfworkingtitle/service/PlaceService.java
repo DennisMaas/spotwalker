@@ -71,9 +71,15 @@ public class PlaceService {
         String city = addressArray[1];
         String country = addressArray[2];
 
+        Date expiration = expirationUtils.getExpirationTime();
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucketName, placeToBeAdded.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
+        String setUrl = String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest));
+
         Place placeObjectToBeSaved = Place.builder()
                 .id(idUtils.generateId())
                 .primaryImageName(placeToBeAdded.getPrimaryImageName())
+                .primaryImageUrl(setUrl)
                 .type(placeToBeAdded.getType())
                 .title(placeToBeAdded.getTitle())
                 .address(placeToBeAdded.getAddress())
@@ -96,15 +102,7 @@ public class PlaceService {
                 .timestamp(timestampUtils.generateTimestampEpochSeconds())
                 .build();
 
-        Place place = placesMongoDao.save(placeObjectToBeSaved);
-        Date expiration = expirationUtils.getExpirationTime();
-        if (place.getPrimaryImageName() != null &&
-                !place.getPrimaryImageName().isBlank()) {
-            GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                    new GeneratePresignedUrlRequest(bucketName, place.getPrimaryImageName()).withMethod(HttpMethod.GET).withExpiration(expiration);
-            place.setPrimaryImageUrl(String.valueOf(amazonS3.generatePresignedUrl(generatePresignedUrlRequest)));}
-        return place;
-
+        return placesMongoDao.save(placeObjectToBeSaved);
     }
 
     public Place update(UpdatePlaceDto placeToBeUpdated, String placeId){
@@ -152,7 +150,7 @@ public class PlaceService {
         if (!Objects.equals(place.getId(), placeId)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        //TODO: remove from aws s3 bucket
+        //TODO: remove from AWS s3 bucket
         placesMongoDao.deleteById(placeId);
 
     }
